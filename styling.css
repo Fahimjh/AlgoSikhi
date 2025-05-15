@@ -31,9 +31,9 @@
     color: #d9513c;
 }
 
-/* .border{
-    border: 1.5px solid transparent;
+.border{
+    border: 0.1rem solid transparent;
 }
 .border:hover{
-    border: 1.5px solid white;
-} */
+    border: 0.1rem solid white;
+}
