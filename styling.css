@@ -12,18 +12,26 @@
     align-items: center;
 }
 
-/* .nav-logo{
-    height: 50px;
-    width: 112px;
+.nav-logo{
+    display: flex;
+    margin-left: 2.5%;
 }
-.logo{
-    background-image: url("./pictures&logos/amazon_logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 50px;
-    width: 112px;
+@font-face {
+    font-family: 'Silkscreen';
+    src: url("./Fonts/slkscr.ttf") format('truetype');
 }
-.border{
+.logo1{
+    font-family: 'Silkscreen',sans-serif;
+    font-size: 1.25rem;
+    color:#ffffff;
+}
+.logo2{
+    font-family: 'Silkscreen',sans-serif;
+    font-size: 1.25rem;
+    color: #d9513c;
+}
+
+/* .border{
     border: 1.5px solid transparent;
 }
 .border:hover{
