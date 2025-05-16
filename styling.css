@@ -14,7 +14,7 @@
 
 .nav-logo{
     display: flex;
-    margin-left: 2.5%;
+    margin-left: 3%;
 }
 @font-face {
     font-family: 'Silkscreen';
@@ -28,12 +28,29 @@
 .logo2{
     font-family: 'Silkscreen',sans-serif;
     font-size: 1.25rem;
-    color: #d9513c;
+    color: #a7d41e;
 }
 
+/* border */
 .border{
     border: 0.1rem solid transparent;
 }
+.border2{
+    border: 0.1rem solid #198754;
+}
 .border:hover{
     border: 0.1rem solid white;
+    border-radius: 0.25rem;
+}
+/* part2 */
+.login{
+    margin-left: auto;
+    margin-right: 4%;
+    font-family: 'Silkscreen',sans-serif;
+    font-size: 1.25rem;
+    color: #198754;
+    cursor: pointer;
+}
+.login:hover{
+    color: blueviolet;   
 }
