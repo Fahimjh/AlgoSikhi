@@ -28,7 +28,7 @@
 .logo2{
     font-family: 'Silkscreen',sans-serif;
     font-size: 1.25rem;
-    color: #a7d41e;
+    color: #198754;
 }
 
 /* border */
@@ -53,4 +53,48 @@
 }
 .login:hover{
     color: blueviolet;   
+}
+body{
+    background-color: #eeeeee;
+}
+/* main section */
+.mainlogo{
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.8rem;
+}
+#mlogo1{
+    font-family: 'Silkscreen',sans-serif;
+    font-size: 3rem;
+    color:#0f1111;
+}
+#mlogo2{
+    font-family: 'Silkscreen',sans-serif;
+    font-size: 3rem;
+    color: #198754;
+}
+#mlogo3{
+    font-family: 'Silkscreen',sans-serif;
+    color: black;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: -0.5rem;
+}
+.text{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.dsa-search{
+    display: flex;
+    gap: 0;
+    border: none;
+    justify-content: center;
+    align-items: center;
 }
