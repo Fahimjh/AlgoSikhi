@@ -15,40 +15,52 @@
             <h2>Introduction to Arrays</h2>
             <div id="theory-content">
                 <p>
-                <p>
-    <strong>Arrays</strong> are the simplest type of data structure, designed to store a fixed-size sequence of elements of the same data type in **contiguous memory locations**. Each element can be accessed directly using an **index**, which usually starts from <code>0</code>.
-  </p>
+                    <strong>Arrays</strong> are the simplest type of data structure, designed to store a fixed-size
+                    sequence of elements of the same data type in **contiguous memory locations**. Each element can be
+                    accessed directly using an **index**, which usually starts from <code>0</code>.
+                </p>
 
-  <h3>🔑 Key Characteristics:</h3>
-  <ul>
-    <li><strong>Data Type:</strong> Stores elements of a single type (e.g., integers, floats, characters).</li>
-    <li><strong>Contiguous Memory:</strong> Elements are stored back-to-back in memory.</li>
-    <li><strong>Indexing:</strong> Each element is accessed via an index starting from 0.</li>
-    <li><strong>Fixed Size:</strong> Size is defined when the array is created and usually cannot change.</li>
-    <li><strong>Linear Structure:</strong> Data is stored in a straight-line (one-dimensional) fashion.</li>
-  </ul>
+                <h3>🔑 Key Characteristics:</h3>
+                <ul>
+                    <li><strong>Data Type:</strong> Stores elements of a single type (e.g., integers, floats,
+                        characters).</li>
+                    <li><strong>Contiguous Memory:</strong> Elements are stored back-to-back in memory.</li>
+                    <li><strong>Indexing:</strong> Each element is accessed via an index starting from 0.</li>
+                    <li><strong>Fixed Size:</strong> Size is defined when the array is created and usually cannot
+                        change.</li>
+                    <li><strong>Linear Structure:</strong> Data is stored in a straight-line (one-dimensional) fashion.
+                    </li>
+                </ul>
 
-  <h3>📌 Common Use Cases:</h3>
-  <ul>
-    <li>Efficient data storage and retrieval.</li>
-    <li>Building blocks for other data structures (stacks, queues, graphs).</li>
-    <li>Matrix and vector operations in mathematics.</li>
-    <li>Image processing (e.g., storing pixels in 2D arrays).</li>
-  </ul>
-                <button id="start-visualization">Visualize Array</button>
+                <h3>📌 Common Use Cases:</h3>
+                <ul>
+                    <li>Efficient data storage and retrieval.</li>
+                    <li>Building blocks for other data structures (stacks, queues, graphs).</li>
+                    <li>Matrix and vector operations in mathematics.</li>
+                    <li>Image processing (e.g., storing pixels in 2D arrays).</li>
+                </ul>
+                <button id="start-visualization">Visualize Array Creation</button>
             </div>
         </div>
 
         <!-- Right Side: Visualization Section -->
         <div class="visualization-section" id="visualization-section">
-            <div class="close-btn" id="close-btn">✖</div>
+            <div class="close-btn">✖</div>
             <h2>Array Visualization</h2>
+            <p>When you put array size, and array values, the contiguous memory location 
+                based on the data type size x array elements occupies and stores.</p>
             <div id="input-area">
                 <input type="number" id="array-size" placeholder="Enter array size" />
                 <input type="text" id="array-values" placeholder="Enter values (comma-separated)" />
-                <button onclick="createArray()">Create Array</button>
             </div>
-            <div id="array"></div>
+            <button class="crtArrBtn">Create Array</button>
+            <div id="array" class="array-container"></div>
+
+            <div class="arraySearch">
+                <h3>Want to learn and visualize how to search array elements?<br>
+                    Click Array Search button</h3>
+                <button class="arrSearch">Array Search</button>
+            </div>
         </div>
     </div>
 
