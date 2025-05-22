@@ -1,17 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Array Insertion Animation</title>
-  <link href="array.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Introduction and Visualization</title>
+    <link rel="stylesheet" href="array.css">
 </head>
+
 <body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to Arrays</h2>
+            <div id="theory-content">
+                <p>
+                <p>
+    <strong>Arrays</strong> are the simplest type of data structure, designed to store a fixed-size sequence of elements of the same data type in **contiguous memory locations**. Each element can be accessed directly using an **index**, which usually starts from <code>0</code>.
+  </p>
 
-<h2>Array Insertion Animation</h2>
-<div id="array"></div>
-<button onclick="insertAt(2, 25)">Insert 25 at index 2</button>
+  <h3>🔑 Key Characteristics:</h3>
+  <ul>
+    <li><strong>Data Type:</strong> Stores elements of a single type (e.g., integers, floats, characters).</li>
+    <li><strong>Contiguous Memory:</strong> Elements are stored back-to-back in memory.</li>
+    <li><strong>Indexing:</strong> Each element is accessed via an index starting from 0.</li>
+    <li><strong>Fixed Size:</strong> Size is defined when the array is created and usually cannot change.</li>
+    <li><strong>Linear Structure:</strong> Data is stored in a straight-line (one-dimensional) fashion.</li>
+  </ul>
 
-<script src="array.js"></script>
+  <h3>📌 Common Use Cases:</h3>
+  <ul>
+    <li>Efficient data storage and retrieval.</li>
+    <li>Building blocks for other data structures (stacks, queues, graphs).</li>
+    <li>Matrix and vector operations in mathematics.</li>
+    <li>Image processing (e.g., storing pixels in 2D arrays).</li>
+  </ul>
+                <button id="start-visualization">Visualize Array</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section" id="visualization-section">
+            <div class="close-btn" id="close-btn">✖</div>
+            <h2>Array Visualization</h2>
+            <div id="input-area">
+                <input type="number" id="array-size" placeholder="Enter array size" />
+                <input type="text" id="array-values" placeholder="Enter values (comma-separated)" />
+                <button onclick="createArray()">Create Array</button>
+            </div>
+            <div id="array"></div>
+        </div>
+    </div>
+
+    <script src="array.js"></script>
 </body>
+
 </html>

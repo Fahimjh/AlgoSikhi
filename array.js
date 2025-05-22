@@ -1,37 +1,58 @@
+const startBtn = document.getElementById("start-visualization");
+const closeBtn = document.getElementById("close-btn");
+const theorySection = document.querySelector(".theory-section");
+const visualizationSection = document.getElementById("visualization-section");
 
-  const arrayValues = [10, 20, 30, 40];
-  const arrayContainer = document.getElementById("array");
+// Show visualization and shrink theory to 50%
+startBtn.addEventListener("click", () => {
+  theorySection.classList.add("half-width");
+  visualizationSection.classList.remove("hidden");
+});
 
-  function renderArray() {
-    arrayContainer.innerHTML = '';
-    arrayValues.forEach((value, index) => {
-      const cell = document.createElement('div');
-      cell.className = 'cell';
-      cell.textContent = value;
-      cell.dataset.index = index;
-      arrayContainer.appendChild(cell);
+// Hide visualization and expand theory to 100%
+closeBtn.addEventListener("click", () => {
+  theorySection.classList.remove("half-width");
+  visualizationSection.classList.add("hidden");
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const startBtn = document.getElementById("start-visualization");
+    const closeBtn = document.getElementById("close-btn");
+    const container = document.querySelector(".container");
+
+    // Show visualization and shrink theory section
+    startBtn.addEventListener("click", () => {
+        container.classList.add("visualization-active");
     });
-  }
 
-  function insertAt(index, value) {
-    // Step 1: Shift values right (visual)
-    const cells = document.querySelectorAll('.cell');
-    for (let i = cells.length - 1; i >= index; i--) {
-      const target = cells[i];
-      target.style.transform = 'translateX(60px)';
+    // Hide visualization and expand theory section
+    closeBtn.addEventListener("click", () => {
+        container.classList.remove("visualization-active");
+    });
+});
+
+// Create array visualization
+function createArray() {
+    const size = parseInt(document.getElementById("array-size").value);
+    const values = document.getElementById("array-values").value.split(",").map(v => v.trim());
+
+    if (values.length !== size) {
+        alert("Number of values doesn't match the size.");
+        return;
     }
 
-    // Step 2: Wait, then insert new value
-    setTimeout(() => {
-      arrayValues.splice(index, 0, value);
-      renderArray();
+    arrayValues = values;
+    renderArray();
+}
 
-      // Highlight the inserted cell
-      const inserted = document.querySelectorAll('.cell')[index];
-      inserted.classList.add('highlight');
-      setTimeout(() => inserted.classList.remove('highlight'), 1000);
-    }, 600);
-  }
-
-  // Initial render
-  renderArray();
+function renderArray() {
+    const arrayContainer = document.getElementById("array");
+    arrayContainer.innerHTML = '';
+    arrayValues.forEach((val) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.textContent = val;
+        arrayContainer.appendChild(cell);
+    });
+}
