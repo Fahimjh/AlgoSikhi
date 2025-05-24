@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Introduction and Visualization</title>
+    <link rel="stylesheet" href="arraySearch.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Array Search Algorithms</h2>
+            <div id="theory-content">
+                <p>
+                    There are two common search algorithms which are used most. They are-
+                </p>
+                <h3>Linear Search:</h3>
+                <ul>
+                    <li>Simplest searching algorithm which checks the whole array from one end to another.</li>
+                    <li>If the algorithm finds desired element, it returns its index; otherwise, it returns -1.</li>
+                    <li>The time complexity of this algorithm is O(N) where 'N' is the length of the array, as it
+                        traverse the whole array.</li>
+                    <li>This search algorithm doesn't need a sorted array</li>
+                    <li>Easy to understand but takes more time for O(N) complexity.</li>
+                </ul>
+
+                <h3>Binary Search:</h3>
+                <ul>
+                    <li>Efficient search algorithm for finding an element in a sorted array</li>
+                    <li>Uses divide and conquer technique- repeatedly divides the search interval in half.</li>
+                    <li>For that technique, it eliminates half of the elements in each step.</li>
+                    <li>The time complexity of this algorithm is O(log N) where 'N' is the length of the array.</li>
+                    <li>It is much faster than Linear Search for large datasets</li>
+                </ul>
+                <button id="start-visualization">Visualize Array Search</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <div id="array" class="array-container"></div>
+            <div class="arrayCreate">
+                <h3>Want to change size and values of the array?<br>
+                    Click Array Create button</h3>
+                <button class="arrCreate">Array Create</button>
+            </div>
+            <div id="input-area">
+                <input type="number" class="search-value" placeholder="Enter value to search" />
+                <select class="search-method">
+                    <option value="linear">Linear Search</option>
+                    <option value="binary">Binary Search</option>
+                </select>
+                <button class="searchBtn">Search</button>
+            </div>
+
+            <div class="arraySort">
+                <h3>Want to learn and visualize how to sort array?<br>
+                    Click Array Sort button</h3>
+                <button class="arrSort">Array Sort</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="arraySearch.js"></script>
+</body>
+
+</html>
