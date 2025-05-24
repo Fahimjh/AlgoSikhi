@@ -1,10 +1,13 @@
+// Declare arrayValues in the global scope
+let arrayValues = []; // Initialize as an empty array
+
 const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
 const theorySection = document.querySelector(".theory-section");
 const visualizationSection = document.getElementById("visualization-section");
-const createArrayBtn=document.querySelector(".crtArrBtn");
-const arraySearchBtn=document.querySelector(".arrSearch");
+const createArrayBtn = document.querySelector(".crtArrBtn");
+const arraySortBtn = document.querySelector(".arrSort");
 
 // Toggle visualization state
 startBtn.addEventListener("click", () => {
@@ -33,10 +36,11 @@ function createArray() {
         alert("Number of values doesn't match the size.");
         return;
     }
-    arrayValues = values;
+    arrayValues = values; // Update the global arrayValues variable
     renderArray();
 }
-createArrayBtn.addEventListener("click",()=>{
+
+createArrayBtn.addEventListener("click", () => {
     createArray();
 });
 
@@ -50,6 +54,16 @@ function renderArray() {
         arrayContainer.appendChild(cell);
     });
 }
-arraySearchBtn.addEventListener("click",()=>{
-    window.location.href="arraySearch.html";
+
+arraySortBtn.addEventListener("click", () => {
+    const size = arrayValues.length; // Get the size of the array
+    const values = arrayValues.join(","); // Convert array to a comma-separated string
+
+    // Check if the array is empty
+    if (!size || values === "") {
+        alert("The array is empty. Please provide a valid size and values for the array before proceeding.");
+    } else {
+        const url = `arraySearch.html?size=${size}&values=${encodeURIComponent(values)}`;
+        window.location.href = url; // Redirect to the new page with query parameters
+    }
 });
