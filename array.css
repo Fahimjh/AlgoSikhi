@@ -93,14 +93,14 @@ body {
     transition: all 0.5s ease;
 }
 
-.arraySearch{
+.arraySort{
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
     margin-top: auto;
     margin-bottom: 10%;
 }
-.arrSearch{
+.arrSort{
     height: 1.8rem;
     font-size: 1rem;
 }
