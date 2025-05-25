@@ -1,6 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const size = params.get("size");
 const values = params.get("values");
+const order = params.get("order") || "Ascending"; // Default to Ascending if not provided
 let arrayValues = values ? values.split(",").map(Number) : [];
 
 console.log("Array Size:", size);
@@ -75,10 +76,18 @@ async function startSearch() {
             }
             cells[mid].classList.remove("active");
             cells[mid].classList.add("checked");
-            if (midValue < searchValue) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
+            if (order === "Ascending") {
+                if (midValue < searchValue) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            } else { // Descending
+                if (midValue > searchValue) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
             }
         }
         if (!found) {
@@ -90,7 +99,16 @@ async function startSearch() {
 const searchBtn = document.querySelector(".searchBtn");
 if (searchBtn) searchBtn.addEventListener("click", startSearch);
 
-const createArrayBtn=document.querySelector(".arrCreate");
+const ArraySortBtn = document.querySelector(".arrSort");
+if (ArraySortBtn) {
+    ArraySortBtn.addEventListener("click", () => {
+        const size = arrayValues.length;
+        const values = arrayValues.join(",");
+        const url = `arraySort.html?size=${size}&values=${encodeURIComponent(values)}&order=${order}`;
+        window.location.href = url;
+    });
+}
+
 const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
@@ -114,21 +132,15 @@ if (closeBtn && container && startBtn) {
     });
 }
 
-// Array Create button 
-createArrayBtn.addEventListener("click", () => {
-    window.location.href = "array.html"; 
-});
-
-// Array Sort button
-const arraySortBtn = document.querySelector(".arrSort");
-if (arraySortBtn) {
-    arraySortBtn.addEventListener("click", () => {
+const arrayUpdateBtn = document.querySelector(".arrUpdate");
+if (arrayUpdateBtn) {
+    arrayUpdateBtn.addEventListener("click", () => {
         const size = arrayValues.length;
         const values = arrayValues.join(",");
         if (!size || values === "") {
             alert("The array is empty. Please provide a valid size and values for the array before proceeding.");
         } else {
-            const url = `arraySort.html?size=${size}&values=${encodeURIComponent(values)}`;
+            const url = `arrayUpdate.html?size=${size}&values=${encodeURIComponent(values)}`;
             window.location.href = url;
         }
     });

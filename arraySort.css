@@ -1,0 +1,127 @@
+.arrUpdatet{
+    height: 1.8rem;
+    font-size: 1rem;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    transition: all 0.5s ease;
+}
+
+/* Theory Section */
+.theory-section {
+    flex: 1;
+    padding: 20px;
+    background-color: bisque ;
+    transition: all 0.5s ease;
+}
+
+/* When visualization is active, shrink theory section */
+.container.visualization-active .theory-section {
+    flex: 0.5;
+}
+
+/* Visualization Section */
+.visualization-section {
+    flex: 0;
+    overflow: hidden;
+    padding: 20px;
+    background: #1a1a1a;
+    color: white;
+    display: none;
+    transition: all 0.5s ease;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);
+}
+#start-visualization{
+    height: 2rem;
+    width: auto;
+}
+
+.container.visualization-active .visualization-section {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#array {
+    display: flex;
+    gap: 9px;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 3.5rem;
+    cursor: pointer;
+    color: red;
+}
+
+.input-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.sort-method,.sort-option,.sortBtn{
+    height: 2rem;
+    width: 10rem;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background: #333;
+    border: 2px solid #00f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin: 5px;
+    transition: all 0.5s ease;
+}
+
+.cell.active {
+  background-color: orange;
+}
+.cell.sorted {
+  background-color: green;
+}
+
+.arrayCreate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: auto;
+}
+.arrCreate{
+    height: 1.8rem;
+    font-size: 1rem;
+}
+.arraySearch{
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 10%;
+}
+.arrSearch{
+    height: 1.9rem;
+    font-size: 1rem;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Introduction and Visualization</title>
+    <link rel="stylesheet" href="arraySort.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Array Sort Algorithms</h2>
+            <div id="theory-content">
+                <h3>Bubble Sort:</h3>
+                <p>
+                    Simplest sorting algorithm that works by repeatedly swapping the adjacent elements. 
+                </p>
+                <ul>
+                    <li>The array has been sort using a nested loop (one inner & one outer). After the first pass, the maximum/minimum element goes to end (its correct position) depending on ascending/descending search. </li>
+                    <li>Same way, after second pass, the second correct element goes to second last position and so on.</li>
+                    <li>In every pass, the loops process only those elements that have already not moved to correct position.
+                    <li>Easy to understand but takes more time for O(N^2) time complexity.</li>
+                </ul>
+
+                <!-- <h3>Binary Search:</h3>
+                <ul>
+                    <li>Efficient search algorithm for finding an element in a sorted array</li>
+                    <li>Uses divide and conquer technique- repeatedly divides the search interval in half.</li>
+                    <li>For that technique, it eliminates half of the elements in each step.</li>
+                    <li>The time complexity of this algorithm is O(log N) where 'N' is the length of the array.</li>
+                    <li>It is much faster than Linear Search for large datasets</li>
+                </ul> -->
+                <button id="start-visualization">Visualize Array Sort</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <div id="array" class="array-container"></div>
+            <div class="arrayCreate">
+                <h3>Want to change size and values of the array?<br>
+                    Click Array Create button</h3>
+                <button class="arrCreate">Array Create</button>
+            </div>
+            <div class="input-area">
+                <select class="sort-method">
+                    <option value="Bubble">Bubble Sort</option>
+                    <!-- <option value="binary">Binary Search</option> -->
+                </select>
+                <select class="sort-option">
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                </select>
+                <button class="sortBtn">Sort</button>
+            </div>
+
+            <div class="arraySearch">
+                <h3>Want to learn and visualize how to search array?<br>
+                    Click Array Search button</h3>
+                <button class="arrSearch">Array Search</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="arraySort.js"></script>
+</body>
+
+</html>
