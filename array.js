@@ -63,7 +63,7 @@ arraySortBtn.addEventListener("click", () => {
     if (!size || values === "") {
         alert("The array is empty. Please provide a valid size and values for the array before proceeding.");
     } else {
-        const url = `arraySearch.html?size=${size}&values=${encodeURIComponent(values)}`;
+        const url = `arraySort.html?size=${size}&values=${encodeURIComponent(values)}`;
         window.location.href = url; // Redirect to the new page with query parameters
     }
 });
