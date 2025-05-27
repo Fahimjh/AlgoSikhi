@@ -1,0 +1,155 @@
+
+.arrUpdatet {
+    height: 1.8rem;
+    font-size: 1rem;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background: #333;
+    border: 2px solid #00f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin: 5px;
+}
+
+.array-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    /* Make the container take up the full height of the viewport */
+    transition: all 0.5s ease;
+}
+
+/* Theory Section */
+.theory-section {
+    flex: 1;
+    /* Occupies full width initially */
+    padding: 20px;
+    background-color: bisque;
+    transition: all 0.5s ease;
+}
+
+/* When visualization is active, shrink theory section */
+.container.visualization-active .theory-section {
+    flex: 0.5;
+    /* Shrinks to 50% */
+}
+
+/* Visualization Section */
+.visualization-section {
+    flex: 0;
+    /* Hidden initially */
+    overflow: hidden;
+    padding: 20px;
+    background: #1a1a1a;
+    /* Dark background for visualization */
+    color: white;
+    /* Text color for better contrast */
+    display: none;
+    /* Hidden by default */
+    transition: all 0.5s ease;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);
+    /* Shady effect at the bottom */
+}
+
+#start-visualization {
+    height: 2rem;
+    width: auto;
+}
+
+/* When visualization is active, show visualization section */
+.container.visualization-active .visualization-section {
+    flex: 0.5;
+    /* Expands to 50% */
+    display: flex;
+    /* Make it visible */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#array {
+    display: flex;
+    gap: 9px;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    /* Allow wrapping of array cells */
+    justify-content: center;
+    /* Center the array cells */
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 3.5rem;
+    cursor: pointer;
+    color: red;
+}
+
+/* Array Visualization */
+.value,.index{
+    height: 1.5rem;
+    width: 13rem;
+    font-size: 1rem;
+}
+
+.update-option {
+    height: 1.9rem;
+}
+.update{
+    height: 1.9rem;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background: #333;
+    border: 2px solid #00f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    transition: all 0.5s ease;
+}
+
+/* Visualization highlight classes */
+.highlight {
+    background: orange !important;
+    transition: background 0.5s;
+}
+
+.Previous{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 10rem;
+}
+
+.btns{
+    display: flex;
+}
+.arrSearch,.arrSort{
+    font-size: 1rem;
+}
