@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Array Introduction and Visualization</title>
+        <link rel="stylesheet" href="arrayUpdate.css">
+    </head>
+    
+    <body>
+        <div class="container">
+            <!-- Left Side: Theory Section -->
+            <div class="theory-section">
+            <h2>Array Update (Insert, Delete)</h2>
+            <div id="theory-content">
+                <p>
+                    These operations are easiest compared to other operations for array data structure. 
+                    There are two types of Insertion and Deletion. Insert/Delete at last position 
+                    and Insert/Delete at any other than last position.
+                </p>
+                
+                <h3>Insertion:</h3>
+                <ul>
+                    <li>To insert one/couple of elements at last position, first we need to check if there are space
+                        available in the array for that/those elements.
+                    </li>
+                    <li>If space available, then just put the elements in the last position (i.e. array[i]=element.) if its for one element</li>
+                    <li>If there are multiple elements to insert at last, then we add elements with a loop which starts from last element and will end at last + no. of elements and will put elements in the array sequetially.</li>
+                    <li>If the insertion is not at last and space available for insertions then,
+                        we need to shift elements to the right.
+                    </li>
+                    <li>For one element to insert, shift every element to the right from desired index to (last + 1) index.</li>
+                    <li>For multiple elements to insert, shift every element to right from (desired + no. of elements) index to (last + no. of elements) index.</li>
+                </ul>
+                
+                <h3>Deletion:</h3>
+                <ul>
+                    <li>To delete one/couple of elements at last position, we just reduce the array size, because array index couldn't be empty.
+                        There must be value from user or it will be occupied by garbage value.
+                    </li>
+                    <li>If one element needs to delete, then just reduce array size by 1 (i.e. array[5] to array[4]).</li>
+                    <li>If multiple elements need to delete from last, then reduce array size by no. of elements (i.e. array[5] to array[2]).</li>
+                    <li>If the deletion is not at last then, we need to shift elements to the left.
+                    </li>
+                    <li>For one element to delete, shift every element to left from (desired +1) index to last index.</li>
+                    <li>For multiple elements to delete, shift every elements to left from (desired + no. of elements) index to last index.</li>
+                </ul>
+                <button id="start-visualization">Visualize Array Updation</button>
+            </div>
+        </div>
+        
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section" id="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Array Updation</h2>
+            <div id="array" class="array-container"></div>
+            <h3>To delete, enter only index</h3>
+            <div id="input-area">
+                <input type="number" class="value" placeholder="Enter value to insert/delete" />
+                <input type="number" class="index" placeholder="Index (for insert/delete)" min="0" />
+                <select class="update-option">
+                    <option value="Insert">Insert</option>
+                    <option value="Delete">Delete</option>
+                </select>
+                <button class="update">Go</button>
+            </div>
+            <div class="Previous">
+                <h3>Want to Visualize other operations with this updated array?</h3>
+            </div>
+            <div class="btns">
+                <button class="arrSearch">Array Search</button>
+                <button class="arrSort">Array Sort</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="arrayUpdate.js"></script>
+</body>
+
+</html>
