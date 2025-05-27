@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const size = params.get("size");
 const values = params.get("values");
 const order = params.get("order") || "Ascending"; // Default to Ascending if not provided
-let arrayValues = values ? values.split(",").map(Number) : [];
+let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5]; // fallback default
 
 console.log("Array Size:", size);
 console.log("Array Values:", arrayValues);

@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const size = params.get("size");
 const values = params.get("values");
-let arrayValues = values ? values.split(",").map(Number) : [];
+let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5]; // fallback default
 
 function renderArray() {
     const arrayContainer = document.getElementById("array");
