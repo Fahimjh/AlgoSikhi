@@ -14,25 +14,38 @@
         <div class="theory-section">
             <h2>Array Sort Algorithms</h2>
             <div id="theory-content">
-                <h3>Bubble Sort:</h3>
-                <p>
-                    Simplest sorting algorithm that works by repeatedly swapping the adjacent elements. 
-                </p>
-                <ul>
-                    <li>The array has been sort using a nested loop (one inner & one outer). After the first pass, the maximum/minimum element goes to end (its correct position) depending on ascending/descending search. </li>
-                    <li>Same way, after second pass, the second correct element goes to second last position and so on.</li>
-                    <li>In every pass, the loops process only those elements that have already not moved to correct position.
-                    <li>Easy to understand but takes more time for O(N^2) time complexity.</li>
-                </ul>
-
-                <!-- <h3>Binary Search:</h3>
-                <ul>
-                    <li>Efficient search algorithm for finding an element in a sorted array</li>
-                    <li>Uses divide and conquer technique- repeatedly divides the search interval in half.</li>
-                    <li>For that technique, it eliminates half of the elements in each step.</li>
-                    <li>The time complexity of this algorithm is O(log N) where 'N' is the length of the array.</li>
-                    <li>It is much faster than Linear Search for large datasets</li>
-                </ul> -->
+                <div>
+                    <span style="font-weight:bold;" class="headline">Bubble Sort:</span>
+                    <span>Simplest sorting algorithm that works by repeatedly swapping the adjacent elements.</span>
+                    <ul>
+                        <li>The array has been sort using a nested loop (one inner & one outer). After the first pass, the maximum/minimum element goes to end (its correct position) depending on ascending/descending search.</li>
+                        <li>Same way, after second pass, the second correct element goes to second last position and so on.</li>
+                        <li>In every pass, the loops process only those elements that have already not moved to correct position.</li>
+                        <li>Easy to understand but takes more time for O(N<sup>2</sup>) time complexity.</li>
+                    </ul>
+                </div>
+                <div>
+                    <span style="font-weight:bold;" class="headline">Insertion Sort:</span>
+                    <span>Builds the sorted array one element at a time by inserting each new element into its correct position.</span>
+                    <ul>
+                        <li>Starts from the second element and compares it with the elements before it.</li>
+                        <li>If the current element is smaller/larger (based on order), it shifts the previous elements one position ahead to make space.</li>
+                        <li>The current element is then placed in its correct position among the sorted elements.</li>
+                        <li>Repeats this process for each element, growing the sorted part of the array step by step.</li>
+                        <li>Simple to visualize and understand, but has O(N<sup>2</sup>) time complexity.</li>
+                    </ul>
+                </div>
+                <div>
+                    <span style="font-weight:bold;" class="headline">Selection Sort:</span>
+                    <span>Repeatedly selects the minimum or maximum element from the unsorted part and moves it to its correct position.</span>
+                    <ul>
+                        <li>Starts from the first element and searches for the smallest/largest element in the remaining array.</li>
+                        <li>Swaps the found minimum/maximum with the first unsorted element.</li>
+                        <li>After each pass, the sorted section grows by one, and the unsorted section shrinks.</li>
+                        <li>Continues until the entire array is sorted.</li>
+                        <li>Easy to visualize, but not efficient for large arrays O(N<sup>2</sup>) time complexity).</li>
+                    </ul>
+                </div>
                 <button id="start-visualization">Visualize Array Sort</button>
             </div>
         </div>
@@ -49,6 +62,8 @@
             <div class="input-area">
                 <select class="sort-method">
                     <option value="Bubble">Bubble Sort</option>
+                    <option value="Insertion">Insertion Sort</option>
+                    <option value="Selection">Selection Sort</option>
                     <!-- <option value="binary">Binary Search</option> -->
                 </select>
                 <select class="sort-option">

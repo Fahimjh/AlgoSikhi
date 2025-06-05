@@ -35,7 +35,7 @@ async function sort() {
                 // Highlight compared cells
                 cells[j].classList.add("active");
                 cells[j + 1].classList.add("active");
-                await delay(600); 
+                await delay(600);
 
                 let shouldSwap = sortOption === "Ascending"
                     ? arrayValues[j] > arrayValues[j + 1]
@@ -62,6 +62,78 @@ async function sort() {
             cell.classList.add("sorted");
         }
     }
+    else if (sortMethod === "Selection") {
+        let n = arrayValues.length;
+
+        for (let i = 0; i < n - 1; i++) {
+            let minOrMaxIdx = i;
+            cells[minOrMaxIdx].classList.add("active");
+
+            for (let j = i + 1; j < n; j++) {
+                cells[j].classList.add("active");
+                await delay(600);
+
+                let condition = sortOption === "Ascending"
+                    ? arrayValues[j] < arrayValues[minOrMaxIdx]
+                    : arrayValues[j] > arrayValues[minOrMaxIdx];
+
+                if (condition) {
+                    cells[minOrMaxIdx].classList.remove("active");
+                    minOrMaxIdx = j;
+                    cells[minOrMaxIdx].classList.add("active");
+                } else {
+                    cells[j].classList.remove("active");
+                }
+            }
+
+            if (minOrMaxIdx !== i) {
+                [arrayValues[i], arrayValues[minOrMaxIdx]] = [arrayValues[minOrMaxIdx], arrayValues[i]];
+                cells[i].textContent = arrayValues[i];
+                cells[minOrMaxIdx].textContent = arrayValues[minOrMaxIdx];
+            }
+
+            cells[minOrMaxIdx].classList.remove("active");
+            cells[i].classList.add("sorted");
+        }
+
+        // Mark last one as sorted
+        cells[n - 1].classList.add("sorted");
+    }
+
+    else if (sortMethod === "Insertion") {
+        let n = arrayValues.length;
+        for (let i = 1; i < n; i++) {
+            let key = arrayValues[i];
+            let j = i - 1;
+
+            cells[i].classList.add("active");
+            await delay(600);
+
+            while (
+                j >= 0 &&
+                (sortOption === "Ascending"
+                    ? arrayValues[j] > key
+                    : arrayValues[j] < key)
+            ) {
+                arrayValues[j + 1] = arrayValues[j];
+                cells[j + 1].textContent = arrayValues[j];
+                j--;
+
+                await delay(600);
+            }
+
+            arrayValues[j + 1] = key;
+            cells[j + 1].textContent = key;
+
+            cells[i].classList.remove("active");
+        }
+
+        // Mark all as sorted
+        for (let cell of cells) {
+            cell.classList.add("sorted");
+        }
+    }
+
 }
 
 const sortBtn = document.querySelector(".sortBtn");
