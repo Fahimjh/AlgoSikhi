@@ -1,47 +1,55 @@
-.arrUpdatet{
-    height: 1.8rem;
-    font-size: 1rem;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    margin: 0;
+    min-height: 100vh;
+    height: 100vh;
     font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .container {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
+    min-height: 100vh;
     transition: all 0.5s ease;
+    position: relative;
+    box-sizing: border-box;
 }
 
-/* Theory Section */
-.theory-section {
+.theory-section, .visualization-section {
+    min-height: 100vh;
+    height: 100vh;
+    box-sizing: border-box;
     flex: 1;
-    padding: 20px;
-    background-color: bisque ;
-    transition: all 0.5s ease;
 }
 
-/* When visualization is active, shrink theory section */
+.theory-section {
+    padding: 20px;
+    background-color: bisque;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+
 .container.visualization-active .theory-section {
     flex: 0.5;
 }
 
-/* Visualization Section */
 .visualization-section {
     flex: 0;
-    overflow: hidden;
+    overflow-y: auto;
     padding: 20px;
     background: #1a1a1a;
     color: white;
     display: none;
     transition: all 0.5s ease;
     box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);
-}
-#start-visualization{
-    height: 2rem;
-    width: auto;
+    position: relative;
 }
 
 .container.visualization-active .visualization-section {
@@ -50,6 +58,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+}
+
+#start-visualization {
+    height: 2rem;
+    width: auto;
 }
 
 #array {
@@ -69,7 +82,7 @@ body {
     color: red;
 }
 
-.input-area{
+.input-area {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +91,8 @@ body {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-.sort-method,.sort-option,.sortBtn{
+
+.sort-method, .sort-option, .sortBtn {
     height: 2rem;
     width: 10rem;
 }
@@ -98,33 +112,32 @@ body {
 }
 
 .cell.active {
-  background-color: orange;
+    background-color: orange;
 }
 .cell.sorted {
-  background-color: green;
+    background-color: #4caf50;
 }
 
-.arrayCreate{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.arrayCreate {
+    margin: 1rem 0;
     text-align: center;
-    margin-top: 1rem;
-    margin-bottom: auto;
 }
-.arrCreate{
-    height: 1.8rem;
+.arrCreate {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1.5rem;
     font-size: 1rem;
+    cursor: pointer;
 }
-.arraySearch{
+.arraySearch {
+    margin: 1rem 0;
     text-align: center;
-    margin-top: auto;
-    margin-bottom: 10%;
 }
-.arrSearch{
-    height: 1.9rem;
+.arrSearch {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1.5rem;
     font-size: 1rem;
+    cursor: pointer;
 }
 .headline {
-    font-size: 1.2rem;
+    font-weight: bold;
 }

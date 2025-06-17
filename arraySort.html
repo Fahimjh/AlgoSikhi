@@ -46,6 +46,17 @@
                         <li>Easy to visualize, but not efficient for large arrays O(N<sup>2</sup>) time complexity).</li>
                     </ul>
                 </div>
+                <div>
+                    <span style="font-weight:bold;">Merge Sort:</span>
+                    <span>Merge Sort is a divide-and-conquer algorithm that splits the array into halves, sorts each half, and then merges them back together.</span>
+                    <ul>
+                        <li>The array is repeatedly divided into two smaller subarrays until each subarray has only one element.</li>
+                        <li>Each pair of subarrays is then merged together in sorted order.</li>
+                        <li>This merging process continues until the entire array is sorted.</li>
+                        <li>Efficient for large arrays and has a time complexity of O(N log N).</li>
+                        <li>Visualization shows the splitting and merging steps clearly.</li>
+                    </ul>
+                </div>
                 <button id="start-visualization">Visualize Array Sort</button>
             </div>
         </div>
@@ -64,6 +75,7 @@
                     <option value="Bubble">Bubble Sort</option>
                     <option value="Insertion">Insertion Sort</option>
                     <option value="Selection">Selection Sort</option>
+                    <option value="Selection">Merge Sort</option>
                     <!-- <option value="binary">Binary Search</option> -->
                 </select>
                 <select class="sort-option">
