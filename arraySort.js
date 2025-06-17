@@ -134,6 +134,78 @@ async function sort() {
         }
     }
 
+    else if (sortMethod === "Merge") {
+        async function mergeSort(start, end) {
+            if (start >= end) return;
+
+            const mid = Math.floor((start + end) / 2);
+
+            await mergeSort(start, mid);
+            await mergeSort(mid + 1, end);
+            await merge(start, mid, end);
+        }
+
+        async function merge(start, mid, end) {
+            const left = arrayValues.slice(start, mid + 1);
+            const right = arrayValues.slice(mid + 1, end + 1);
+
+            let i = 0, j = 0, k = start;
+
+            while (i < left.length && j < right.length) {
+                cells[k].classList.add("active");
+                await delay(600);
+
+                let shouldTakeLeft = sortOption === "Ascending"
+                    ? left[i] <= right[j]
+                    : left[i] >= right[j];
+
+                if (shouldTakeLeft) {
+                    arrayValues[k] = left[i];
+                    cells[k].textContent = left[i];
+                    i++;
+                } else {
+                    arrayValues[k] = right[j];
+                    cells[k].textContent = right[j];
+                    j++;
+                }
+
+                cells[k].classList.remove("active");
+                k++;
+            }
+
+            while (i < left.length) {
+                cells[k].classList.add("active");
+                await delay(600);
+
+                arrayValues[k] = left[i];
+                cells[k].textContent = left[i];
+                cells[k].classList.remove("active");
+
+                i++;
+                k++;
+            }
+
+            while (j < right.length) {
+                cells[k].classList.add("active");
+                await delay(600);
+
+                arrayValues[k] = right[j];
+                cells[k].textContent = right[j];
+                cells[k].classList.remove("active");
+
+                j++;
+                k++;
+            }
+
+            // Mark merged part as sorted
+            for (let x = start; x <= end; x++) {
+                cells[x].classList.add("sorted");
+            }
+        }
+
+        await mergeSort(0, arrayValues.length - 1);
+    }
+
 }
 
 const sortBtn = document.querySelector(".sortBtn");
