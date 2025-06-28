@@ -5,20 +5,19 @@ const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
 const theorySection = document.querySelector(".theory-section");
-const visualizationSection = document.getElementById("visualization-section");
+const visualizationSection = document.querySelector(".visualization-section");
 const createArrayBtn = document.querySelector(".crtArrBtn");
 const arraySortBtn = document.querySelector(".arrSort");
 
 // Toggle visualization state
 startBtn.addEventListener("click", () => {
     if (container.classList.contains("visualization-active")) {
-        // Close visualization
         container.classList.remove("visualization-active");
-        startBtn.innerText = "Visualize Array Creation";
-    } else {
-        // Open visualization
+        startBtn.innerText = "Visualize Array Creation";// Close visualization
+    } 
+    else {
         container.classList.add("visualization-active");
-        startBtn.innerText = "Close Visualization";
+        startBtn.innerText = "Close Visualization";// Open visualization
     }
 });
 

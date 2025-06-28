@@ -91,7 +91,7 @@ if (updateBtn) {
 const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
-const visualizationSection = document.getElementById("visualization-section");
+const visualizationSection = document.querySelector(".visualization-section");
 
 if (startBtn && visualizationSection) {
     startBtn.addEventListener("click", () => {

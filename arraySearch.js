@@ -117,7 +117,7 @@ if (startBtn && container) {
     startBtn.addEventListener("click", () => {
         if (container.classList.contains("visualization-active")) {
             container.classList.remove("visualization-active");
-            startBtn.innerText = "Visualize Array Creation";
+            startBtn.innerText = "Visualize Array Search";
         } else {
             container.classList.add("visualization-active");
             startBtn.innerText = "Close Visualization";
@@ -128,7 +128,7 @@ if (startBtn && container) {
 if (closeBtn && container && startBtn) {
     closeBtn.addEventListener("click", () => {
         container.classList.remove("visualization-active");
-        startBtn.innerText = "Visualize Array Creation";
+        startBtn.innerText = "Visualize Array search";
     });
 }
 
