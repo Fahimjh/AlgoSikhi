@@ -42,6 +42,7 @@
     border: 0.1rem solid white;
     border-radius: 0.25rem;
 }
+
 /* part2 */
 .login{
     margin-left: auto;
@@ -57,6 +58,7 @@
 body{
     background-color: #eeeeee;
 }
+
 /* main section */
 .mainlogo{
     display: flex;
@@ -122,9 +124,15 @@ body{
     background-color: transparent;
 }
 
-/* boxes */
-.firstRow{
+.headLine{
     margin-top: 3rem;
+    text-align: center;
+}
+
+
+/* boxes */
+.Row{
+    margin-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-evenly;

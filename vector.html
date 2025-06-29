@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="vector.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to Vector</h2>
+            <div id="theory-content">
+                <p>
+                    <strong>Vectors</strong> are dynamic arrays that can automatically resize themselves to accommodate
+                    more elements. Unlike fixed-size arrays, vectors can grow or shrink as needed, making them flexible
+                    for various applications.
+                </p>
+
+                <h3>🔑 Key Characteristics:</h3>
+                <ul>
+                    <li><strong>Dynamic Size:</strong> Can increase or decrease in size as elements are added or removed.</li>
+                    <li><strong>Contiguous Memory:</strong> Elements are stored in consecutive memory locations, just like arrays.</li>
+                    <li><strong>Indexing:</strong> Each element can be accessed directly using an index starting from 0.</li>
+                    <li><strong>Automatic Resizing:</strong> When capacity is exceeded, a new larger memory block is allocated and elements are copied over.</li>
+                    <li><strong>Efficient Access:</strong> Provides fast access and update for elements using their index.</li>
+                </ul>
+
+                <h3>📌 Common Use Cases:</h3>
+                <ul>
+                    <li>Number of elements can change during program execution.</li>
+                    <li>Implementing dynamic lists, stacks, and other data structures.</li>
+                    <li>Storing collections of data that need frequent additions or removals.</li>
+                    <li>Useful in competitive programming and real-world applications for flexible data storage.</li>
+                </ul>
+                <button id="start-visualization">Visualize Vector Operations</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Vector Visualization</h2>
+            <p>
+                The visualization shows how a vector manages its elements in contiguous memory. 
+                <strong>Size</strong> is the number of elements currently in the vector, while <strong>capacity</strong> is the total space allocated (which may be larger than the size). 
+                When the vector exceeds its capacity, it automatically allocates more space to accommodate new elements.
+            </p>
+            <div id="vector"></div>
+            <div id="input-area">
+                <input type="text" id="vector-values" placeholder="Enter values (comma-separated)" />
+                <button class="crtVecBtn">Create Vector</button>
+            </div>
+            <div class="vector-info">
+                <span>Size: <span id="vectorSize">0</span></span>
+                <span>Capacity: <span id="vectorCapacity">0</span></span>
+            </div>
+            <div class="vectorSort">
+                <h3>Want to learn and visualize how to sort vector?<br>
+                    Click Vector Sort button</h3>
+                <button class="vecSort">Vector Sort</button>
+            </div>
+        </div>
+    </div>
+    <script src="vector.js"></script>
+</body>
+</html>
+
+<!-- <div class="vector-controls">
+    <button onclick="pushBack()">Push Back</button>
+    <button onclick="popBack()">Pop Back</button>
+    <button onclick="clearVector()">Clear</button>
+</div> -->
