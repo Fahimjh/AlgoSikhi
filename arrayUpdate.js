@@ -14,6 +14,12 @@ function renderArray() {
         cell.setAttribute("data-index", idx);
         arrayContainer.appendChild(cell);
     });
+
+    // Update array size display
+    const arrSizeDiv = document.querySelector(".arrSize h3");
+    if (arrSizeDiv) {
+        arrSizeDiv.textContent = `Array Size = ${size}`;
+    }
 }
 renderArray();
 
@@ -22,25 +28,32 @@ function delay(ms) {
 }
 
 async function insertAt(index, value) {
-    if (index < 0 || index > arrayValues.length) {
+    index = Number(index);
+    if (!Number.isInteger(index) || index < 0 || index >= size) {
         alert("Invalid index for insertion.");
         return;
     }
-    // Visual shift
-    const cells = document.querySelectorAll('.cell');
-    for (let i = cells.length - 1; i >= index; i--) {
-        cells[i].style.transform = 'translateX(60px)';
-    }
-    await delay(400);
 
-    arrayValues.splice(index, 0, value);
+    // Check if the slot is truly empty (a "hole" in the array)
+    if (!(index in arrayValues)) {
+        // Insert and shift right
+        arrayValues.splice(index, 0, value);
+        // Remove last element to keep array length fixed
+        if (arrayValues.length > size) {
+            arrayValues.length = size;
+        }
+    } else {
+        // Overwrite
+        arrayValues[index] = value;
+    }
+
     renderArray();
 
-    // Highlight inserted cell
-    const inserted = document.querySelectorAll('.cell')[index];
-    if (inserted) {
-        inserted.classList.add('highlight');
-        setTimeout(() => inserted.classList.remove('highlight'), 1000);
+    // Highlight affected cell
+    const cell = document.querySelectorAll('.cell')[index];
+    if (cell) {
+        cell.classList.add('highlight');
+        setTimeout(() => cell.classList.remove('highlight'), 1000);
     }
 }
 

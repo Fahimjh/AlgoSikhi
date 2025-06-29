@@ -1,5 +1,6 @@
 // Declare arrayValues in the global scope
 let arrayValues = []; // Initialize as an empty array
+let arraySize = 0; // Track the declared size
 
 const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
@@ -29,12 +30,8 @@ closeBtn.addEventListener("click", () => {
 
 // Create array visualization
 function createArray() {
-    const size = parseInt(document.getElementById("array-size").value);
+    arraySize = parseInt(document.getElementById("array-size").value); // Store declared size
     const values = document.getElementById("array-values").value.split(",").map(v => v.trim());
-    if (values.length !== size) {
-        alert("Number of values doesn't match the size.");
-        return;
-    }
     arrayValues = values; // Update the global arrayValues variable
     renderArray();
 }
@@ -55,14 +52,12 @@ function renderArray() {
 }
 
 arraySortBtn.addEventListener("click", () => {
-    const size = arrayValues.length; // Get the size of the array
     const values = arrayValues.join(","); // Convert array to a comma-separated string
-
-    // Check if the array is empty
-    if (!size || values === "") {
+    
+    if (!arraySize || values === "") {// Check if the array is empty
         alert("The array is empty. Please provide a valid size and values for the array before proceeding.");
     } else {
-        const url = `arraySort.html?size=${size}&values=${encodeURIComponent(values)}`;
+        const url = `arraySort.html?size=${arraySize}&values=${encodeURIComponent(values)}`;
         window.location.href = url; // Redirect to the new page with query parameters
     }
 });

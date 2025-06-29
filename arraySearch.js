@@ -135,13 +135,8 @@ if (closeBtn && container && startBtn) {
 const arrayUpdateBtn = document.querySelector(".arrUpdate");
 if (arrayUpdateBtn) {
     arrayUpdateBtn.addEventListener("click", () => {
-        const size = arrayValues.length;
         const values = arrayValues.join(",");
-        if (!size || values === "") {
-            alert("The array is empty. Please provide a valid size and values for the array before proceeding.");
-        } else {
-            const url = `arrayUpdate.html?size=${size}&values=${encodeURIComponent(values)}`;
-            window.location.href = url;
-        }
+        const url = `arrayUpdate.html?size=${size}&values=${encodeURIComponent(values)}`;
+        window.location.href = url;
     });
 }

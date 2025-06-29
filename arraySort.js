@@ -13,6 +13,7 @@ function renderArray() {
         cell.textContent = val;
         arrayContainer.appendChild(cell);
     });
+
 }
 renderArray();
 
@@ -248,7 +249,6 @@ if (closeBtn && container && startBtn) {
 const arraySearchBtn = document.querySelector(".arrSearch");
 if (arraySearchBtn) {
     arraySearchBtn.addEventListener("click", () => {
-        const size = arrayValues.length;
         const values = arrayValues.join(",");
         const sortOption = document.querySelector(".sort-option").value; // Get order
         const url = `arraySearch.html?size=${size}&values=${encodeURIComponent(values)}&order=${sortOption}`;
