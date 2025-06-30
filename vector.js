@@ -66,32 +66,3 @@ vectorSortBtn.addEventListener("click", () => {
         window.location.href = url;
     }
 });
-
-
-
-// function pushBack() {
-//   const input = document.getElementById("vectorInput");
-//   const value = input.value;
-//   if (value === "") return;
-
-//   if (vector.length >= capacity) {
-//     capacity *= 2; // Simulating vector's growth
-//   }
-
-//   vector.push(parseInt(value));
-//   input.value = "";
-//   updateDisplay();
-// }
-
-// function popBack() {
-//   if (vector.length > 0) {
-//     vector.pop();
-//     updateDisplay();
-//   }
-// }
-
-// function clearVector() {
-//   vector = [];
-//   capacity = 4;
-//   updateDisplay();
-// }

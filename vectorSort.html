@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="vectorSort.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Sorting Vector</h2>
+            <div id="theory-content">
+                <p>
+                    We've learned some sorting algorithms for arrays in the previous lecture. Those algorithms can also
+                    be used to sort vectors.
+                    Since vectors allocate contiguous memory locations like arrays, the time and space complexity for
+                    those algorithms remain the same as for vectors like arrays.
+                    So we aren't going to learn those algorithms again. To sort vectors, Most programming languages
+                    provide a <strong>built-in sort function</strong> to quickly arrange the elements of a vector in
+                    ascending or descending order. This function is easy to use and efficient for most cases.
+                </p>
+
+                <h3>🔑 Key Points:</h3>
+                <ul>
+                    <li>Sorts all elements of the vector automatically.</li>
+                    <li>Can sort numbers, strings, or custom objects.</li>
+                    <li>Usually allows you to choose ascending or descending order.</li>
+                    <li>Much faster and simpler than writing own sorting algorithm. Time complexity O(n log n), space complexity O(n).</li>
+                    <li>Built-in sort functions are widely used for their simplicity and speed,
+                        making them a great choice for most sorting tasks.
+                    </li>
+                </ul>
+
+                <h3>📌 Example (JavaScript):</h3>
+                <pre><code>
+                let vec = [5, 2, 9, 1];
+                vec.sort(); // Ascending order: [1, 2, 5, 9]
+                vec.sort((a, b) => b - a); // Descending order: [9, 5, 2, 1]
+                </code></pre>
+
+                <button id="start-visualization">Visualize Vector Sort</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            
+            <div class="vectorCreate">
+                <h3>Want to change size and values of the vector?<br>
+                    Click Vector Create button</h3>
+                    <button class="vecCreate">Vector Create</button>
+            </div>
+
+            <div class="vector-info">
+                <span>Size: <span id="vectorSize">0</span></span>
+                <span>Capacity: <span id="vectorCapacity">0</span></span>
+            </div>
+
+            <div id="vectorSort"></div>
+            
+            <div id="input-area">
+                <select class="sort-option">
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                </select>
+                <button class="sortBtn">Sort</button>
+            </div>
+
+            <div class="vectorSearch">
+                <h3>Want to learn and visualize how to search values in vector?<br>
+                    Click Vector Search button</h3>
+                <button class="vecSearch">Vector Search</button>
+            </div>
+        </div>
+    </div>
+    <script src="vectorSort.js"></script>
+</body>
+
+</html>
+
+<!-- <div class="vector-controls">
+    <button onclick="pushBack()">Push Back</button>
+    <button onclick="popBack()">Pop Back</button>
+    <button onclick="clearVector()">Clear</button>
+</div> -->
+
+<!-- <div class="vector-sort-container">
+  <h2>Vector Sorting</h2>
+
+  <div id="vectorDisplay" class="vector-display"></div>
+
+  <div class="vector-sort-controls">
+    <input type="number" id="vectorInput" placeholder="Enter number" />
+    <button onclick="addToVector()">Push Back</button>
+    <button onclick="clearVector()">Clear</button>
+    <br><br>
+    <button onclick="sortVector('asc')">Sort Ascending</button>
+    <button onclick="sortVector('desc')">Sort Descending</button>
+  </div>
+</div> -->
