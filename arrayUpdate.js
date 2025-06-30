@@ -1,7 +1,10 @@
 const params = new URLSearchParams(window.location.search);
-const size = params.get("size");
+let size = params.get("size");
 const values = params.get("values");
-let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5]; // fallback default
+let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
+
+// Ensure size is a number and fallback to default array length if not provided
+size = size ? Number(size) : arrayValues.length;
 
 function renderArray() {
     const arrayContainer = document.getElementById("array");
@@ -34,16 +37,13 @@ async function insertAt(index, value) {
         return;
     }
 
-    // Check if the slot is truly empty (a "hole" in the array)
+    // Overwrite or shift if there is a hole
     if (!(index in arrayValues)) {
-        // Insert and shift right
         arrayValues.splice(index, 0, value);
-        // Remove last element to keep array length fixed
         if (arrayValues.length > size) {
             arrayValues.length = size;
         }
     } else {
-        // Overwrite
         arrayValues[index] = value;
     }
 
@@ -58,7 +58,8 @@ async function insertAt(index, value) {
 }
 
 async function deleteAt(index) {
-    if (index < 0 || index >= arrayValues.length) {
+    index = Number(index);
+    if (!Number.isInteger(index) || index < 0 || index >= size) {
         alert("Invalid index for deletion.");
         return;
     }
@@ -70,6 +71,10 @@ async function deleteAt(index) {
     await delay(600);
 
     arrayValues.splice(index, 1);
+    // Pad with empty string to keep array at original size
+    while (arrayValues.length < size) {
+        arrayValues.push("");
+    }
     renderArray();
 }
 
@@ -122,9 +127,7 @@ if (closeBtn && visualizationSection) {
 const arraySearchBtn = document.querySelector(".arrSearch");
 if (arraySearchBtn) {
     arraySearchBtn.addEventListener("click", () => {
-        const size = arrayValues.length;
         const values = arrayValues.join(",");
-        // If .sort-option exists, use its value; otherwise default to "Ascending"
         const order = document.querySelector(".sort-option")?.value || "Ascending";
         const url = `arraySearch.html?size=${size}&values=${encodeURIComponent(values)}&order=${order}`;
         window.location.href = url;
@@ -134,7 +137,6 @@ if (arraySearchBtn) {
 const arraySortBtn = document.querySelector(".arrSort");
 if (arraySortBtn) {
     arraySortBtn.addEventListener("click", () => {
-        const size = arrayValues.length;
         const values = arrayValues.join(",");
         const order = document.querySelector(".sort-option")?.value || "Ascending";
         const url = `arraySort.html?size=${size}&values=${encodeURIComponent(values)}&order=${order}`;
