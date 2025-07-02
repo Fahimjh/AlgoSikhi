@@ -23,6 +23,10 @@ let vectorBox = document.querySelector(".vectorIntro");
 vectorBox.addEventListener("click",()=>{
     window.location.href="vector.html";
 });
+let vectorBasicBox = document.querySelector(".vectorBasic");
+vectorBasicBox.addEventListener("click",()=>{
+    window.location.href="vectorBasic.html";
+});
 let vectorSortBox = document.querySelector(".vectorSort");
 vectorSortBox.addEventListener("click",()=>{
     window.location.href="vectorSort.html";
