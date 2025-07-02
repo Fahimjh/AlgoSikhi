@@ -97,15 +97,14 @@ body {
     font-size: 16px;
 }
 
-.vectorSort {
+.vectorBasic {
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
     margin-top: auto;
     margin-bottom: 10%;
 }
-
-.vecSort {
+.vecBasic {
     height: 1.8rem;
     font-size: 1rem;
 }

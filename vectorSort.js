@@ -76,12 +76,22 @@ sortBtn.addEventListener("click", async () => {
 // Initial render
 renderVector();
 
-// Vector Search button navigation
-const vectorSearchBtn = document.querySelector(".vecSearch");
-if (vectorSearchBtn) {
-    vectorSearchBtn.addEventListener("click", () => {
+// Vector Basic Operations button navigation
+const vectorOprBtn = document.querySelector(".vecOpr");
+if (vectorOprBtn) {
+    vectorOprBtn.addEventListener("click", () => {
         const values = vectorValues.join(",");
-        const url = `vectorSearch.html?size=${size}&values=${encodeURIComponent(values)}`;
+        const url = `vectorBasic.html?size=${vectorValues.length}&values=${encodeURIComponent(values)}`;
+        window.location.href = url;
+    });
+}
+
+// Vector Advanced Operations button navigation
+const vectorAdvancedBtn = document.querySelector(".vecAdvanced");
+if (vectorAdvancedBtn) {
+    vectorAdvancedBtn.addEventListener("click", () => {
+        const values = vectorValues.join(",");
+        const url = `vectorAdvanced.html?size=${vectorValues.length}&values=${encodeURIComponent(values)}`;
         window.location.href = url;
     });
 }

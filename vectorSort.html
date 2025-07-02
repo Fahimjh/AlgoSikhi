@@ -35,12 +35,18 @@
                     </li>
                 </ul>
 
-                <h3>📌 Example (JavaScript):</h3>
+                <h3>📌 Example :</h3>
+                
                 <pre><code>
-                let vec = [5, 2, 9, 1];
-                vec.sort(); // Ascending order: [1, 2, 5, 9]
-                vec.sort((a, b) => b - a); // Descending order: [9, 5, 2, 1]
+                std::vector&lt;int&gt; vec = {5, 2, 9, 1};
+
+                std::sort(vec.begin(), vec.end()); // Ascending order vec: {1, 2, 5, 9}
+
+                std::sort(vec.begin(), vec.end(), std::greater&lt;int&gt;()); // Descending order vec: {9, 5, 2, 1}
                 </code></pre>
+                <p>
+                    <strong>Note:</strong> The <code>std::sort</code> function in C++ is very fast and easy to use. It sorts the entire vector in place and works for both numbers and custom objects. You can choose ascending or descending order by changing the third argument.
+                </p>
 
                 <button id="start-visualization">Visualize Vector Sort</button>
             </div>
@@ -50,10 +56,10 @@
         <div class="visualization-section">
             <div class="close-btn">✖</div>
             
-            <div class="vectorCreate">
-                <h3>Want to change size and values of the vector?<br>
-                    Click Vector Create button</h3>
-                    <button class="vecCreate">Vector Create</button>
+            <div class="vectorOperations">
+                <h3>Before sorting, do you want to perform any basic operations of the vector?<br>
+                    Click "Vector Basic Operations" button</h3>
+                    <button class="vecOpr">Vector Basic Operations</button>
             </div>
 
             <div class="vector-info">
@@ -70,11 +76,10 @@
                 </select>
                 <button class="sortBtn">Sort</button>
             </div>
-
-            <div class="vectorSearch">
-                <h3>Want to learn and visualize how to search values in vector?<br>
-                    Click Vector Search button</h3>
-                <button class="vecSearch">Vector Search</button>
+            <div class="vectorAdvanced">
+                <h3>Next part we will learn and visualize some advanced operations in vector.<br>
+                    Click "Vector Advanced Operations" button to check the operations with this vectors value.</h3>
+                <button class="vecAdvanced">Vector Advanced Operations</button>
             </div>
         </div>
     </div>
@@ -82,24 +87,3 @@
 </body>
 
 </html>
-
-<!-- <div class="vector-controls">
-    <button onclick="pushBack()">Push Back</button>
-    <button onclick="popBack()">Pop Back</button>
-    <button onclick="clearVector()">Clear</button>
-</div> -->
-
-<!-- <div class="vector-sort-container">
-  <h2>Vector Sorting</h2>
-
-  <div id="vectorDisplay" class="vector-display"></div>
-
-  <div class="vector-sort-controls">
-    <input type="number" id="vectorInput" placeholder="Enter number" />
-    <button onclick="addToVector()">Push Back</button>
-    <button onclick="clearVector()">Clear</button>
-    <br><br>
-    <button onclick="sortVector('asc')">Sort Ascending</button>
-    <button onclick="sortVector('desc')">Sort Descending</button>
-  </div>
-</div> -->

@@ -6,7 +6,7 @@ const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
 const createVectorBtn = document.querySelector(".crtVecBtn");
-const vectorSortBtn = document.querySelector(".vecSort");
+const vectorBasicBtn = document.querySelector(".vecBasic");
 
 // Toggle visualization state
 startBtn.addEventListener("click", () => {
@@ -56,13 +56,13 @@ function renderVector() {
     document.getElementById("vectorCapacity").textContent = vectorCapacity;
 }
 
-vectorSortBtn.addEventListener("click", () => {
+vectorBasicBtn.addEventListener("click", () => {
     const size = vectorValues.length;
     const values = vectorValues.join(",");
     if (!size || values === "") {
         alert("The vector is empty. Please provide values before proceeding.");
     } else {
-        const url = `vectorSort.html?size=${size}&values=${encodeURIComponent(values)}`;
+        const url = `vectorBasic.html?size=${size}&values=${encodeURIComponent(values)}`;
         window.location.href = url;
     }
 });
