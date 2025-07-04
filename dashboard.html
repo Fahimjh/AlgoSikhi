@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome, <span id="username">User</span>!</h2>
+
+        <div id="progressDetails"></div>
+
+        <label>Overall Learning Progress</label>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <br>
+    </div>
+    <div class="button-group">
+        <button onclick="logout()" class="btn">Logout</button>
+        <button onclick="deleteAccount()" style="background:#e74c3c; color:white;" class="btn">Delete My
+            Account</button>
+        <button onclick="goToHomepage()" class="btn">Go to Homepage</button>
+    </div>
+
+    <script src="topics.js"></script>
+
+    <script>
+        const token = localStorage.getItem("token");
+        const username = localStorage.getItem("username");
+
+        if (!token || !username) {
+            alert("You must be logged in!");
+            window.location.href = "login.html";
+        } else {
+            document.getElementById("username").textContent = username;
+        }
+
+        fetch("http://localhost:5000/api/progress", {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(res => res.json())
+            .then(progress => {
+                const progressContainer = document.getElementById("progressDetails");
+                let total = 0, completed = 0;
+
+                for (const topic in progress) {
+                    const topicDiv = document.createElement("div");
+                    topicDiv.className = "topic";
+
+                    // Title from mapping or fallback
+                    const topicTitle = topics[topic] ? topic : topic;
+                    topicDiv.innerHTML = `<strong>${topicTitle}</strong>`;
+
+                    const subtopics = progress[topic];
+                    for (const sub in subtopics) {
+                        const isDone = subtopics[sub];
+                        total++;
+                        if (isDone) completed++;
+
+                        // Use mapped name if available
+                        const subDisplayName = topics[topic] && topics[topic][sub]
+                            ? topics[topic][sub]
+                            : sub;
+
+                        const subDiv = document.createElement("div");
+                        subDiv.className = "subtopic";
+                        subDiv.innerHTML = `${isDone ? "✅" : "⬜"} ${subDisplayName}`;
+                        topicDiv.appendChild(subDiv);
+                    }
+
+                    progressContainer.appendChild(topicDiv);
+                }
+
+                const percent = total ? (completed / total) * 100 : 0;
+                document.getElementById("progressFill").style.width = percent + "%";
+            })
+            .catch(err => {
+                console.error("Failed to load progress", err);
+            });
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        function deleteAccount() {
+            const confirmDelete = confirm("Are you sure you want to delete your account? This cannot be undone.");
+            if (!confirmDelete) return;
+
+            fetch("http://localhost:5000/api/auth/delete", {
+                method: "DELETE",
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    localStorage.clear();
+                    window.location.href = "index.html";
+                })
+                .catch(err => console.error("Delete error:", err));
+        }
+
+        function goToHomepage() {
+            window.location.href = "index.html";
+        }
+
+    </script>
+</body>
+
+</html>
