@@ -15,7 +15,7 @@ startBtn.addEventListener("click", () => {
     if (container.classList.contains("visualization-active")) {
         container.classList.remove("visualization-active");
         startBtn.innerText = "Visualize Array Creation";// Close visualization
-    } 
+    }
     else {
         container.classList.add("visualization-active");
         startBtn.innerText = "Close Visualization";// Open visualization
@@ -34,6 +34,28 @@ function createArray() {
     const values = document.getElementById("array-values").value.split(",").map(v => v.trim());
     arrayValues = values; // Update the global arrayValues variable
     renderArray();
+
+    // Progress update: only after user creates an array
+    const token = localStorage.getItem("token");
+    if (token) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Array Introduction",
+                subtopic: "arrayCreate",
+                value: true
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Progress updated for: arrayCreate");
+        })
+        .catch(err => console.error("Progress update failed:", err));
+    }
 }
 
 createArrayBtn.addEventListener("click", () => {
@@ -53,7 +75,7 @@ function renderArray() {
 
 arraySortBtn.addEventListener("click", () => {
     const values = arrayValues.join(","); // Convert array to a comma-separated string
-    
+
     if (!arraySize || values === "") {// Check if the array is empty
         alert("The array is empty. Please provide a valid size and values for the array before proceeding.");
     } else {
@@ -61,3 +83,5 @@ arraySortBtn.addEventListener("click", () => {
         window.location.href = url; // Redirect to the new page with query parameters
     }
 });
+
+
