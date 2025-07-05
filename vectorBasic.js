@@ -131,6 +131,42 @@ oprBtn.addEventListener("click", () => {
         renderVector();
     }
     valueInput.value = "";
+
+    // Progress update for Vector Basic Operations
+    const methodToSubtopic = {
+        "push_back()": "pushBack",
+        "pop_back()": "popBack",
+        "clear()": "clear",
+        "size()": "size",
+        "vector[i]": "vector[i]",
+        "front()": "front",
+        "back()": "back",
+        "empty()": "empty"
+    };
+
+    const token = localStorage.getItem("token");
+
+    if (token && methodToSubtopic[operation]) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Vector Basic Operations",
+                subtopic: methodToSubtopic[operation],
+                value: true
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("✅ Progress updated for:", methodToSubtopic[operation]);
+            })
+            .catch(err => {
+                console.error("❌ Progress update failed:", err);
+            });
+    }
 });
 
 // Initial render

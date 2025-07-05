@@ -30,7 +30,7 @@ const searchMethodSelect = document.querySelector(".search-method");
 
 async function startSearch() {
     const searchValue = parseInt(searchValueInput.value);
-    const method = searchMethodSelect.value;
+    const searchMethod = searchMethodSelect.value;
 
     if (isNaN(searchValue)) {
         alert("Please enter a valid number to search.");
@@ -42,7 +42,7 @@ async function startSearch() {
         cell.classList.remove("active", "found", "checked");
     });
 
-    if (method === "linear") {
+    if (searchMethod === "linear") {
         let found = false;
         for (let i = 0; i < cells.length; i++) {
             cells[i].classList.add("active");
@@ -59,7 +59,7 @@ async function startSearch() {
         if (!found) {
             alert(`Your value ${searchValue} isn't found`);
         }
-    } else if (method === "binary") {
+    } else if (searchMethod === "binary") {
         let found = false;
         let left = 0;
         let right = cells.length - 1;
@@ -93,6 +93,36 @@ async function startSearch() {
         if (!found) {
             alert(`Your value ${searchValue} isn't found`);
         }
+    }
+
+    // Progress update for Array Search
+    const methodToSubtopic = {
+        linear: "linearSearch",
+        binary: "binarySearch",
+    };
+
+    const token = localStorage.getItem("token");
+
+    if (token && methodToSubtopic[searchMethod]) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Array Search",
+                subtopic: methodToSubtopic[searchMethod],
+                value: true
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("✅ Progress updated for:", methodToSubtopic[searchMethod]);
+            })
+            .catch(err => {
+                console.error("❌ Progress update failed:", err);
+            });
     }
 }
 
@@ -128,7 +158,7 @@ if (startBtn && container) {
 if (closeBtn && container && startBtn) {
     closeBtn.addEventListener("click", () => {
         container.classList.remove("visualization-active");
-        startBtn.innerText = "Visualize Array search";
+        startBtn.innerText = "Visualize Array Search";
     });
 }
 

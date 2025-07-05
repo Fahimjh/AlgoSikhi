@@ -1,33 +1,37 @@
 const topics = {
     "Array Introduction": {
-        arrayCreate: "How to declare and create an array"
+        arrayCreate: "How to declare and initialize an array"
     },
     "Array Sorting": {
         bubbleSort: "Bubble Sort",
         insertionSort: "Insertion Sort",
         selectionSort: "Selection Sort",
-        mergeSort: "Merge Sort" // ✅ Newly added
+        mergeSort: "Merge Sort" 
     },
     "Array Search": {
         linearSearch: "Linear Search",
         binarySearch: "Binary Search"
     },
     "Array Update": {
-        updateInsert: "Insert Element",
-        updateDelete: "Delete Element",
-        updateModify: "Modify Element"
+        Insertion: "Element Insertion",
+        Deletion: "Element Deletion",
+        
     },
     "Vector Introduction": {
-        vectorIntro1: "What is Vector?",
-        vectorIntro2: "Vector vs Array"
+        vectorIntro: "How to declare and initialize a Vector",
+        
     },
     "Vector Basic Operations": {
-        pushBack: "push_back()",
-        popBack: "pop_back()",
-        frontBack: "front() and back()"
+        pushBack: "Insertion at last",
+        popBack: "Deletion at last",
+        clear: "Clearing vector elements",
+        size: "Vector size",
+        "vector[i]": "Accessing elements by index",
+        front: "Value at front",
+        back: "Value at back",
+        empty: "Checking empty vector",
     },
     "Vector Sort": {
-        vectorBubble: "Vector Bubble Sort",
-        vectorSTLSort: "STL sort()"
+        vecSort: "Sorting vector using sort function",
     }
 };

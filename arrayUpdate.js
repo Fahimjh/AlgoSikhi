@@ -103,6 +103,36 @@ if (updateBtn) {
         valueInput.value = "";
         indexInput.value = "";
     });
+
+    // Progress update for Array Update
+    const methodToSubtopic = {
+        Insert: "Insertion",
+        Delete: "Deletion",
+    };
+
+    const token = localStorage.getItem("token");
+
+    if (token && methodToSubtopic[option]) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Array Update",
+                subtopic: methodToSubtopic[option],
+                value: true
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("✅ Progress updated for:", methodToSubtopic[option]);
+            })
+            .catch(err => {
+                console.error("❌ Progress update failed:", err);
+            });
+    }
 }
 
 // Visualization section show/hide

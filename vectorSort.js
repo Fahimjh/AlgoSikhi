@@ -66,6 +66,28 @@ async function visualizeBuiltInSort(order = "Ascending") {
 
     // Color all cells as sorted
     renderVector([], true);
+
+    // Progress update: only after user sort the vector
+    const token = localStorage.getItem("token");
+    if (token) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Vector Sort",
+                subtopic: "vecSort",
+                value: true
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Progress updated for: vecSort");
+        })
+        .catch(err => console.error("Progress update failed:", err));
+    }
 }
 
 // Sort button event
@@ -95,4 +117,3 @@ if (vectorAdvancedBtn) {
         window.location.href = url;
     });
 }
-

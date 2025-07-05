@@ -38,6 +38,28 @@ function createVector() {
     vectorValues = valuesInput.split(",").map(v => v.trim()).filter(v => v !== "");
     vectorCapacity = vectorValues.length; // Capacity matches initial size
     renderVector();
+
+    // Progress update: only after user creates a vector
+    const token = localStorage.getItem("token");
+    if (token) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Vector Introduction",
+                subtopic: "vectorIntro",
+                value: true
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Progress updated for: vectorIntro");
+        })
+        .catch(err => console.error("Progress update failed:", err));
+    }
 }
 
 createVectorBtn.addEventListener("click", createVector);
