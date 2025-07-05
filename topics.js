@@ -14,12 +14,10 @@ const topics = {
     },
     "Array Update": {
         Insertion: "Element Insertion",
-        Deletion: "Element Deletion",
-        
+        Deletion: "Element Deletion"
     },
     "Vector Introduction": {
-        vectorIntro: "How to declare and initialize a Vector",
-        
+        vectorIntro: "How to declare and initialize a Vector"
     },
     "Vector Basic Operations": {
         pushBack: "Insertion at last",
@@ -29,9 +27,9 @@ const topics = {
         "vector[i]": "Accessing elements by index",
         front: "Value at front",
         back: "Value at back",
-        empty: "Checking empty vector",
+        empty: "Checking empty vector"
     },
     "Vector Sort": {
-        vecSort: "Sorting vector using sort function",
+        vecSort: "Sorting vector using sort function"
     }
 };
