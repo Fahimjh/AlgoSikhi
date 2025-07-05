@@ -94,7 +94,7 @@
             const confirmDelete = confirm("Are you sure you want to delete your account? This cannot be undone.");
             if (!confirmDelete) return;
 
-            fetch("http://localhost:5000/api/auth/delete", {
+            fetch("https://algosikhibackend.onrender.com/api/auth/delete", {
                 method: "DELETE",
                 headers: {
                     Authorization: localStorage.getItem("token")
