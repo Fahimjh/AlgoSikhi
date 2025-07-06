@@ -67,3 +67,7 @@ let vectorSortBox = document.querySelector(".vectorSort");
 vectorSortBox.addEventListener("click", () => {
     window.location.href = "vectorSort.html";
 });
+let vectorAdvanceBox = document.querySelector(".vectorAdvance");
+vectorAdvanceBox.addEventListener("click", () => {
+    window.location.href = "vectorAdvanced.html";
+});

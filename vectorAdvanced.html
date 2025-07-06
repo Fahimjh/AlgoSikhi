@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Vector Operations and Visualization</title>
+    <link rel="stylesheet" href="vectorAdvanced.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Advanced Vector Operations</h2>
+            <div id="theory-content">
+                <p>
+                    Beyond the basics, vectors offer advanced operations that give us more control and flexibility when working with dynamic arrays.
+                </p>
+
+                <h3>🔑 Key Operations & Their Complexities:</h3>
+                <ul>
+                    <li>
+                        <strong>insert(position, value)</strong>: Inserts a value at the given position in the vector.<br>
+                        <em>Use:</em> Add elements anywhere, not just at the end.<br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                    <li>
+                        <strong>erase(position)</strong>: Removes the element at the given position.<br>
+                        <em>Use:</em> Delete elements from any position.<br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                    <li>
+                        <strong>begin() &amp; end()</strong>: Get iterators to the start and end of the vector.<br>
+                        <em>Use:</em> Useful for looping through the vector.<br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>rbegin() &amp; rend()</strong>: Get reverse iterators to the vector.<br>
+                        <em>Use:</em> Loop through the vector backwards.<br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>assign(count, value)</strong>: Assigns new values to the vector, replacing old ones.<br>
+                        <em>Use:</em> Quickly fill or reset the vector.<br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                    <li>
+                        <strong>swap(v1, v2)</strong>: Swaps the contents of two vectors.<br>
+                        <em>Use:</em> Exchange data between vectors efficiently.<br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>Iteration using iterators</strong>: Traverse the vector using iterators.<br>
+                        <em>Use:</em> Access or modify elements in a loop.<br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                </ul>
+                <p>
+                    These operations make vectors even more powerful for advanced data manipulation.
+                </p>
+                <button id="start-visualization">Visualize Advanced Operations</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            
+
+            <div class="vector-info">
+                <span>Size: <span id="vectorSize">0</span></span>
+                <span>Capacity: <span id="vectorCapacity">0</span></span>
+                <h4>for Vector 1</h4>
+            </div>
+
+            <div id="vectorAdvanced"></div>
+            <div id="vectorTwoDisplay" ></div>
+
+            
+            <div id="input-area">
+                <select class="Operations">
+                    <option value="insert">insert(position, value)</option>
+                    <option value="erase">erase(position)</option>
+                    <option value="swap">swap(v1, v2)</option>
+                    <option value="begin_end">begin() / end()</option>
+                    <option value="rbegin_rend">rbegin() / rend()</option>
+                    <option value="iterate">Iterate (iterator)</option>
+                    <option value="assign">assign(count, value)</option>
+                </select>
+                <input type="text" id="value1" placeholder="Enter position or size" />
+                <input type="text" id="value2" placeholder="Enter value(s) or count" />
+                <button class="oprBtn">Perform</button>
+            </div>
+
+            <div class="Previous">
+                <h3>Press "Vector Sort" to Visualize previous operations with this updated vector or "Home" to go to Home Page</h3>
+            </div>
+            <div class="btns">
+                <button class="vecSort">Vector Sort</button>
+                <button class="homePage">Home Page</button>
+            </div>
+
+        </div>
+    </div>
+    <script src="vectorAdvanced.js"></script>
+</body>
+
+</html>
