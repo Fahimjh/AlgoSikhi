@@ -125,6 +125,6 @@ body {
 .btns{
     display: flex;
 }
-.arrSearch,.arrSort{
+.arrSearch,.homePage{
     font-size: 1rem;
 }
