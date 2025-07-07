@@ -29,17 +29,6 @@ closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
 });
 
-// Vector Create button 
-const createVectorBtn = document.querySelector(".vecCreate");
-if (createVectorBtn) {
-    createVectorBtn.addEventListener("click", () => {
-        // Reset vector to default
-        vectorValues = [1, 2, 3, 4, 5];
-        vectorCapacity = vectorValues.length;
-        renderVector();
-    });
-}
-
 // Render vector visualization
 function renderVector(highlightIndices = []) {
     vectorDisplay.innerHTML = '';
@@ -193,8 +182,6 @@ oprBtn.addEventListener("click", () => {
         vectorTwoDisplay.appendChild(cell);
     });
 }
-
-
 
     else if (operation === "begin_end") {
         if (vectorValues.length === 0) {
