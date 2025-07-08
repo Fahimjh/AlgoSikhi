@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="listBasic.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to List</h2>
+            <div id="theory-content">
+                <p>
+                    Lists are a type of dynamic collection that allows efficient insertion and removal of elements at
+                    any position. Here, we'll explore the key characteristics and operations of lists.
+                </p>
+
+                <h3>🔑 List Characteristics:</h3>
+                <ul>
+                    <li>
+                        <strong>Dynamic Size:</strong> Lists can grow or shrink dynamically as elements are added or
+                        removed.
+                    </li>
+                    <li>
+                        <strong>Non-Contiguous Memory:</strong> Elements are not stored in consecutive memory locations,
+                        allowing for efficient insertion and removal.
+                    </li>
+                    <li>
+                        <strong>Efficient Insertion/Removal:</strong> Lists allow efficient insertion and removal of
+                        elements at any position, making them suitable for applications with frequent changes.
+                    </li>
+                    <li>
+                        <strong>Random Access:</strong> Lists provide fast access to elements using their index, similar
+                        to arrays.
+                    </li>
+                </ul>
+
+                <h3>📌 Common Use Cases:</h3>
+                <ul>
+                    <li>Implementing dynamic collections that need frequent insertion and removal of elements.</li>
+                    <li>Storing data that needs to be accessed randomly, such as a database or a cache.</li>
+                    <li>Useful in applications with limited memory, as lists do not require contiguous memory
+                        allocation.</li>
+                </ul>
+            </div>
+            <button id="start-visualization">Visualize list Creations</button>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>List Visualization</h2>
+
+            <div id="list"></div>
+
+            <div id="input-area">
+                <select class="Operations">
+                    <option value="initialize">initialize value</option>
+                    <option value="assign">assign(count, value)</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter value(s)" />
+                <button class="crtlistBtn">Create list</button>
+            </div>
+
+            <div class="listOps">
+                <h3>Next part we will learn and visualize some operations in list.<br>
+                    Click "list Operations" button to check the operations with this list value.</h3>
+                <button class="lstOps">list Operations</button>
+            </div>
+        </div>
+    </div>
+    <script src="listBasic.js"></script>
+</body>
+
+</html>

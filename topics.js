@@ -57,7 +57,10 @@ const topics = {
         pushBack: "Insert at last",
         pushFront: "Insert at first",
         popBack: "Delete at last",
-        popFront: "Delete at first",
+        popFront: "Delete at first"
+    },
 
-    }
+    "list Introduction": {
+        listIntro: "How to declare and initialize a double ended queue (deque)"
+    },
 };

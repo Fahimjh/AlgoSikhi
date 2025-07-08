@@ -81,15 +81,7 @@ let dequeOpsBox = document.querySelector(".dequeOps");
 dequeOpsBox.addEventListener("click", () => {
     window.location.href = "dequeOperation.html";
 });
-// let vectorBasicBox = document.querySelector(".vectorBasic");
-// vectorBasicBox.addEventListener("click", () => {
-//     window.location.href = "vectorBasic.html";
-// });
-// let vectorSortBox = document.querySelector(".vectorSort");
-// vectorSortBox.addEventListener("click", () => {
-//     window.location.href = "vectorSort.html";
-// });
-// let vectorAdvanceBox = document.querySelector(".vectorAdvance");
-// vectorAdvanceBox.addEventListener("click", () => {
-//     window.location.href = "vectorAdvanced.html";
-// });
+let listBox = document.querySelector(".listBasic");
+listBox.addEventListener("click", () => {
+    window.location.href = "listBasic.html";
+});
