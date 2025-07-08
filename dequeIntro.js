@@ -113,13 +113,8 @@ function updateProgress() {
 
 // Proceed to next page with deque values
 dequeOpsBtn.addEventListener("click", () => {
-    const size = dequeValues.length;
     const values = dequeValues.join(",");
-    if (!size || values === "") {
-        alert("Deque is empty. Please provide values before proceeding.");
-    } else {
-        const url = `dequeOperations.html?size=${size}&values=${encodeURIComponent(values)}`;
+        const url = `dequeOperation.html?values=${encodeURIComponent(values)}`;
         window.location.href = url;
-    }
 });
 

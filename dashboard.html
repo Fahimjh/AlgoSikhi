@@ -50,25 +50,21 @@
                 const progressContainer = document.getElementById("progressDetails");
                 let total = 0, completed = 0;
 
-                for (const topic in progress) {
+                for (const topic in topics) {
                     const topicDiv = document.createElement("div");
                     topicDiv.className = "topic";
 
-                    // Title from mapping or fallback
-                    const topicTitle = topics[topic] ? topic : topic;
+                    const topicTitle = topic;
                     topicDiv.innerHTML = `<strong>${topicTitle}</strong>`;
 
-                    const subtopics = progress[topic];
+                    const subtopics = topics[topic];
+
                     for (const sub in subtopics) {
-                        const isDone = subtopics[sub];
+                        const isDone = progress?.[topic]?.[sub] || false;
                         total++;
                         if (isDone) completed++;
 
-                        // Use mapped name if available
-                        const subDisplayName = topics[topic] && topics[topic][sub]
-                            ? topics[topic][sub]
-                            : sub;
-
+                        const subDisplayName = subtopics[sub];
                         const subDiv = document.createElement("div");
                         subDiv.className = "subtopic";
                         subDiv.innerHTML = `${isDone ? "✅" : "⬜"} ${subDisplayName}`;
@@ -77,6 +73,7 @@
 
                     progressContainer.appendChild(topicDiv);
                 }
+
 
                 const percent = total ? (completed / total) * 100 : 0;
                 document.getElementById("progressFill").style.width = percent + "%";
