@@ -78,6 +78,11 @@ body {
     height: 1.5rem;
     width: 25rem;
 }
+.Operations,.oprBtn {
+    margin-top: 1rem;
+    height: 1.5rem;
+    font-size: 1rem;
+}
 
 .cell {
     width: 50px;
