@@ -71,3 +71,21 @@ let vectorAdvanceBox = document.querySelector(".vectorAdvance");
 vectorAdvanceBox.addEventListener("click", () => {
     window.location.href = "vectorAdvanced.html";
 });
+
+//thirdRow
+let dequeBox = document.querySelector(".dequeIntro");
+dequeBox.addEventListener("click", () => {
+    window.location.href = "dequeIntro.html";
+});
+// let vectorBasicBox = document.querySelector(".vectorBasic");
+// vectorBasicBox.addEventListener("click", () => {
+//     window.location.href = "vectorBasic.html";
+// });
+// let vectorSortBox = document.querySelector(".vectorSort");
+// vectorSortBox.addEventListener("click", () => {
+//     window.location.href = "vectorSort.html";
+// });
+// let vectorAdvanceBox = document.querySelector(".vectorAdvance");
+// vectorAdvanceBox.addEventListener("click", () => {
+//     window.location.href = "vectorAdvanced.html";
+// });

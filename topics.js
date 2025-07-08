@@ -47,5 +47,10 @@ const topics = {
         rbegin_rend: "Accessing reverse begin and end of vector",
         iterate: "Iterating over vector",
         assign: "Assigning values to vector"
+    },
+
+    "Deque Introduction": {
+        dequeIntro: "How to declare and initialize a double ended queue (deque)"
     }
+
 };

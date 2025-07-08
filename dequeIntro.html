@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="dequeIntro.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to Deque</h2>
+            <div id="theory-content">
+                <p>
+                    <strong>Deques</strong> are double-ended queues that allow efficient insertion and removal of
+                    elements from both ends. They works like dynamic array, thats why their elements can be accessed
+                    directly using an index.
+                </p>
+
+                <h3>🔑 Key Characteristics:</h3>
+                <ul>
+                    <li><strong>Double-Ended:</strong> Elements can be added or removed from both the front and back of
+                        the deque.</li>
+                    <li><strong>Non-Contiguous Memory:</strong> Elements are not stored in consecutive memory locations,
+                        unlike vectors or arrays.</li>
+                    <li><strong>Efficient Insertion/Removal:</strong> Deques allow efficient insertion and removal of
+                        elements from both ends, making them suitable for applications with frequent additions or
+                        removals.</li>
+                    <li><strong>Random Access:</strong> Deques provide fast access to elements using their index,
+                        similar to vectors.</li>
+                    <li>
+                        <strong>assign(count, value)</strong>: We can assigns new values to the deque also like vector,
+                        replacing old ones.<br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                </ul>
+
+                <h3>📌 Common Use Cases:</h3>
+                <ul>
+                    <li>Implementing queues or stacks with efficient insertion and removal from both ends.</li>
+                    <li>Storing collections of data that need frequent additions or removals from both ends.</li>
+                    <li>Useful in applications with limited memory, as deques do not require contiguous memory
+                        allocation.</li>
+                </ul>
+                <button id="start-visualization">Visualize deque Creations</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Vector Visualization</h2>
+
+            <div id="deque"></div>
+
+            <div id="input-area">
+                <select class="Operations">
+                    <option value="initialize">initialize value</option>
+                    <option value="assign">assign(count, value)</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter value(s)" />
+                <button class="crtDequeBtn">Create Deque</button>
+            </div>
+
+            <div class="dequeOps">
+                <h3>Next part we will learn and visualize some operations in deque.<br>
+                    Click "Deque Operations" button to check the operations with this deque value.</h3>
+                <button class="dqOps">Deque Operations</button>
+            </div>
+        </div>
+    </div>
+    <script src="dequeIntro.js"></script>
+</body>
+
+</html>

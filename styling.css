@@ -164,6 +164,11 @@ body{
     display: block;
     object-fit: contain;
 }
+.vector-intro-img {
+    height: 100%;
+    width: 50%;
+    object-fit: contain;
+}
 .vector-sort-img {
     height: 90rem;
     width: auto;
