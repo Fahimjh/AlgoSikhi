@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="dequeOperation.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to Deque</h2>
+            <div id="theory-content">
+                <p>
+                    Deques also provides the same operations. (front(), back(), empty(), clear(), push_back(),
+                    pop_back(), pop_front(), insert(), erase(), rbegin(), rend(), erase(), swap(), sort())-these
+                    operations are available in deque also
+                    and has the same time complexity like vector. so we aren't repeating those here. But there are some
+                    additional operations that deque provide a set of operations which make it easy to manage
+                    collections of data from both ends as it is a double ended queue and work like a dynamic array. So,
+                    Here, we'll explore four key operations: `push_back()`, `push_front()`, `pop_back()`, and
+                    `pop_front()`.
+                </p>
+
+                <h3>🔑 Deque Operations:</h3>
+                <ul>
+                    <li>
+                        <strong>push_back:</strong> Adds an element to the end of the deque.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>push_front:</strong> Adds an element to the beginning of the deque.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>pop_back:</strong> Removes the last element from the deque.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>pop_front:</strong> Removes the first element from the deque.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                </ul>
+
+                <h3>📌 Key Takeaways:</h3>
+                <ul>
+                    <li>Deques provide efficient insertion and removal of elements from both ends.</li>
+                    <li>Deques are a good choice when you need to frequently add or remove elements from both ends.</li>
+                </ul>
+                <button id="start-visualization">Visualize deque Operations</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Deque Visualization</h2>
+
+            <div id="deque"></div>
+
+            <div id="input-area">
+                <select class="Operations">
+                    <option value="push_back()">push_back()</option>
+                    <option value="push_front()">push_front()</option>
+                    <option value="pop_back()">pop_back()</option>
+                    <option value="pop_front()">pop_front()</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter value" />
+                <button class="oprBtn">Perform</button>
+            </div>
+
+            <div class="Previous">
+                <h3>Next part we will learn and visualize another STL container named list.<br>
+                    Click "list basic" button to go to that page or "Home" to go to Home Page.</h3>
+            </div>
+            <div class="btns">
+                <button class="homePage">Home Page</button>
+                <button class="listBasic">list Basic</button>
+            </div>
+        </div>
+    </div>
+    <script src="dequeOperation.js"></script>
+</body>
+
+</html>

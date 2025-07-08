@@ -77,6 +77,10 @@ let dequeBox = document.querySelector(".dequeIntro");
 dequeBox.addEventListener("click", () => {
     window.location.href = "dequeIntro.html";
 });
+let dequeOpsBox = document.querySelector(".dequeOps");
+dequeOpsBox.addEventListener("click", () => {
+    window.location.href = "dequeOperation.html";
+});
 // let vectorBasicBox = document.querySelector(".vectorBasic");
 // vectorBasicBox.addEventListener("click", () => {
 //     window.location.href = "vectorBasic.html";
