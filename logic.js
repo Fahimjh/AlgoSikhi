@@ -89,3 +89,9 @@ let listOpsBox = document.querySelector(".listOperation");
 listOpsBox.addEventListener("click", () => {
     window.location.href = "listOperation.html";
 });
+
+//fourthRow
+let mapBox = document.querySelector(".mapIntro");
+mapBox.addEventListener("click", () => {
+    window.location.href = "mapIntro.html";
+});

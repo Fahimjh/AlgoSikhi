@@ -72,5 +72,11 @@ const topics = {
         insert: "Insert at any position",
         remove: "Remove everything matcching the value",
         merge: "Merge two sorted lists"
+    },
+
+    "Map Introduction": {
+        map: "Introduction to map",
+        multimap: "Introduction to multimap",
+        unordered_map: "Introduction to unordered map"
     }
 };

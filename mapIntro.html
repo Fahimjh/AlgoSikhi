@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="mapIntro.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to map</h2>
+            <div id="theory-content">
+                <p>
+                    A map, also known as a dictionary or associative array, is a data structure that stores a collection of key-value pairs.
+                    Each key is associated with a value, and the map allows for efficient retrieval of the value associated with a given key.
+                    There are three types of them: <b>unordered_map</b>, <b>map</b> and <b>multimap</b>.
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Map:</strong> A map is a data structure that stores a collection of key-value pairs. It's sorted (ascending order default) by key and doesn't allow duplicate keys. 
+                    </li>
+                    <li>
+                        <strong>unordered_map:</strong> An unordered map is a data structure that stores a collection of key-value pairs. It's not sorted by key and doesn't allow duplicate keys.
+                    </li>
+                    <li>
+                        <strong>multimap:</strong> A multimap is a data structure that stores a collection of key-value pairs. It's sorted (ascending order default) by key and allows duplicate keys.
+                    </li>
+
+                <h3>📌 Common Use Cases: Maps can be used to-</h3>
+                <ul>
+                    <li> store configuration data, such as user preferences.</li>
+                    <li>cache frequently accessed data, reducing the need for database queries.</li>
+                    <li>serialize data, making it easier to store and transmit.</li>
+                </ul>
+            </div>
+            <button id="start-visualization">Visualize map Creations</button>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>map Visualization</h2>
+
+            <div id="map"></div>
+
+            <div id="input-area">
+                <select class="types">
+                    <option value="map">map</option>
+                    <option value="multimap">multimap</option>
+                    <option value="unordered_map">unordered_map</option>
+                </select>
+                <input type="text" id="key" placeholder="Enter key(string)" />
+                <input type="text" id="value" placeholder="Enter value(s)" />
+                <button class="crtmapBtn">Create map</button>
+            </div>
+
+            <div class="mapOps">
+                <h3>Next part we will learn and visualize some operations in map.<br>
+                    Click "map Operations" button to check the operations with these map value.</h3>
+                <button class="mapOpsBtn">map Operations</button>
+            </div>
+        </div>
+    </div>
+    <script src="mapIntro.js"></script>
+</body>
+
+</html>

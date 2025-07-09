@@ -59,41 +59,34 @@ body {
     color: red;
 }
 
-.oprBtn {
-    margin-top: 1rem;
-    height: 1.5rem;
-    font-size: 1rem;
-}
 
-/* list Visualization */
-#list{
+/*map Visualization */
+#map {
     display: flex;
+    flex-direction: column; /* vertical list */
     gap: 10px;
     margin-top: 20px;
-    flex-wrap: wrap;/* Allow wrapping of array cells */
-    justify-content: center;/* Center the array cells */
+    align-items: center;
 }
 
-#value {
+#value,#key {
     height: 1.5rem;
-    width: 10rem;
-}
-#list2 {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-    flex-wrap: wrap;
-    justify-content: center;
+    width: 14rem;
 }
 
-.Operations,.oprBtn {
+.types,.crtmapBtn {
     margin-top: 1rem;
     height: 1.5rem;
     font-size: 1rem;
+}
+
+.map-row {
+    display: flex;
+    gap: 20px; /* spacing between key and value columns */
 }
 
 .cell {
-    width: 50px;
+    width: 120px;
     height: 50px;
     background: #333;
     border: 2px solid #00f;
@@ -101,21 +94,18 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 20px;
-    transition: all 0.5s ease;
-}
-.cell.active {
-    background-color: orange;
+    font-size: 18px;
+    border-radius: 4px;
 }
 
-.homePageSec{
+.mapOps {
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
     margin-top: auto;
     margin-bottom: 10%;
 }
-.homePagebtn {
+.mapOpsBtn{
     height: 1.8rem;
     font-size: 1rem;
 }
