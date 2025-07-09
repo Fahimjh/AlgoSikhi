@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="mapOperation.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to map</h2>
+            <div id="theory-content">
+                <p>
+                    In this lesson, we will learn and visualize some operations in <b>map</b>, <b>unordered_map</b> and <b>multimap</b>.
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>insert({key,value}):</strong> Inserts a new sorted key-value pair into the map and multimap. 
+                        In unordered_map, the key-value pair is inserted at the end of the map as they are not sorted. Time complexities for this 
+                        operation are O(logn) for map and  multimap. O(1) for unordered_map. 
+                    </li>
+                    <li>
+                        <strong>emplace(key,value):</strong> Inserts a new sorted key-value pair into the map and multimap. 
+                        In unordered_map, the key-value pair is inserted at the end of the map as they are not sorted. Time complexities for this 
+                        operation are O(logn) for map and  multimap. O(1) for unordered_map. 
+                    </li>
+                    <li>
+                        <strong>count(key):</strong> Counts the number of occurrences of a specific key in the unordered_map and multimap. 
+                        As map desn't allow duplicate keys, count(k) always returns 1 in map. Time complexities for this 
+                        operation are O(logn) for map and  multimap. O(1) for unordered_map. 
+                    </li>
+                    <li>
+                        <strong>find(key):</strong> Finds the if a key is present in all types of map. It returns iterator to the element if present else returns end iterator if finds the key.
+                        Time complexities for this operation are O(logn) for map and  multimap. O(1) for unordered_map. 
+                    </li>
+                    <li>
+                        <strong>erase(key):</strong> Removes the key with value if its/they present in all types of map.
+                        Time complexities for this operation are O(logn) for map and  multimap. O(1) for unordered_map. 
+                    </li>
+            </div>
+            <button id="start-visualization">Visualize map Creations</button>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>map Operations Visualization</h2>
+
+            <div id="map"></div>
+
+            <div id="input-area">
+                <select class="types">
+                    <option value="map">map</option>
+                    <option value="multimap">multimap</option>
+                    <option value="unordered_map">unordered_map</option>
+                </select>
+                <select class="Operations">
+                    <option value="insert()">insert()</option>
+                    <option value="emplace()">emplace()</option>
+                    <option value="count()">count()</option>
+                    <option value="find()">find()</option>
+                    <option value="erase()">erase()</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter key,value(s)" />
+                <button class="oprmapBtn">Perform</button>
+            </div>
+
+            <div class="setIntro">
+                <h3>Next part we will learn and visualize set introduction.<br>
+                    Click "set Introduction" button to go to that page.</h3>
+                <button class="setIntroBtn">set Introduction</button>
+            </div>
+        </div>
+    </div>
+    <script src="mapOperation.js"></script>
+</body>
+
+</html>

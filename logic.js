@@ -95,3 +95,7 @@ let mapBox = document.querySelector(".mapIntro");
 mapBox.addEventListener("click", () => {
     window.location.href = "mapIntro.html";
 });
+let mapOprBox = document.querySelector(".mapOperation");
+mapOprBox.addEventListener("click", () => {
+    window.location.href = "mapOperation.html";
+});

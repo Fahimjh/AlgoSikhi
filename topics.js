@@ -78,5 +78,30 @@ const topics = {
         map: "Introduction to map",
         multimap: "Introduction to multimap",
         unordered_map: "Introduction to unordered map"
+    },
+
+    "map Operations": {
+        insert: "Insertion at map",
+        emplace: "Insertion at map",
+        count: "Count of key in map",
+        find: "Find key in map",
+        erase: "Erase key in map"
+    },
+
+    "multimap Operations": {
+        insert: "Insertion at multimap",
+        emplace: "Insertion at multimap",
+        count: "Count of key in multimap",
+        find: "Find key in multimap",
+        erase: "Erase key in multimap"
+    },
+
+    "unordered_map Operations": {
+        insert: "Insertion at unordered_map",
+        emplace: "Insertion at unordered_map",
+        count: "Count of key in unordered_map",
+        find: "Find key in unordered_map",
+        erase: "Erase key in unordered_map"
     }
+
 };
