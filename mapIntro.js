@@ -1,6 +1,10 @@
-// Declare map globally
+// Track current map type
 let currentMapType = "map";
-let mapData = []; // Array of { key: string, value: string }
+
+// Store separate data for each map type
+let mapData = [];
+let multimapData = [];
+let unorderedMapData = [];
 
 // UI elements
 const startBtn = document.getElementById("start-visualization");
@@ -12,62 +16,76 @@ const valueInput = document.getElementById("value");
 const mapTypeSelect = document.querySelector(".types");
 const mapOpsBtn = document.querySelector(".mapOps");
 
-// Toggle visualization panel
+// Toggle visualization section
 startBtn.addEventListener("click", () => {
     container.classList.toggle("visualization-active");
     startBtn.innerText = container.classList.contains("visualization-active")
         ? "Close Visualization"
         : "Visualize map Creations";
 });
+
 closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
     startBtn.innerText = "Visualize map Creations";
 });
 
-// Track selected type
+// Update current map type
 mapTypeSelect.addEventListener("change", () => {
     currentMapType = mapTypeSelect.value;
     keyInput.value = "";
     valueInput.value = "";
-    mapData = [];
-    renderMap(); // Clear view
+    renderMap(getCurrentMapData());
 });
 
-// Create map
+// Get current map type's data
+function getCurrentMapData() {
+    if (currentMapType === "map") return mapData;
+    if (currentMapType === "multimap") return multimapData;
+    return unorderedMapData;
+}
+
+// Set current map type's data
+function setCurrentMapData(data) {
+    if (currentMapType === "map") mapData = data;
+    else if (currentMapType === "multimap") multimapData = data;
+    else unorderedMapData = data;
+}
+
+// Create map from inputs
 createMapBtn.addEventListener("click", () => {
     const keys = keyInput.value.trim().split(",").map(k => k.trim()).filter(k => k !== "");
     const values = valueInput.value.trim().split(",").map(v => v.trim()).filter(v => v !== "");
 
     if (keys.length === 0 || values.length === 0) {
-        alert("Please enter both keys and values");
+        alert("Please enter both keys and values.");
         return;
     }
 
     if (keys.length !== values.length) {
-        alert("Keys and values count must match (e.g. 2 keys, 2 values)");
+        alert("Keys and values count must match (e.g. 2 keys, 2 values).");
         return;
     }
 
-    mapData = keys.map((k, i) => ({
+    let data = keys.map((k, i) => ({
         key: k,
         value: values[i]
     }));
 
     if (currentMapType === "map" || currentMapType === "multimap") {
-        // Sort by key for visual consistency
-        mapData.sort((a, b) => a.key.localeCompare(b.key));
+        data.sort((a, b) => a.key.localeCompare(b.key)); // sorted by key
     }
 
-    renderMap();
+    setCurrentMapData(data);
+    renderMap(data);
     updateBackendProgress(currentMapType);
 });
 
-// Render map
-function renderMap() {
+// Render key-value pairs as two-column view
+function renderMap(data = mapData) {
     const mapContainer = document.getElementById("map");
     mapContainer.innerHTML = "";
 
-    mapData.forEach(pair => {
+    data.forEach(pair => {
         const row = document.createElement("div");
         row.className = "map-row";
 
@@ -85,14 +103,13 @@ function renderMap() {
     });
 }
 
-
-// Backend progress update
+// Update backend progress
 function updateBackendProgress(type) {
     const token = localStorage.getItem("token");
     const subtopicMap = {
-        "map": "mapIntro",
-        "multimap": "multimapIntro",
-        "unordered_map": "unorderedMapIntro"
+        map: "mapIntro",
+        multimap: "multimapIntro",
+        unordered_map: "unorderedMapIntro"
     };
 
     if (token && subtopicMap[type]) {
@@ -108,21 +125,17 @@ function updateBackendProgress(type) {
                 value: true
             })
         })
-            .then(res => res.json())
-            .then(data => console.log("✅ Progress updated:", subtopicMap[type]))
-            .catch(err => console.error("❌ Progress update failed:", err));
+        .then(res => res.json())
+        .then(data => console.log("✅ Progress updated:", subtopicMap[type]))
+        .catch(err => console.error("❌ Progress update failed:", err));
     }
 }
 
-// Proceed to next page with data
-document.querySelector(".mapOps").addEventListener("click", () => {
+// Proceed to next page with all 3 map types
+mapOpsBtn.addEventListener("click", () => {
     const params = new URLSearchParams();
-
-    // Turn array of objects to key:value strings
     params.set("map", JSON.stringify(mapData));
     params.set("multimap", JSON.stringify(multimapData));
     params.set("unordered_map", JSON.stringify(unorderedMapData));
-
     window.location.href = `mapOperation.html?${params.toString()}`;
 });
-
