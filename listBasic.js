@@ -56,7 +56,7 @@ function createlist() {
     }
 
     if (operation === "initialize") {
-        dequeValues = val.split(",").map(v => v.trim()).filter(v => v !== "");
+        listValues = val.split(",").map(v => v.trim()).filter(v => v !== "");
     } else if (operation === "assign") {
         const [countStr, valueStr] = val.split(",");
         const count = Number(countStr);
@@ -114,7 +114,12 @@ function updateProgress() {
 // Proceed to next page with deque values
 listOpsBtn.addEventListener("click", () => {
     const values = listValues.join(",");
+    if(values === "") {
+        alert("The list is empty. Please provide valid values for the list before proceeding.");
+    }
+    else{
         const url = `listOperation.html?values=${encodeURIComponent(values)}`;
         window.location.href = url;
+    }
 });
 

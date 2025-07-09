@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="listOperation.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>List Operations</h2>
+            <div id="theory-content">
+                <p>
+                    Lists provide a set of operations that make it easy to manage collections of data. Here, we'll
+                    explore six key operations: `push_back`, `push_front`, `pop_back`, `pop_front`, `insert`, and
+                    `access`.
+                </p>
+
+                <h3>🔑 List functions:</h3>
+                <ul>
+                    <li>
+                        <strong>push_back():</strong> Adds an element to the end of the list.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>push_front():</strong> Adds an element to the beginning of the list.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>pop_back():</strong> Removes the last element from the list.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>pop_front():</strong> Removes the first element from the list.
+                        <br>
+                        <em>Time Complexity:</em> O(1)
+                    </li>
+                    <li>
+                        <strong>insert(position,val):</strong> Inserts element at a specified position in the list.
+                        <br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                    <li>
+                        <strong>remove(val):</strong>Removes all element if matches with value.
+                        <br>
+                        <em>Time Complexity:</em> O(n)
+                    </li>
+                    <li>
+                        <strong>merge(l1,l2):</strong>Merge two sorted list.
+                        <br>
+                        <em>Time Complexity:</em> O(n+m)
+                    </li>
+                </ul>
+
+                <h3>📌 Key Takeaways:</h3>
+                <ul>
+                    <li>Lists provide frequent insertion and removal of elements at any position which makes it
+                        different from other sequential containers like vector and deque.</li>
+                    <li>Insertion at arbitrary positions and accessing elements have a higher time complexity due to the
+                        need to traverse the list.</li>
+                    <li>Lists are a good choice when we need to frequently add or remove elements at the beginning or
+                        end, but may not be the best choice when you need to frequently access, inswert, or remove
+                        elements.</li>
+                </ul>
+                <button id="start-visualization">Visualize list Operations</button>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>list Operations Visualization</h2>
+
+            <div id="list"></div>
+            <div id="list2"></div>
+
+            <div id="input-area">
+                <select class="Operations">
+                    <option value="push_back()">push_back(val)</option>
+                    <option value="push_front()">push_front(val)</option>
+                    <option value="pop_back()">pop_back()</option>
+                    <option value="pop_front()">pop_front()</option>
+                    <option value="insert()">insert(pos,val)</option>
+                    <option value="remove()">remove(val)</option>
+                    <option value="merge()">merge(val of list2)</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter value" />
+                <button class="oprBtn">Perform</button>
+            </div>
+
+            <div class="homePageSec">
+                <h3>Click "Home" to go to Home Page.</h3>
+                <button class="homePagebtn">Home Page</button>
+            </div>
+        </div>
+    </div>
+    <script src="listOperation.js"></script>
+</body>
+
+</html>
