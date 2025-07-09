@@ -85,3 +85,7 @@ let listBox = document.querySelector(".listBasic");
 listBox.addEventListener("click", () => {
     window.location.href = "listBasic.html";
 });
+let listOpsBox = document.querySelector(".listOperation");
+listOpsBox.addEventListener("click", () => {
+    window.location.href = "listOperation.html";
+});
