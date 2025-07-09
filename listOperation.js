@@ -154,7 +154,7 @@ function updateProgress(operation) {
                 Authorization: token
             },
             body: JSON.stringify({
-                topic: "List Operations",
+                topic: "list Operations",
                 subtopic: methodToSubtopic[operation],
                 value: true
             })
