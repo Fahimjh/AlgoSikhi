@@ -114,7 +114,12 @@ function updateProgress() {
 // Proceed to next page with deque values
 dequeOpsBtn.addEventListener("click", () => {
     const values = dequeValues.join(",");
+    if(values === "") {
+        alert("The deque is empty. Please provide valid values for the list before proceeding.");
+    }
+    else{
         const url = `dequeOperation.html?values=${encodeURIComponent(values)}`;
         window.location.href = url;
+    }
 });
 
