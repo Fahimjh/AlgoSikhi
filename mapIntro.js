@@ -51,7 +51,6 @@ function setCurrentMapData(data) {
     else unorderedMapData = data;
 }
 
-// Create map from inputs
 createMapBtn.addEventListener("click", () => {
     const keys = keyInput.value.trim().split(",").map(k => k.trim()).filter(k => k !== "");
     const values = valueInput.value.trim().split(",").map(v => v.trim()).filter(v => v !== "");
@@ -66,13 +65,28 @@ createMapBtn.addEventListener("click", () => {
         return;
     }
 
-    let data = keys.map((k, i) => ({
-        key: k,
-        value: values[i]
-    }));
+    let data = [];
 
+    if (currentMapType === "map") {
+        const seen = new Set();
+        for (let i = 0; i < keys.length; i++) {
+            if (seen.has(keys[i])) {
+                alert(`Duplicate key "${keys[i]}" not allowed in map.`);
+                return; // Or skip this item using: continue;
+            }
+            seen.add(keys[i]);
+            data.push({ key: keys[i], value: values[i] });
+        }
+    } else {
+        data = keys.map((k, i) => ({
+            key: k,
+            value: values[i]
+        }));
+    }
+
+    // Sort if map or multimap
     if (currentMapType === "map" || currentMapType === "multimap") {
-        data.sort((a, b) => a.key.localeCompare(b.key)); // sorted by key
+        data.sort((a, b) => a.key.localeCompare(b.key));
     }
 
     setCurrentMapData(data);
@@ -109,7 +123,7 @@ function updateBackendProgress(type) {
     const subtopicMap = {
         map: "mapIntro",
         multimap: "multimapIntro",
-        unordered_map: "unorderedMapIntro"
+        unordered_map: "unordered_mapIntro"
     };
 
     if (token && subtopicMap[type]) {

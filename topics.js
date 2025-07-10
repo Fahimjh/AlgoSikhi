@@ -75,9 +75,9 @@ const topics = {
     },
 
     "Map Introduction": {
-        map: "Introduction to map",
-        multimap: "Introduction to multimap",
-        unordered_map: "Introduction to unordered map"
+        mapIntro: "Introduction to map",
+        multimapIntro: "Introduction to multimap",
+        unordered_mapIntro: "Introduction to unordered map"
     },
 
     "map Operations": {
