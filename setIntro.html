@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="setIntro.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to set</h2>
+            <div id="theory-content">
+                <p>
+                    A set is a data structure that stores a collection of unique elements. It does not allow duplicate
+                    values and usually stores elements in a sorted or unordered way depending on the type of set.
+                    Sets are helpful when you only care about whether a value exists, not how many times.
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Set:</strong> A set stores unique elements in sorted order (ascending by default). No
+                        duplicates are allowed.
+                    </li>
+                    <li>
+                        <strong>unordered_set:</strong> Similar to set, but stores elements in no particular order. Also
+                        does not allow duplicates.
+                    </li>
+                    <li>
+                        <strong>multiset:</strong> A multiset allows duplicate elements and stores them in sorted order.
+                    </li>
+                </ul>
+
+                <h3>📌 Common Use Cases: Sets can be used to-</h3>
+                <ul>
+                    <li>Remove duplicates from a list of values.</li>
+                    <li>Check if an element exists efficiently.</li>
+                    <li>Perform set operations like union, intersection, difference.</li>
+                </ul>
+            </div>
+            <button id="start-visualization">Visualize Set Creations</button>
+
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>set Visualization</h2>
+
+            <div id="set"></div>
+
+            <div id="input-area">
+                <select class="types">
+                    <option value="set">set</option>
+                    <option value="multiset">multiset</option>
+                    <option value="unordered_set">unordered_set</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter same type of values" />
+                <button class="crtsetBtn">Create set</button>
+            </div>
+
+            <div class="setOps">
+                <h3>Next part we will learn and visualize some operations in set.<br>
+                    Click "set Operations" button to check the operations with these map value.</h3>
+                <button class="setOpsBtn">map Operations</button>
+            </div>
+        </div>
+    </div>
+    <script src="setIntro.js"></script>
+</body>
+
+</html>

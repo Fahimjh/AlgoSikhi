@@ -99,3 +99,8 @@ let mapOprBox = document.querySelector(".mapOperation");
 mapOprBox.addEventListener("click", () => {
     window.location.href = "mapOperation.html";
 });
+
+let setBox = document.querySelector(".setIntro");
+setBox.addEventListener("click", () => {
+    window.location.href = "setIntro.html";
+});
