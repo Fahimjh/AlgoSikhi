@@ -50,13 +50,14 @@ closeBtn.addEventListener("click", () => {
 });
 
 // Render main list
-function renderList() {
+function renderList(highlightIndices = []) {
     const listContainer = document.getElementById("list");
     listContainer.innerHTML = "";
-    listValues.forEach((val) => {
+    listValues.forEach((val,idx) => {
         const cell = document.createElement("div");
         cell.className = "cell";
         cell.textContent = val;
+        if (highlightIndices.includes(idx)) cell.classList.add('active');
         listContainer.appendChild(cell);
     });
 }
@@ -76,18 +77,20 @@ function renderList2() {
 // Initial render
 renderList();
 
-// Perform operation
 oprBtn.addEventListener("click", () => {
     const op = operationsSelect.value;
     const val = valueInput.value.trim();
+    let highlightIndices = [];
 
     if (op === "push_back()") {
         if (val === "" || isNaN(Number(val))) return alert("Enter a valid number");
         listValues.push(Number(val));
+        highlightIndices.push(listValues.length - 1);
 
     } else if (op === "push_front()") {
         if (val === "" || isNaN(Number(val))) return alert("Enter a valid number");
         listValues.unshift(Number(val));
+        highlightIndices.push(0);
 
     } else if (op === "pop_back()") {
         if (listValues.length === 0) return alert("List is empty");
@@ -104,6 +107,7 @@ oprBtn.addEventListener("click", () => {
         if (isNaN(pos) || isNaN(value) || pos < 0 || pos > listValues.length)
             return alert("Enter valid position and value (e.g. 2,99)");
         listValues.splice(pos, 0, value);
+        highlightIndices.push(pos);
 
     } else if (op === "remove()") {
         if (val === "") return alert("Enter a value to remove");
@@ -122,16 +126,27 @@ oprBtn.addEventListener("click", () => {
 
         // Sort both lists before merging
         listValues.sort((a, b) => a - b);
+        const startIndex = listValues.length;
         listValues = [...listValues, ...list2Values].sort((a, b) => a - b);
+
+        // Find indices of merged values in final list
+        list2Values.forEach(val => {
+            const idx = listValues.indexOf(val);
+            if (idx !== -1 && !highlightIndices.includes(idx)) {
+                highlightIndices.push(idx);
+            }
+        });
     }
 
-    renderList();
+    renderList(highlightIndices);
+
     if (op === "merge()") renderList2();
     else document.getElementById("list2").innerHTML = "";
 
     updateProgress(op);
     valueInput.value = "";
 });
+
 
 // Update progress to backend
 function updateProgress(operation) {
