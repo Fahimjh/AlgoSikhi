@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="setOperation.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <div id="theory-content">
+                <h2>Set Operations</h2>
+                <div id="theory-content">
+                    <p>
+                        In this lesson, we will learn and visualize some operations in <b>set</b>, <b>unordered_set</b>,
+                        and <b>multiset</b>.
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>insert(value):</strong> Inserts a value into the set or multiset.
+                            In <b>set</b> and <b>unordered_set</b>, duplicates are ignored.
+                            In <b>multiset</b>, duplicates are allowed.
+                            Time complexities are O(log n) for set and multiset, O(1) for unordered_set.
+                        </li>
+
+                        <li>
+                            <strong>emplace(value):</strong> Works similarly to insert(), but can be more efficient by
+                            constructing in-place.
+                            Time complexity is the same as insert(): O(log n) for set and multiset, O(1) for
+                            unordered_set.
+                        </li>
+
+                        <li>
+                            <strong>count(value):</strong> Returns how many times a value exists in the set.
+                            For <b>set</b> and <b>unordered_set</b>, this will be either 0 or 1.
+                            For <b>multiset</b>, it returns the number of occurrences.
+                            Time complexities are O(log n) for set/multiset, O(1) for unordered_set.
+                        </li>
+
+                        <li>
+                            <strong>find(value):</strong> Checks if a value exists in the set.
+                            Returns an iterator to the value if found, otherwise returns end().
+                            Time complexity is O(log n) for set and multiset, O(1) for unordered_set.
+                        </li>
+
+                        <li>
+                            <strong>erase(value):</strong> Removes all instances of the value in set and unordered_set.
+                            In multiset, only one occurrence is removed at a time.
+                            Time complexities are O(log n) for set/multiset, O(1) for unordered_set.
+                        </li>
+
+                        <li>
+                            <strong>lower_bound(value):</strong> Returns an iterator to the first element that is <b>not
+                                less than</b> the given value.
+                            Only works in <b>set</b> and <b>multiset</b> since they are ordered.
+                            Not available in unordered_set. Time complexity: O(log n).
+                        </li>
+
+                        <li>
+                            <strong>upper_bound(value):</strong> Returns an iterator to the first element that is
+                            <b>greater than</b> the given value.
+                            Like lower_bound, only available for set and multiset.
+                            Not supported in unordered_set. Time complexity: O(log n).
+                        </li>
+                    </ul>
+                </div>
+                <button id="start-visualization">Visualize Set Operations</button>
+            </div>
+
+        </div>
+
+            <!-- Right Side: Visualization Section -->
+            <div class="visualization-section">
+                <div class="close-btn">✖</div>
+                <h2>set Operations Visualization</h2>
+
+                <div id="set"></div>
+
+                <div id="input-area">
+                    <select class="types">
+                        <option value="set">set</option>
+                        <option value="multiset">multiset</option>
+                        <option value="unordered_set">unordered_set</option>
+                    </select>
+                    <select class="Operations">
+                        <option value="insert()">insert()</option>
+                        <option value="emplace()">emplace()</option>
+                        <option value="count()">count()</option>
+                        <option value="find()">find()</option>
+                        <option value="erase()">erase()</option>
+                        <option value="lower_bound()">lower_bound()</option>
+                        <option value="upper_bound()">upper_bound()</option>
+                    </select>
+                    <input type="text" id="value" placeholder="Enter value" />
+                    <button class="oprsetBtn">Perform</button>
+                </div>
+
+                <div class="homePageSec">
+                    <h3> Click "Home Page" button to go to Home Page.</h3>
+                    <button class="homePageBtn">Home page</button>
+                </div>
+            </div>
+        </div>
+        <script src="setOperation.js"></script>
+</body>
+
+</html>

@@ -104,3 +104,7 @@ let setBox = document.querySelector(".setIntro");
 setBox.addEventListener("click", () => {
     window.location.href = "setIntro.html";
 });
+let setOprBox = document.querySelector(".setOperation");
+setOprBox.addEventListener("click", () => {
+    window.location.href = "setOperation.html";
+});

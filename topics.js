@@ -108,6 +108,33 @@ const topics = {
         setIntro: "Introduction to set",
         multisetIntro: "Introduction to multiset",
         unordered_setIntro: "Introduction to unordered set"
+    },
+    "set Operations": {
+        insert: "Insertion at set",
+        emplace: "Insertion at set",
+        count: "Count of key in set",
+        find: "Find key in set",
+        erase: "Erase key in set",
+        lower_bound: "Lower bound of key in set",
+        upper_bound: "Upper bound of key in set"
+    },
+
+    "multiset Operations": {
+        insert: "Insertion at multiset",
+        emplace: "Insertion at multiset",
+        count: "Count of key in multiset",
+        find: "Find key in multiset",
+        erase: "Erase key in multiset",
+        lower_bound: "Lower bound of key in multiset",
+        upper_bound: "Upper bound of key in multiset"
+    },
+
+    "unordered_set Operations": {
+        insert: "Insertion at unordered_set",
+        emplace: "Insertion at unordered_set",
+        count: "Count of key in unordered_set",
+        find: "Find key in unordered_set",
+        erase: "Erase key in unordered_set"
     }
 
 };
