@@ -136,8 +136,18 @@ const topics = {
         find: "Find key in unordered_set",
         erase: "Erase key in unordered_set"
     },
+
     "Stack Introduction": {
         stackIntro: "Introduction to stack"
+    },
+
+    "Stack Operations": {
+        push: "Insertion at last",
+        pop: "Deletion at last",
+        top: "last/Top value of stack",
+        empty: "Checking empty stack",
+        size: "Size of stack",
+        swap: "Swapping stack with another stack"
     }
 
 };
