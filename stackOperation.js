@@ -115,7 +115,7 @@ oprBtn.addEventListener("click", () => {
         `New Stack (after swap): [${stack.join(", ")}]`
     );
 
-    renderStack(stack, [...stack]); // ✅ Pass an actual array
+    renderStack(stack, highlightTop ? [stack[stack.length - 1]] : []);
     return; // prevent double rendering below
 }
 
