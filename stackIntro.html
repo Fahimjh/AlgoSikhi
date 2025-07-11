@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="stackIntro.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <!-- Left Side: Theory Section -->
+<div class="theory-section">
+    <h2>Introduction to Stack</h2>
+    <div id="theory-content">
+        <p>
+            A <strong>stack</strong> is a linear data structure that stores elements in a particular order: 
+            <strong>Last In, First Out (LIFO)</strong>. This means the most recently added element is removed first.
+            It works like a stack of plates — you can only take off the top plate or add a new one on top.
+        </p>
+
+        <h3>📌 Common Uses of Stack:</h3>
+        <ul>
+            <li>Reversing strings or arrays.</li>
+            <li>Undo/Redo functionality in text editors.</li>
+            <li>Parsing expressions (e.g., parentheses matching).</li>
+            <li>Backtracking algorithms (e.g., solving mazes).</li>
+            <li>Function call management in programming (call stack).</li>
+        </ul>
+
+        <h3>✅ Advantages of Stack:</h3>
+        <ul>
+            <li>Simple and easy to implement.</li>
+            <li>Efficient for LIFO-based operations.</li>
+            <li>Helps manage nested or recursive function calls.</li>
+        </ul>
+
+        <h3>⚠️ Disadvantages of Stack:</h3>
+        <ul>
+            <li>Only the top element is accessible directly.</li>
+            <li>Not suitable for random access or searching multiple elements.</li>
+            <li>Fixed size if implemented using arrays (can lead to overflow).</li>
+        </ul>
+    </div>
+
+    <button id="start-visualization">Visualize Stack Creation</button>
+</div>
+
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Stack Visualization</h2>
+
+            <div id="stack"></div>
+
+            <div id="input-area">
+                
+                <input type="text" id="value" placeholder="Enter same types of values" />
+                <button class="crtStackBtn">Create Stack</button>
+            </div>
+
+            <div class="StackOps">
+                <h3>Next part we will learn and visualize some operations in Stack.<br>
+                    Click "Stack Operations" button to check the operations with these Stack values.</h3>
+                <button class="StackOpsBtn">Stack Operations</button>
+            </div>
+        </div>
+    </div>
+    <script src="stackIntro.js"></script>
+</body>
+
+</html>
