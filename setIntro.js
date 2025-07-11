@@ -1,14 +1,18 @@
+let setValues = [];
+let multisetValues = [];
+let unorderedSetValues = [];
+
 // UI Elements
 const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
-const container = document.querySelector(".container"); // Fix: This should target .container
-const visualizationSection = document.querySelector(".visualization-section"); // For future use if needed
+const container = document.querySelector(".container");
+const visualizationSection = document.querySelector(".visualization-section");
 const valueInput = document.getElementById("value");
 const typeSelect = document.querySelector(".types");
 const createBtn = document.querySelector(".crtsetBtn");
 const setOpsBtn = document.querySelector(".setOpsBtn");
 
-// Toggle visualization section
+// Toggle visualization
 startBtn.addEventListener("click", () => {
     container.classList.toggle("visualization-active");
     startBtn.innerText = container.classList.contains("visualization-active")
@@ -21,7 +25,7 @@ closeBtn.addEventListener("click", () => {
     startBtn.innerText = "Visualize Set Creations";
 });
 
-// Render set values
+// Render current set
 function renderSet(setArr) {
     const setContainer = document.getElementById("set");
     setContainer.innerHTML = "";
@@ -33,7 +37,7 @@ function renderSet(setArr) {
     });
 }
 
-// Create and visualize selected set
+// Create and visualize set
 createBtn.addEventListener("click", () => {
     const selectedType = typeSelect.value;
     const raw = valueInput.value.trim();
@@ -44,24 +48,43 @@ createBtn.addEventListener("click", () => {
     }
 
     const inputValues = raw.split(",").map(v => v.trim()).filter(v => v !== "");
-
     let finalValues = [];
 
-    if (selectedType === "set" || selectedType === "unordered_set") {
-        finalValues = [...new Set(inputValues)].sort();
+    if (selectedType === "set") {
+        // ✅ Remove duplicates first, then sort (numerically if needed)
+        const unique = [...new Set(inputValues)];
+        finalValues = unique.slice().sort((a, b) => {
+            const na = Number(a), nb = Number(b);
+            return isNaN(na) || isNaN(nb) ? a.localeCompare(b) : na - nb;
+        });
+        setValues = finalValues;
     } else if (selectedType === "multiset") {
-        finalValues = inputValues.sort();
+        // ✅ Keep duplicates, but sort properly
+        finalValues = inputValues.slice().sort((a, b) => {
+            const na = Number(a), nb = Number(b);
+            return isNaN(na) || isNaN(nb) ? a.localeCompare(b) : na - nb;
+        });
+        multisetValues = finalValues;
+    } else if (selectedType === "unordered_set") {
+        // ✅ Remove duplicates but do NOT sort
+        finalValues = [];
+        const seen = new Set();
+        inputValues.forEach(v => {
+            if (!seen.has(v)) {
+                seen.add(v);
+                finalValues.push(v);
+            }
+        });
+        unorderedSetValues = finalValues;
     }
 
     renderSet(finalValues);
     updateBackendProgress(selectedType);
-
-    // Save to URL
-    const encoded = encodeURIComponent(JSON.stringify(finalValues.map(v => ({ value: v }))));
-    const urlParam = `${selectedType}=${encoded}`;
-    setOpsBtn.setAttribute("data-url", urlParam);
+    updateDataURL();
+    valueInput.value = "";
 });
 
+// Backend progress update
 function updateBackendProgress(type) {
     const token = localStorage.getItem("token");
     const subtopicset = {
@@ -89,13 +112,26 @@ function updateBackendProgress(type) {
     }
 }
 
-// Go to operations page
-setOpsBtn.addEventListener("click", () => {
-    const param = setOpsBtn.getAttribute("data-url");
-    if (!param) {
-        alert("Please create the set first.");
-        return;
-    }
+// Update data-url for navigation
+function updateDataURL() {
+    const buildParam = (type, values) =>
+        `${type}=${encodeURIComponent(JSON.stringify(values.map(v => ({ value: v }))))}`;
 
-    window.location.href = `setOperations.html?${param}`;
+    const params = [
+        setValues.length ? buildParam("set", setValues) : null,
+        multisetValues.length ? buildParam("multiset", multisetValues) : null,
+        unorderedSetValues.length ? buildParam("unordered_set", unorderedSetValues) : null
+    ].filter(Boolean).join("&");
+
+    setOpsBtn.setAttribute("data-url", params);
+}
+
+// Navigate to setOperation with params
+setOpsBtn.addEventListener("click", () => {
+    const url = setOpsBtn.getAttribute("data-url");
+    if (url) {
+        window.location.href = `setOperation.html?${url}`;
+    } else {
+        alert("Please create a set first.");
+    }
 });

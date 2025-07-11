@@ -80,11 +80,6 @@ body {
     font-size: 1rem;
 }
 
-.map-row {
-    display: flex;
-    gap: 20px; /* spacing between key and value columns */
-}
-
 .cell {
     width: 120px;
     height: 50px;
