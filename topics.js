@@ -135,6 +135,9 @@ const topics = {
         count: "Count of key in unordered_set",
         find: "Find key in unordered_set",
         erase: "Erase key in unordered_set"
+    },
+    "Stack Introduction": {
+        stackIntro: "Introduction to stack"
     }
 
 };
