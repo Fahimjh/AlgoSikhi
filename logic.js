@@ -108,3 +108,13 @@ let setOprBox = document.querySelector(".setOperation");
 setOprBox.addEventListener("click", () => {
     window.location.href = "setOperation.html";
 });
+
+//fifthRow
+let stackBox = document.querySelector(".stackIntro");
+stackBox.addEventListener("click", () => {
+    window.location.href = "stackIntro.html";
+});
+let stackOprBox = document.querySelector(".stackOperation");
+stackOprBox.addEventListener("click", () => {
+    window.location.href = "stackOperation.html";
+});
