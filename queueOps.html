@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="queueOps.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="theory-section">
+        <h2>Queue Operations</h2>
+        <div id="theory-content">
+            <p>
+                In this section, we'll visualize key operations in <b>queue</b> and <b>priority_queue</b>.
+            </p>
+
+            <h3>🔁 Queue Operations:</h3>
+            <ul>
+                <li>
+                    <b>enqueue(value):</b> Adds an element to the rear of the queue.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>dequeue():</b> Removes an element from the front of the queue.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>front():</b> Returns the front element without removing it.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>rear():</b> Returns the last (rear) element.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>empty():</b> Checks if the queue is empty.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>size():</b> Returns the current number of elements in the queue.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+            </ul>
+
+            <h3>📌 Differences from Stack:</h3>
+            <ul>
+                <li>Queue follows <b>FIFO</b>, Stack follows <b>LIFO</b></li>
+                <li>In Queue, you insert at rear and remove from front</li>
+                <li>In Stack, both insertion and removal happen at the top</li>
+            </ul>
+
+            <h2>Priority Queue Operations</h2>
+            <p>
+                A <b>priority queue</b> always removes the element with the highest priority first.
+                Internally, it's usually implemented with a <b>heap</b>.
+            </p>
+
+            <h3>🔁 Priority Queue Operations:</h3>
+            <ul>
+                <li>
+                    <b>push(value):</b> Adds an element to the priority queue.<br>
+                    ⏱ Time Complexity: O(log n)
+                </li>
+                <li>
+                    <b>pop():</b> Removes the element with the highest priority.<br>
+                    ⏱ Time Complexity: O(log n)
+                </li>
+                <li>
+                    <b>top():</b> Returns the element with the highest priority.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>empty():</b> Checks if the priority queue is empty.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+                <li>
+                    <b>size():</b> Returns the number of elements in the priority queue.<br>
+                    ⏱ Time Complexity: O(1)
+                </li>
+            </ul>
+
+            <h3>📌 Differences from Queue:</h3>
+            <ul>
+                <li>Priority Queue serves elements based on priority, not arrival order</li>
+                <li>Queue always serves in order of arrival (FIFO)</li>
+                <li>In Priority Queue, elements may not maintain insertion order</li>
+            </ul>
+        </div>
+        <button id="start-visualization">Visualize Queue operation</button>
+    </div>
+
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Queue Operations Visualization</h2>
+
+            <div id="queue"></div>
+
+            <div id="input-area">
+                <select class="types">
+                    <option value="queue">queue</option>
+                    <option value="priority_queue">priority_queue</option>
+                </select>
+                <select class="Operations">
+                    <option value="enqueue()">enqueue()</option>
+                    <option value="dequeue()">dequeue()</option>
+                    <option value="front()">front()</option>
+                    <option value="rear()">rear()</option>
+                    <option value="push()">push()</option>
+                    <option value="pop()">pop()</option>
+                    <option value="top()">top()</option>
+                    <option value="empty()">empty()</option>
+                    <option value="size()">size()</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter value" />
+                <button class="oprqueueBtn">Perform</button>
+            </div>
+
+            <div class="homePageSec">
+                <h3> Click "Home Page" button to go to Home Page.</h3>
+                <button class="homePageBtn">Home page</button>
+            </div>
+        </div>
+    </div>
+    <script src="queueOps.js"></script>
+</body>
+
+</html>

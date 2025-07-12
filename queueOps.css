@@ -1,0 +1,128 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100%;
+    height: auto;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    transition: all 0.5s ease;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.theory-section, .visualization-section {
+    min-height: 100vh;
+    height: 100vh;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+/* Theory Section */
+.theory-section {
+   padding: 20px;
+    background-color: aquamarine;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+
+/* When visualization is active, shrink theory section */
+.container.visualization-active .theory-section {
+    flex: 0.5;/* Shrinks to 50% */
+}
+
+/* Visualization Section */
+.visualization-section {
+    flex: 0;
+    overflow-y: auto;/* Hidden initially */
+    padding: 20px;
+    background: #1a1a1a;
+    color: white;
+    display: none;/* Hidden by default */
+    transition: all 0.5s ease;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);/* Shady effect at the bottom */
+    position: relative;
+}
+
+#start-visualization {
+    height: 2rem;
+    width: auto;
+}
+
+/* When visualization is active, show visualization section */
+.container.visualization-active .visualization-section {
+    flex: 0.5;/* Expands to 50% */
+    display: flex;/* Make it visible */
+    flex-direction: column;/* Ensure proper layout for child elements */
+    align-items: center;/* Center content horizontally */
+    justify-content: flex-start;/* Align content to the top */
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 3.5rem;
+    cursor: pointer;
+    color: red;
+}
+
+
+/*queue Visualization */
+#queue {
+    display: flex;
+    flex-direction: row; /* vertical list */
+    gap: 10px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+#value{
+    height: 1.5rem;
+    width: 15rem;
+}
+
+.types,.oprqueueBtn,.Operations {
+    margin-top: 1rem;
+    height: 1.5rem;
+    font-size: 1rem;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background: #333;
+    border: 2px solid #00f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    border-radius: 4px;
+}
+.cell.active {
+    background-color: orange;
+}
+
+.homePageSec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 10%;
+}
+.homePageBtn{
+    height: 1.8rem;
+    font-size: 1rem;
+}
