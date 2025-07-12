@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="queueIntro.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to Queue</h2>
+            <div id="theory-content">
+                <p>
+                    A <strong>queue</strong> is a linear data structure that follows the
+                    <strong>First In, First Out (FIFO)</strong> principle.
+                    This means the element added first is removed first — like a queue at a ticket counter.
+                </p>
+
+                <h3>📌 Common Uses of Queue:</h3>
+                <ul>
+                    <li>Managing tasks in printers or CPU scheduling.</li>
+                    <li>Handling asynchronous data (e.g., IO Buffers, network packets).</li>
+                    <li>Managing background tasks or processes.</li>
+                </ul>
+
+                <h3>✅ Advantages of Queue:</h3>
+                <ul>
+                    <li>Maintains processing order fairly (FIFO).</li>
+                    <li>Simple and predictable behavior.</li>
+                    <li>Efficient for tasks that need orderly execution.</li>
+                </ul>
+
+                <h3>⚠️ Disadvantages of Queue:</h3>
+                <ul>
+                    <li>Random access is not allowed — only front/rear accessible.</li>
+                    <li>Fixed size if using arrays (unless using circular queue or dynamic list).</li>
+                    <li>Can be inefficient if not optimized (e.g., frequent shifting in arrays).</li>
+                </ul>
+
+                <hr />
+
+                <h2>Introduction to Priority Queue</h2>
+                <p>
+                    A <strong>priority queue</strong> is a special type of queue where each element has a priority.
+                    Elements with higher priority are dequeued before lower-priority ones. If two elements have the same
+                    priority,
+                    they follow the FIFO order.
+                </p>
+
+                <h3>📌 Common Uses of Priority Queue:</h3>
+                <ul>
+                    <li>CPU task scheduling and process management.</li>
+                    <li>Pathfinding algorithms (e.g., Dijkstra's Algorithm).</li>
+                    <li>Data compression (e.g., Huffman coding).</li>
+                    <li>Real-time event handling (e.g., interrupts).</li>
+                </ul>
+
+                <h3>✅ Advantages of Priority Queue:</h3>
+                <ul>
+                    <li>Efficient handling of high-priority tasks first.</li>
+                    <li>Supports dynamic prioritization of tasks.</li>
+                    <li>Flexible and adaptable in real-time systems.</li>
+                </ul>
+
+                <h3>⚠️ Disadvantages of Priority Queue:</h3>
+                <ul>
+                    <li>Implementation can be more complex (often uses heaps).</li>
+                    <li>Insertion/removal may be slower than simple queues depending on implementation.</li>
+                    <li>Not ideal if all tasks have the same priority.</li>
+                </ul>
+            </div>
+
+            <button id="start-visualization">Visualize Queue Creation</button>
+        </div>
+
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Queue Visualization</h2>
+
+            <div id="queue"></div>
+
+            <div id="input-area">
+
+                <input type="text" id="value" placeholder="Enter same types of values" />
+                <button class="crtqueueBtn">Create queue</button>
+            </div>
+
+            <div class="queueOps">
+                <h3>Next part we will learn and visualize some operations in queue.<br>
+                    Click "queue Operations" button to check the operations with these values or "Home page" to go to
+                    Home Page</h3>
+                <button class="queueOpsBtn">Queue Operations</button>
+                <button class="homePageBtn">Home Page</button>
+            </div>
+        </div>
+    </div>
+    <script src="queueIntro.js"></script>
+</body>
+
+</html>

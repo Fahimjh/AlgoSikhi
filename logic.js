@@ -118,3 +118,12 @@ let stackOprBox = document.querySelector(".stackOperation");
 stackOprBox.addEventListener("click", () => {
     window.location.href = "stackOperation.html";
 });
+
+let queueBox = document.querySelector(".queueIntro");
+queueBox.addEventListener("click", () => {
+    window.location.href = "queueIntro.html";
+});
+let queueOprBox = document.querySelector(".queueOperation");
+queueOprBox.addEventListener("click", () => {
+    window.location.href = "queueOps.html";
+});
