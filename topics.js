@@ -159,16 +159,16 @@ const topics = {
         dequeue: "Deletion at first",
         front: "first/Front value of queue",
         rear: "last/Rear value of queue",
-        empty: "Checking empty stack",
-        size: "Size of stack"
+        empty: "Checking empty queue",
+        size: "Size of queue"
     },
 
-    "priority queue Operations": {
+    "priority_queue Operations": {
         push: "Insertion based on priority",
         pop: "Deletes value at top/highest priority",
         top: "Highest priority/Top value of priority_queue",
-        empty: "Checking empty queue",
-        size: "Size of stack"
+        empty: "Checking empty priority_queue",
+        size: "Size of priority_queue"
     }
 
 };
