@@ -148,6 +148,10 @@ const topics = {
         empty: "Checking empty stack",
         size: "Size of stack",
         swap: "Swapping stack with another stack"
+    },
+    "Queue Introduction": {
+        queue: "Introduction to queue",
+        priority_queue: "Introduction to priority queue"
     }
 
 };
