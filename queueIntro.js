@@ -74,8 +74,8 @@ typeSelect.addEventListener("change", () => {
 // === BACKEND PROGRESS ===
 function updateProgress(type) {
     const subtopic = {
-        queue: "queueIntro",
-        priority_queue: "priorityQueueIntro"
+        queue: "queue",
+        priority_queue: "priority_queue"
     };
 
     const token = localStorage.getItem("token");
