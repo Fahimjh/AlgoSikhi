@@ -152,6 +152,23 @@ const topics = {
     "Queue Introduction": {
         queue: "Introduction to queue",
         priority_queue: "Introduction to priority queue"
+    },
+
+    "queue Operations": {
+        enqueue: "Insertion at last",
+        dequeue: "Deletion at first",
+        front: "first/Front value of queue",
+        rear: "last/Rear value of queue",
+        empty: "Checking empty stack",
+        size: "Size of stack"
+    },
+
+    "priority queue Operations": {
+        push: "Insertion based on priority",
+        pop: "Deletes value at top/highest priority",
+        top: "Highest priority/Top value of priority_queue",
+        empty: "Checking empty queue",
+        size: "Size of stack"
     }
 
 };
