@@ -1,65 +1,99 @@
-// === QUEUE OPERATIONS JS ===
-
-const params = new URLSearchParams(window.location.search);
-const queueParam = params.get("queue");
-
-function parseQueue(str) {
-    try {
-        const parsed = str ? JSON.parse(decodeURIComponent(str)) : [];
-        return parsed.map(obj => Number(obj.value));
-    } catch {
-        return [];
-    }
-}
-
-let queue = parseQueue(queueParam);
-if (!queue.length) queue = [10, 20, 30];
-
+const startBtn = document.getElementById("start-visualization");
+const closeBtn = document.querySelector(".close-btn");
+const container = document.querySelector(".container");
+const queueContainer = document.getElementById("queue");
 const typeSelect = document.querySelector(".types");
 const opSelect = document.querySelector(".Operations");
 const valueInput = document.getElementById("value");
-const performBtn = document.querySelector(".oprqueueBtn");
-const queueContainer = document.getElementById("queue");
-const closeBtn = document.querySelector(".close-btn");
+const oprBtn = document.querySelector(".oprqueueBtn");
 const homePageBtn = document.querySelector(".homePageBtn");
-const startBtn = document.getElementById("start-visualization");
+const setIntroBtn = document.querySelector(".setIntroBtn");
+
+let queueData = [];
+let priorityQueueData = [];
+let currentStructure = [];
+
+// === Parse Query Params ===
+function parseQueueData() {
+    const params = new URLSearchParams(window.location.search);
+    
+    function parseQueueParam(param) {
+        try {
+            if (!param) return [];
+            const decoded = decodeURIComponent(param);
+            const parsed = JSON.parse(decoded);
+            return parsed.map(obj => obj.value).filter(v => v !== undefined);
+        } catch (e) {
+            console.error("Error parsing queue:", e);
+            return [];
+        }
+    }
+
+    queueData = parseQueueParam(params.get("queue"));
+    priorityQueueData = parseQueueParam(params.get("priority_queue"));
+
+    // Debug output to verify parsing
+    console.log("Normal Queue Data:", queueData);
+    console.log("Priority Queue Data:", priorityQueueData);
+    
+    // Only use defaults if BOTH queues are empty
+    if (queueData.length === 0 && priorityQueueData.length === 0) {
+        queueData = [10, 20, 30];
+        priorityQueueData = [30, 20, 10]; // Different values
+    }
+}
+
+// Initialize
+parseQueueData();
+
+function updateCurrentStructure() {
+    currentStructure = typeSelect.value === "priority_queue" 
+        ? [...priorityQueueData] 
+        : [...queueData];
+}
+
+// === Setup Initial State ===
+window.addEventListener("DOMContentLoaded", () => {
+    // Set initial type based on available data
+    typeSelect.value = priorityQueueData.length > 0 ? "priority_queue" : "queue";
+    
+    updateCurrentStructure();
+    updateOperations();
+    renderQueue(currentStructure);
+});
 
 // === Toggle Visualization Section ===
 startBtn.addEventListener("click", () => {
-    document.querySelector(".container").classList.toggle("visualization-active");
-    startBtn.innerText = document.querySelector(".container").classList.contains("visualization-active")
+    container.classList.toggle("visualization-active");
+    startBtn.innerText = container.classList.contains("visualization-active")
         ? "Close Visualization"
-        : "Visualize Queue operation";
+        : "Visualize Queue";
 });
+
 closeBtn.addEventListener("click", () => {
-    document.querySelector(".container").classList.remove("visualization-active");
-    startBtn.innerText = "Visualize Queue operation";
+    container.classList.remove("visualization-active");
+    startBtn.innerText = "Visualize Queue";
 });
 
 // === Render Queue ===
-function renderQueue(arr, highlights = []) {
+function renderQueue(arr, highlight = null) {
     queueContainer.innerHTML = "";
-    arr.forEach((val) => {
+    arr.forEach((val, index) => {
         const cell = document.createElement("div");
-        cell.className = "cell";
+        cell.className = `cell ${typeSelect.value === "priority_queue" ? "priority-cell" : ""}`;
         cell.textContent = val;
-        if (highlights.includes(val)) {
-            cell.classList.add("active");
-        }
+        if (val === highlight) cell.classList.add("active");
         queueContainer.appendChild(cell);
     });
 }
 
-renderQueue(queue);
-
-// === Toggle Input Field & Operation Options ===
-const allOps = {
-    queue: ["enqueue()", "dequeue()", "front()", "rear()", "empty()", "size()"],
-    priority_queue: ["push()", "pop()", "top()", "empty()", "size()"]
-};
-
+// === Update Operations Dropdown ===
 function updateOperations() {
     const selectedType = typeSelect.value;
+    const allOps = {
+        queue: ["enqueue()", "dequeue()", "front()", "rear()", "empty()", "size()"],
+        priority_queue: ["push()", "pop()", "top()", "empty()", "size()"]
+    };
     opSelect.innerHTML = "";
     allOps[selectedType].forEach(op => {
         const option = document.createElement("option");
@@ -67,77 +101,77 @@ function updateOperations() {
         option.textContent = op;
         opSelect.appendChild(option);
     });
-    toggleInputField();
+    toggleInput();
 }
-typeSelect.addEventListener("change", updateOperations);
-opSelect.addEventListener("change", toggleInputField);
-updateOperations();
 
-function toggleInputField() {
+typeSelect.addEventListener("change", () => {
+    updateCurrentStructure();
+    updateOperations();
+    renderQueue(currentStructure);
+});
+
+// === Toggle Input Field Visibility ===
+function toggleInput() {
     const op = opSelect.value;
-    const noInputOps = ["dequeue()", "front()", "rear()", "pop()", "top()", "empty()", "size()"];
-    valueInput.style.display = noInputOps.includes(op) ? "none" : "inline-block";
-    valueInput.placeholder = "Enter value";
+    const hideOps = ["dequeue()", "pop()", "top()", "front()", "rear()", "empty()", "size()"];
+    valueInput.style.display = hideOps.includes(op) ? "none" : "inline-block";
 }
+
+opSelect.addEventListener("change", toggleInput);
+toggleInput();
 
 // === Perform Operation ===
-performBtn.addEventListener("click", () => {
+oprBtn.addEventListener("click", () => {
     const type = typeSelect.value;
     const op = opSelect.value;
-    const val = valueInput.value.trim();
-    let highlights = [];
+    const raw = valueInput.value.trim();
+    const values = raw.split(",").map(v => v.trim()).filter(Boolean);
+    let highlight = null;
 
-    if (!val && !["dequeue()", "front()", "rear()", "pop()", "top()", "empty()", "size()"].includes(op)) {
-        alert("Please enter a value.");
-        return;
+    switch (op) {
+        case "enqueue()":
+        case "push()":
+            if (!raw) return alert("Please enter a value.");
+            currentStructure.push(values[0]);
+            highlight = values[0];
+            break;
+        case "dequeue()":
+        case "pop()":
+            if (currentStructure.length === 0) return alert("Structure is empty.");
+            const removed = currentStructure.shift();
+            alert(`Removed: ${removed}`);
+            break;
+        case "front()":
+        case "top()":
+            if (currentStructure.length === 0) return alert("Structure is empty.");
+            alert(`Front: ${currentStructure[0]}`);
+            highlight = currentStructure[0];
+            break;
+        case "rear()":
+            if (currentStructure.length === 0) return alert("Structure is empty.");
+            alert(`Rear: ${currentStructure[currentStructure.length - 1]}`);
+            highlight = currentStructure[currentStructure.length - 1];
+            break;
+        case "empty()":
+            alert(currentStructure.length === 0 ? "Structure is empty" : "Structure is not empty");
+            break;
+        case "size()":
+            alert(`Size = ${currentStructure.length}`);
+            break;
     }
 
-    if (type === "queue") {
-        if (op === "enqueue()") {
-            const num = Number(val);
-            queue.push(num); // add to rear (right)
-            highlights = [num];
-        } else if (op === "dequeue()") {
-            if (!queue.length) return alert("Queue is empty.");
-            const removed = queue.shift(); // remove from front (left)
-            alert(`Dequeued: ${removed}`);
-        } else if (op === "front()") {
-            if (!queue.length) return alert("Queue is empty.");
-            alert(`Front: ${queue[0]}`);
-            highlights = [queue[0]];
-        } else if (op === "rear()") {
-            if (!queue.length) return alert("Queue is empty.");
-            alert(`Rear: ${queue[queue.length - 1]}`);
-            highlights = [queue[queue.length - 1]];
-        } else if (op === "empty()") {
-            alert(queue.length === 0 ? "Queue is empty" : "Not empty");
-        } else if (op === "size()") {
-            alert(`Size = ${queue.length}`);
-        }
-    }
-
-    else if (type === "priority_queue") {
+    // Update the correct data array
+    if (typeSelect.value === "priority_queue") {
+        priorityQueueData = [...currentStructure];
         if (op === "push()") {
-            const num = Number(val);
-            queue.push(num); // insert normally
-            queue.sort((a, b) => b - a); // keep descending order
-            highlights = [num];
-        } else if (op === "pop()") {
-            if (!queue.length) return alert("Priority Queue is empty.");
-            const removed = queue.shift(); // remove highest priority from front
-            alert(`Popped: ${removed}`);
-        } else if (op === "top()") {
-            if (!queue.length) return alert("Priority Queue is empty.");
-            alert(`Top: ${queue[0]}`);
-            highlights = [queue[0]];
-        } else if (op === "empty()") {
-            alert(queue.length === 0 ? "Priority Queue is empty" : "Not empty");
-        } else if (op === "size()") {
-            alert(`Size = ${queue.length}`);
+            priorityQueueData.sort((a, b) => b - a);
+            currentStructure = [...priorityQueueData];
         }
+    } else {
+        queueData = [...currentStructure];
     }
 
-    renderQueue(queue, highlights);
+    renderQueue(currentStructure, highlight);
     sendProgress(type, op);
     valueInput.value = "";
 });
@@ -155,6 +189,7 @@ function sendProgress(type, op) {
         "empty()": "empty",
         "size()": "size"
     };
+
     const token = localStorage.getItem("token");
     if (!token) return;
 
