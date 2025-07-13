@@ -1,6 +1,5 @@
 // === queueIntro.js ===
-
-// UI Elements
+const typeSelect = document.querySelector(".types");
 const startBtn = document.getElementById("start-visualization");
 const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
@@ -9,11 +8,10 @@ const createBtn = document.querySelector(".crtqueueBtn");
 const queueOpsBtn = document.querySelector(".queueOpsBtn");
 const homePageBtn = document.querySelector(".homePageBtn");
 
-// Queue containers
 let queueValues = [];
 let priorityQueueValues = [];
 
-// === TOGGLE VISUALIZATION SECTION ===
+// === TOGGLE VISUALIZATION SECTION === 
 startBtn.addEventListener("click", () => {
     container.classList.toggle("visualization-active");
     startBtn.innerText = container.classList.contains("visualization-active")
@@ -25,6 +23,7 @@ closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
     startBtn.innerText = "Visualize Queue Creation";
 });
+
 
 // === RENDER QUEUE ===
 function renderQueue(arr) {
@@ -41,37 +40,36 @@ function renderQueue(arr) {
 // === CREATE QUEUE ===
 createBtn.addEventListener("click", () => {
     const raw = valueInput.value.trim();
+    const selectedType = typeSelect.value;
 
     if (!raw) {
         alert("Please enter some values.");
         return;
     }
 
-    const values = raw.split(",").map(v => v.trim()).filter(Boolean);
+    const values = raw.split(",").map(v => Number(v.trim())).filter(v => !isNaN(v));
 
-    // Save queue (FIFO) and priority_queue (descending sort)
-    queueValues = [...values];
-    priorityQueueValues = [...values].sort((a, b) => b - a);
+    if (!values.length) {
+        alert("Please enter valid numeric values.");
+        return;
+    }
 
-    renderQueue(queueValues); // Render queue by default
+    // Store values differently based on type
+    if (selectedType === "queue") {
+        queueValues = [...values]; // Regular queue (FIFO order)
+    } else {
+        priorityQueueValues = [...values].sort((a, b) => b - a); // Priority queue (sorted)
+    }
 
-    // Set data-url for next page
-    const buildParam = (type, values) =>
-        `${type}=${encodeURIComponent(JSON.stringify(values.map(v => ({ value: v }))))}`;
-
-    const params = [
-        buildParam("queue", queueValues),
-        buildParam("priority_queue", priorityQueueValues)
-    ].join("&");
-
-    queueOpsBtn.setAttribute("data-url", params);
-
-    // ✅ Send backend progress
-    updateProgress("queue");
-    updateProgress("priority_queue");
-
+    renderQueue(selectedType === "queue" ? queueValues : priorityQueueValues);
     valueInput.value = "";
+    updateProgress(selectedType);
 });
+
+typeSelect.addEventListener("change", () => {
+    document.getElementById("queue").innerHTML = "";
+});
+
 
 // === BACKEND PROGRESS ===
 function updateProgress(type) {
@@ -101,10 +99,26 @@ function updateProgress(type) {
 }
 
 // === NAVIGATION ===
+// === NAVIGATION ===
 queueOpsBtn.addEventListener("click", () => {
-    const url = "queueOps.html?" + queueOpsBtn.getAttribute("data-url");
-    window.location.href = url;
+    if (!queueValues.length && !priorityQueueValues.length) {
+        alert("Please create at least one queue.");
+        return;
+    }
+
+    // Prepare parameters with proper data structure
+    const queueParam = queueValues.length
+        ? `queue=${encodeURIComponent(JSON.stringify(queueValues.map(v => ({ value: v }))))}`
+        : "";
+
+    const priorityParam = priorityQueueValues.length
+        ? `priority_queue=${encodeURIComponent(JSON.stringify(priorityQueueValues.map(v => ({ value: v }))))}`
+        : "";
+
+    const combinedParams = [queueParam, priorityParam].filter(Boolean).join("&");
+    window.location.href = `queueOps.html?${combinedParams}`;
 });
+
 homePageBtn.addEventListener("click", () => {
     window.location.href = "index.html";
 });

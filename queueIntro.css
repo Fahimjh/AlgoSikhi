@@ -92,7 +92,7 @@ body {
     width: 25rem;
 }
 
-.crtqueueBtn {
+.crtqueueBtn,.types {
     margin-top: 1rem;
     height: 1.5rem;
     font-size: 1rem;
