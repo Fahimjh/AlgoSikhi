@@ -109,9 +109,9 @@ body{
     font-size: 0.9rem;
     color: #333;
 }
-.search-select {
+#search {
     height: 1.7rem;
-    width: 1.5rem;
+    width: 4rem;
     border: none;
     background-color: #ff8a27;
     cursor: pointer;

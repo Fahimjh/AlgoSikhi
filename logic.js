@@ -11,26 +11,64 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("https://algosikhibackend.onrender.com/api/auth/verifyToken", {
             headers: { Authorization: token }
         })
-        .then(res => {
-            if (res.ok) {
-                authAction.textContent = "DASHBOARD";
-                authAction.style.color = "#3f72af";
-                authAction.onclick = () => window.location.href = "dashboard.html";
-            } else {
+            .then(res => {
+                if (res.ok) {
+                    authAction.textContent = "DASHBOARD";
+                    authAction.style.color = "#3f72af";
+                    authAction.onclick = () => window.location.href = "dashboard.html";
+                } else {
+                    localStorage.clear();
+                    authAction.textContent = "LOGIN";
+                    authAction.onclick = () => window.location.href = "login.html";
+                }
+            })
+            .catch(() => {
                 localStorage.clear();
                 authAction.textContent = "LOGIN";
                 authAction.onclick = () => window.location.href = "login.html";
-            }
-        })
-        .catch(() => {
-            localStorage.clear();
-            authAction.textContent = "LOGIN";
-            authAction.onclick = () => window.location.href = "login.html";
-        });
+            });
     } else {
         authAction.textContent = "LOGIN";
         authAction.onclick = () => window.location.href = "login.html";
     }
+});
+
+const searchInput = document.querySelector(".search-input");
+const searchButton = document.getElementById("search");
+const allBoxes = document.querySelectorAll(".box");
+
+function filterBoxes(query) {
+    query = query.trim().toLowerCase();
+
+    allBoxes.forEach(box => {
+        const tags = box.dataset.category || "";
+        const tagText = tags.toLowerCase();
+
+        if (query === "" || tagText.includes(query)) {
+            box.style.display = ""; // ← restore default (usually flex or block)
+        } else {
+            box.style.display = "none"; // ← hide when not matched
+        }
+    });
+}
+
+// Run when Search button is clicked
+searchButton.addEventListener("click", () => {
+    const query = searchInput.value;
+    filterBoxes(query);
+});
+
+// Optional: Run search on Enter key press
+searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        searchButton.click();
+    }
+});
+
+// Optional: Reset all boxes on page load
+window.addEventListener("DOMContentLoaded", () => {
+    filterBoxes(""); // show all
 });
 
 
