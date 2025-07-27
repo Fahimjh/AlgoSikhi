@@ -1,116 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Dashboard | AlgoSikhi</title>
     <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
     <div class="dashboard-container">
-        <h2>Welcome, <span id="username">User</span>!</h2>
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> Your Learning Dashboard</h1>
+                <div class="user-actions">
+                    <button onclick="goToHomepage()" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Home
+                    </button>
+                    <button onclick="logout()" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            <div class="user-welcome">
+                <h2>Welcome back, <span id="username">Learner</span>!</h2>
+                <p>Track your algorithm learning journey</p>
+            </div>
+        </header>
 
-        <div id="progressDetails"></div>
-
-        <label>Overall Learning Progress</label>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-summary">
+            <div class="progress-header">
+                <h3><i class="fas fa-tasks"></i> Overall Progress</h3>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </div>
 
-        <br>
-    </div>
-    <div class="button-group">
-        <button onclick="logout()" class="btn">Logout</button>
-        <button onclick="deleteAccount()" style="background:#e74c3c; color:white;" class="btn">Delete My
-            Account</button>
-        <button onclick="goToHomepage()" class="btn">Go to Homepage</button>
+        <div class="topics-grid" id="progressDetails">
+            <!-- Progress details will be inserted here -->
+        </div>
+
+        <div class="danger-zone">
+            <h3><i class="fas fa-exclamation-triangle"></i> Account Management</h3>
+            <button id="deleteAccount" onclick="deleteAccount()" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i> Delete Account
+            </button>
+            <p class="warning-text">This action cannot be undone</p>
+        </div>
     </div>
 
     <script src="topics.js"></script>
-
-    <script>
-        const token = localStorage.getItem("token");
-        const username = localStorage.getItem("username");
-
-        if (!token || !username) {
-            alert("You must be logged in!");
-            window.location.href = "login.html";
-        } else {
-            document.getElementById("username").textContent = username;
-        }
-
-        fetch("https://algosikhibackend.onrender.com/api/progress", {
-            headers: {
-                Authorization: token
-            }
-        })
-            .then(res => res.json())
-            .then(progress => {
-                const progressContainer = document.getElementById("progressDetails");
-                let total = 0, completed = 0;
-
-                for (const topic in topics) {
-                    const topicDiv = document.createElement("div");
-                    topicDiv.className = "topic";
-
-                    const topicTitle = topic;
-                    topicDiv.innerHTML = `<strong>${topicTitle}</strong>`;
-
-                    const subtopics = topics[topic];
-
-                    for (const sub in subtopics) {
-                        const isDone = progress?.[topic]?.[sub] || false;
-                        total++;
-                        if (isDone) completed++;
-
-                        const subDisplayName = subtopics[sub];
-                        const subDiv = document.createElement("div");
-                        subDiv.className = "subtopic";
-                        subDiv.innerHTML = `${isDone ? "✅" : "⬜"} ${subDisplayName}`;
-                        topicDiv.appendChild(subDiv);
-                    }
-
-                    progressContainer.appendChild(topicDiv);
-                }
-
-
-                const percent = total ? (completed / total) * 100 : 0;
-                document.getElementById("progressFill").style.width = percent + "%";
-            })
-            .catch(err => {
-                console.error("Failed to load progress", err);
-            });
-
-        function logout() {
-            localStorage.clear();
-            window.location.href = "login.html";
-        }
-
-        function deleteAccount() {
-            const confirmDelete = confirm("Are you sure you want to delete your account? This cannot be undone.");
-            if (!confirmDelete) return;
-
-            fetch("https://algosikhibackend.onrender.com/api/auth/delete", {
-                method: "DELETE",
-                headers: {
-                    Authorization: localStorage.getItem("token")
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    alert(data.message);
-                    localStorage.clear();
-                    window.location.href = "index.html";
-                })
-                .catch(err => console.error("Delete error:", err));
-        }
-
-        function goToHomepage() {
-            window.location.href = "index.html";
-        }
-
-    </script>
+    <script src="dashboard.js"></script>
 </body>
-
 </html>
