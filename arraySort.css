@@ -127,6 +127,7 @@ body {
 .sort-method, .sort-option, .sortBtn {
     height: 2rem;
     width: 10rem;
+    font-size: medium;
 }
 
 .cell {
@@ -202,7 +203,7 @@ body {
 .arrSearch {
     margin-top: 0.5rem;
     padding: 0.5rem 1.5rem;
-    font-size: 1rem;
+    font-size: medium;
     cursor: pointer;
 }
 .headline {

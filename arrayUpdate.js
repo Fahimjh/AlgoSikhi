@@ -1,10 +1,81 @@
 const params = new URLSearchParams(window.location.search);
-let size = params.get("size");
+let size = params.get("size") ? Number(params.get("size")) : defaultSize;
 const values = params.get("values");
-let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
 
-// Ensure size is a number and fallback to default array length if not provided
-size = size ? Number(size) : arrayValues.length;
+// Handle empty values properly
+let arrayValues = values ? values.split(",").map(v => {
+    v = v.trim();
+    return v === "" ? null : Number(v); // Convert empty to null
+}) : [1, 2, 3, 4, 5];
+
+// Ensure array has correct size
+if (arrayValues.length < size) {
+    while (arrayValues.length < size) {
+        arrayValues.push(null); // Pad with null
+    }
+} else if (arrayValues.length > size) {
+    arrayValues = arrayValues.slice(0, size);
+}
+
+// Ensure array matches the specified size
+if (arrayValues.length > size) {
+    arrayValues = arrayValues.slice(0, size);
+} else if (arrayValues.length < size) {
+    // Pad with empty values if needed
+    while (arrayValues.length < size) {
+        arrayValues.push("");
+    }
+}
+
+// Pseudocode data for array update operations
+const pseudocodeData = {
+    insert: [
+        "FUNCTION insertAt(array, index, value)",
+        "  IF index < 0 OR index >= length(array) THEN",
+        "    RETURN 'Invalid index'",
+        "  END IF",
+        "  array[index] = value  // Update value at index",
+        "  RETURN array",
+        "END FUNCTION"
+    ],
+    delete: [
+        "FUNCTION deleteAt(array, index)",
+        "  IF index < 0 OR index >= length(array) THEN",
+        "    RETURN 'Invalid index'",
+        "  END IF",
+        "  array[index] = ''  // Empty the value at index",
+        "  RETURN array",
+        "END FUNCTION"
+    ]
+};
+
+// Render pseudocode based on selected operation
+function renderPseudocode(operation) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    
+    codeContainer.innerHTML = "";
+    const lines = operation === "Insert" ? pseudocodeData.insert : pseudocodeData.delete;
+
+    lines.forEach((line, index) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${index}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+// Highlight specific pseudocode line
+function highlightLine(index) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    
+    const targetLine = document.getElementById(`line-${index}`);
+    if (targetLine) targetLine.classList.add("highlight");
+}
+
+// Initialize with insert pseudocode
+renderPseudocode("Insert");
 
 function renderArray() {
     const arrayContainer = document.getElementById("array");
@@ -18,7 +89,6 @@ function renderArray() {
         arrayContainer.appendChild(cell);
     });
 
-    // Update array size display
     const arrSizeDiv = document.querySelector(".arrSize h3");
     if (arrSizeDiv) {
         arrSizeDiv.textContent = `Array Size = ${size}`;
@@ -32,13 +102,17 @@ function delay(ms) {
 
 async function insertAt(index, value) {
     index = Number(index);
-    if (!Number.isInteger(index) || index < 0 || index >= size) {
+    if (!Number.isInteger(index) || index < 0 ) {
         alert("Invalid index for insertion.");
+        return;
+    }
+    else if (!Number.isInteger(index) || index >= size) {
+        alert("Max size exceeds! Delete values to enter more.");
         return;
     }
 
     // Overwrite or shift if there is a hole
-    if (!(index in arrayValues)) {
+    else if (!(index in arrayValues)) {
         arrayValues.splice(index, 0, value);
         if (arrayValues.length > size) {
             arrayValues.length = size;
@@ -186,4 +260,15 @@ if (arraySearchBtn) {
 const homePageBtn = document.querySelector(".homePage");
 homePageBtn.addEventListener("click",()=>{
     window.location.href="index.html";
+});
+
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
+homePgBtn.addEventListener("click", () => {
+    const url = `index.html`;
+    window.location.href = url;
+});
+dashBrdBtn.addEventListener("click", () => {
+    const url = `dashboard.html`;
+    window.location.href = url;
 });

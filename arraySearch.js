@@ -2,7 +2,21 @@ const params = new URLSearchParams(window.location.search);
 const size = params.get("size");
 const values = params.get("values");
 const order = params.get("order") || "Ascending";
-let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
+
+// Handle empty values properly
+let arrayValues = values ? values.split(",").map(v => {
+    v = v.trim();
+    return v === "" ? null : Number(v); // Convert empty to null
+}) : [1, 2, 3, 4, 5];
+
+// Ensure array has correct size
+if (arrayValues.length < size) {
+    while (arrayValues.length < size) {
+        arrayValues.push(null); // Pad with null
+    }
+} else if (arrayValues.length > size) {
+    arrayValues = arrayValues.slice(0, size);
+}
 
 const pseudocodeData = {
     linear: {
@@ -95,7 +109,9 @@ function renderArray() {
     arrayValues.forEach((val) => {
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.textContent = val;
+        cell.textContent = val !== null ? val : "∅"; // Show ∅ for empty
+        if (val === null) cell.classList.add("empty");
+        arrayContainer.appendChild(cell);
         arrayContainer.appendChild(cell);
     });
 }
@@ -145,6 +161,9 @@ async function linearSearchVisualization(searchValue, cells) {
         cells[i].classList.add("active");
         await delay(600);
         
+        const cellValue = cells[i].textContent;
+        if (cellValue === "") continue; 
+
         highlightLine(2);
         if (parseInt(cells[i].textContent) === searchValue) {
             highlightLine(3);
@@ -166,6 +185,12 @@ async function linearSearchVisualization(searchValue, cells) {
 }
 
 async function binarySearchVisualization(searchValue, cells) {
+     // Filter out null/empty cells for binary search
+    const nonEmptyCells = Array.from(cells).filter(cell => cell.textContent !== "");
+    const nonEmptyIndices = Array.from(cells)
+        .map((cell, index) => cell.textContent !== "" ? index : -1)
+        .filter(i => i !== -1);
+    
     const lines = order === "Ascending" 
         ? pseudocodeData.binary.ascending 
         : pseudocodeData.binary.descending;
@@ -257,9 +282,9 @@ if (searchBtn) searchBtn.addEventListener("click", startSearch);
 const ArraySortBtn = document.querySelector(".arrSort");
 if (ArraySortBtn) {
     ArraySortBtn.addEventListener("click", () => {
-        const size = arrayValues.length;
-        const values = arrayValues.join(",");
-        const url = `arraySort.html?size=${size}&values=${encodeURIComponent(values)}&order=${order}`;
+        const sortOption = document.querySelector(".sort-option")?.value || "Ascending";
+        const nonEmptyValues = arrayValues.map(v => v === null ? "" : v);
+        const url = `arraySort.html?size=${size}&values=${encodeURIComponent(nonEmptyValues.join(","))}&order=${sortOption}`;
         window.location.href = url;
     });
 }
@@ -287,8 +312,8 @@ if (closeBtn && container && startBtn) {
 const arrayUpdateBtn = document.querySelector(".arrUpdate");
 if (arrayUpdateBtn) {
     arrayUpdateBtn.addEventListener("click", () => {
-        const values = arrayValues.join(",");
-        const url = `arrayUpdate.html?size=${size}&values=${encodeURIComponent(values)}`;
+        const nonEmptyValues = arrayValues.map(v => v === null ? "" : v);
+        const url = `arrayUpdate.html?size=${size}&values=${encodeURIComponent(nonEmptyValues.join(","))}`;
         window.location.href = url;
     });
 }

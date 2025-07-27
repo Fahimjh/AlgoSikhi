@@ -15,19 +15,23 @@ const dashBrdBtn = document.getElementById("dashBoard");
 const pseudocodeData = {
     arrayCreation: [
         "FUNCTION createArray(size, values)",
-        "  IF size <= 0 OR values.length ≠ size THEN",
+        "  IF size <= 0 THEN",
         "    RETURN error",
         "  END IF",
         "  LET array = new Array(size)",
         "  FOR i FROM 0 TO size - 1",
-        "    array[i] = Number(values[i])",
+        "    IF i < values.length THEN",
+        "      array[i] = Number(values[i])",
+        "    ELSE",
+        "      array[i] = undefined",
+        "    END IF",
         "  END FOR",
         "  RETURN array",
         "END FUNCTION"
     ]
 };
 
-// Inject pseudocode lines into the DOM with better formatting
+// Inject pseudocode lines into the DOM
 function renderPseudocode() {
     const codeContainer = document.getElementById("pseudocode");
     codeContainer.innerHTML = "";
@@ -37,23 +41,10 @@ function renderPseudocode() {
         const lineElem = document.createElement("pre");
         lineElem.id = `line-${index}`;
         
-        // Style keywords
-        if (line.match(/\b(FUNCTION|IF|THEN|ELSE|END|FOR|LET|RETURN)\b/)) {
-            lineElem.innerHTML = line.replace(
-                /\b(FUNCTION|IF|THEN|ELSE|END|FOR|LET|RETURN)\b/g, 
-                '<span class="keyword">$&</span>'
-            );
-        } 
-        // Style variables
-        else if (line.match(/\b(array|size|values|i)\b/)) {
-            lineElem.innerHTML = line.replace(
-                /\b(array|size|values|i)\b/g,
-                '<span class="variable">$&</span>'
-            );
-        }
-        else {
-            lineElem.textContent = line;
-        }
+        // Style keywords and variables
+        lineElem.innerHTML = line
+            .replace(/\b(FUNCTION|IF|THEN|ELSE|END|FOR|LET|RETURN)\b/g, '<span class="keyword">$&</span>')
+            .replace(/\b(array|size|values|i)\b/g, '<span class="variable">$&</span>');
         
         codeContainer.appendChild(lineElem);
     });
@@ -67,34 +58,27 @@ function highlightLine(index) {
     if (targetLine) targetLine.classList.add("highlight");
 }
 
-// Create array with proper visualization flow
+// Create array with visualization
 async function createArray() {
-    // Reset any previous state
     const arrayContainer = document.getElementById("array");
     arrayContainer.innerHTML = '';
     
-    // Get inputs first
     const sizeInput = parseInt(document.getElementById("array-size").value);
     const valuesInput = document.getElementById("array-values").value;
-    const values = valuesInput.split(",").map(v => v.trim());
+    const values = valuesInput.split(",").map(v => v.trim()).filter(v => v !== "");
     
     // Step 1: FUNCTION declaration
     highlightLine(0);
     await delay(500);
     
-    // Step 2: Validate inputs - only highlight if invalid
-    if (!sizeInput || sizeInput <= 0 || values.length !== sizeInput) {
-        highlightLine(1); // Validation check
+    // Step 2: Validate size only
+    if (!sizeInput || sizeInput <= 0) {
+        highlightLine(1);
         await delay(500);
-        if (!sizeInput || sizeInput <= 0) {
-            alert("Please enter a valid array size (positive integer)");
-        } else {
-            alert(`Number of values (${values.length}) doesn't match array size (${sizeInput})`);
-        }
-        return; // Exit if invalid
+        alert("Please enter a valid array size (positive integer)");
+        return;
     }
     
-    // Only proceed to array creation if validation passes
     highlightLine(3); // Allocation
     await delay(500);
     
@@ -111,27 +95,31 @@ async function createArray() {
     await delay(800);
     
     // Step 3: Initialize elements
-    highlightLine(5); // Initialization
+    highlightLine(5); // FOR loop
     await delay(500);
     
     for (let i = 0; i < arraySize; i++) {
-        highlightLine(6); // FOR loop
-        highlightLine(7); // Assignment
-        
-        const numValue = Number(values[i]);
-        arrayValues[i] = isNaN(numValue) ? 0 : numValue;
+        if (i < values.length) {
+            highlightLine(6); // IF condition
+            highlightLine(7); // Assign from input
+            const numValue = values[i] === "" ? "" : Number(values[i]);
+            arrayValues[i] = isNaN(numValue) ? "" : numValue;
+        } else {
+            highlightLine(8); // ELSE condition
+            highlightLine(9); // Assign undefined
+            arrayValues[i] = "";
+        }
         
         const cells = document.querySelectorAll("#array .cell");
         cells[i].classList.remove("empty");
-        cells[i].textContent = arrayValues[i];
+        cells[i].textContent = arrayValues[i] !== "" ? arrayValues[i] : "0";
         cells[i].classList.add("active");
         
         await delay(600);
         cells[i].classList.remove("active");
     }
     
-    // Step 4: Completion
-    highlightLine(9);
+    highlightLine(11); // RETURN
     await delay(300);
     
     updateProgress();
@@ -147,7 +135,7 @@ function renderArray() {
     arrayValues.forEach((val) => {
         const cell = document.createElement('div');
         cell.className = 'cell';
-        cell.textContent = val;
+        cell.textContent = val !== undefined ? val : '';
         arrayContainer.appendChild(cell);
     });
 }
@@ -168,7 +156,6 @@ function updateProgress() {
             })
         })
         .then(res => res.json())
-        .then(console.log)
         .catch(console.error);
     }
 }
@@ -193,7 +180,8 @@ arraySortBtn.addEventListener("click", () => {
     if (arrayValues.length === 0) {
         alert("Please create an array first");
     } else {
-        window.location.href = `arraySort.html?size=${arraySize}&values=${encodeURIComponent(arrayValues.join(","))}`;
+        const nonEmptyValues = arrayValues.map(v => v === "" ? "" : v);
+        window.location.href = `arraySort.html?size=${arraySize}&values=${encodeURIComponent(nonEmptyValues.join(","))}`;
     }
 });
 

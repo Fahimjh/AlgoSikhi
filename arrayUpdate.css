@@ -7,53 +7,63 @@ body {
     display: flex;
     width: 100%;
     height: 100vh;
-    /* Make the container take up the full height of the viewport */
     transition: all 0.5s ease;
 }
 
-/* Theory Section */
 .theory-section {
     flex: 1;
-    /* Occupies full width initially */
     padding: 20px;
     background-color: bisque;
-    transition: all 0.5s ease;
+    overflow-y: auto;
 }
 
-/* When visualization is active, shrink theory section */
 .container.visualization-active .theory-section {
-    flex: 0.5;
-    /* Shrinks to 50% */
+    flex: 0.25;
 }
 
-/* Visualization Section */
+.pseudocode-section {
+    flex: 0;
+    padding: 0;
+    background-color: #222;
+    color: white;
+    font-family: monospace;
+    font-size: 1rem;
+    display: none;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+
+.container.visualization-active .pseudocode-section {
+    flex: 0.3;
+    padding: 20px;
+    display: block;
+}
+
+#pseudocode pre {
+    padding: 5px 10px;
+    margin: 0;
+    transition: background-color 0.3s ease;
+}
+
+#pseudocode .highlight {
+    background-color: yellow;
+    color: black;
+}
+
 .visualization-section {
     flex: 0;
-    /* Hidden initially */
     overflow: hidden;
     padding: 20px;
     background: #1a1a1a;
-    /* Dark background for visualization */
     color: white;
-    /* Text color for better contrast */
     display: none;
-    /* Hidden by default */
     transition: all 0.5s ease;
     box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);
-    /* Shady effect at the bottom */
 }
 
-#start-visualization {
-    height: 2rem;
-    width: auto;
-}
-
-/* When visualization is active, show visualization section */
 .container.visualization-active .visualization-section {
-    flex: 0.5;
-    /* Expands to 50% */
+    flex: 0.45;
     display: flex;
-    /* Make it visible */
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -62,15 +72,11 @@ body {
 #array {
     display: flex;
     gap: 9px;
-    margin-top: 1rem;
-    margin-bottom: 4rem;
+    margin: 1rem 0 4rem;
     flex-wrap: wrap;
-    /* Allow wrapping of array cells */
     justify-content: center;
-    /* Center the array cells */
 }
 
-/* Close Button */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -80,22 +86,24 @@ body {
     color: red;
 }
 
-/* Array Visualization */
-.value,.index{
+.value, .index {
     height: 1.5rem;
     width: 13rem;
-    font-size: 1rem;
+    font-size: medium;
 }
 
-.update-option {
+.update-option, .update {
     height: 1.9rem;
+    font-size: medium;
 }
-.update{
-    height: 1.9rem;
+
+#start-visualization, #homePage, #dashBoard {
+    height: 2rem;
+    width: auto;
+    font-size: medium;
 }
 
 .cell {
-    margin-bottom: 1rem;
     width: 50px;
     height: 50px;
     background: #333;
@@ -105,16 +113,16 @@ body {
     justify-content: center;
     color: white;
     font-size: 20px;
+    margin: 0 0 1rem;
     transition: all 0.5s ease;
 }
 
-/* Visualization highlight classes */
 .highlight {
     background: orange !important;
     transition: background 0.5s;
 }
 
-.Previous{
+.Previous {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -122,9 +130,11 @@ body {
     margin-top: 10rem;
 }
 
-.btns{
+.btns {
     display: flex;
+    font-size: medium;
 }
-.arrSearch,.homePage{
-    font-size: 1rem;
+
+.arrSearch, .homePage {
+    font-size: medium;
 }

@@ -1,7 +1,21 @@
 const params = new URLSearchParams(window.location.search);
 const size = params.get("size");
 const values = params.get("values");
-let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
+
+// Handle empty values properly
+let arrayValues = values ? values.split(",").map(v => {
+    v = v.trim();
+    return v === "" ? null : Number(v); // Convert empty to null
+}) : [1, 2, 3, 4, 5];
+
+// Ensure array has correct size
+if (arrayValues.length < size) {
+    while (arrayValues.length < size) {
+        arrayValues.push(null); // Pad with null
+    }
+} else if (arrayValues.length > size) {
+    arrayValues = arrayValues.slice(0, size);
+}
 
 // Pseudocode lines
 const pseudocodeData = {
@@ -499,9 +513,9 @@ if (closeBtn && container && startBtn) {
 const arraySearchBtn = document.querySelector(".arrSearch");
 if (arraySearchBtn) {
     arraySearchBtn.addEventListener("click", () => {
-        const values = arrayValues.join(",");
         const sortOption = document.querySelector(".sort-option").value;
-        const url = `arraySearch.html?size=${size}&values=${encodeURIComponent(values)}&order=${sortOption}`;
+        const nonEmptyValues = arrayValues.map(v => v === "" ? "" : v);
+        const url = `arraySearch.html?size=${size}&values=${encodeURIComponent(nonEmptyValues)}&order=${sortOption}`;
         window.location.href = url;
     });
 }
