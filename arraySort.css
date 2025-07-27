@@ -94,6 +94,7 @@ body {
 #start-visualization, #homePage, #dashBoard {
     height: 2rem;
     width: auto;
+    font-size: medium;
 }
 
 #array {

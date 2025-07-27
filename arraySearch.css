@@ -43,8 +43,26 @@ body {
 
 /* When visualization is active, shrink theory section */
 .container.visualization-active .theory-section {
-    flex: 0.5; /* Shrinks to 50% */
+    flex: 0.25; /* Shrinks to 50% */
 }
+
+/* Show & expand pseudocode when visualization is active */
+.container.visualization-active .pseudocode-section {
+    flex: 0.3;
+    padding: 20px;
+    display: block;
+}
+
+#pseudocode div {
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+#pseudocode .highlight {
+    background-color: yellow;
+    color: black;
+}
+
 
 /* Visualization Section */
 .visualization-section {
@@ -65,7 +83,7 @@ body {
 
 /* When visualization is active, show visualization section */
 .container.visualization-active .visualization-section {
-    flex: 0.5; /* Expands to 50% */
+    flex: 0.45; /* Expands to 50% */
     display: flex; /* Make it visible */
     flex-direction: column;
     align-items: center; 

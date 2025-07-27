@@ -1,11 +1,96 @@
 const params = new URLSearchParams(window.location.search);
 const size = params.get("size");
 const values = params.get("values");
-const order = params.get("order") || "Ascending"; // Default to Ascending if not provided
-let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5]; // fallback default
+const order = params.get("order") || "Ascending";
+let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
 
-console.log("Array Size:", size);
-console.log("Array Values:", arrayValues);
+// Pseudocode data for search algorithms
+const pseudocodeData = {
+    linear: {
+        base: [
+            "FUNCTION linearSearch(array, value)",
+            "  FOR i FROM 0 TO length(array) - 1",
+            "    IF array[i] == value THEN",
+            "      RETURN i  // Found at index i",
+            "    END IF",
+            "  END FOR",
+            "  RETURN -1  // Not found",
+            "END FUNCTION"
+        ]
+    },
+    binary: {
+        ascending: [
+            "FUNCTION binarySearchAscending(array, value)",
+            "  LET left = 0",
+            "  LET right = length(array) - 1",
+            "  WHILE left <= right",
+            "    LET mid = floor((left + right) / 2)",
+            "    IF array[mid] == value THEN",
+            "      RETURN mid  // Found at mid",
+            "    ELSE IF array[mid] < value THEN",
+            "      left = mid + 1  // Search right half",
+            "    ELSE",
+            "      right = mid - 1  // Search left half",
+            "    END IF",
+            "  END WHILE",
+            "  RETURN -1  // Not found",
+            "END FUNCTION"
+        ],
+        descending: [
+            "FUNCTION binarySearchDescending(array, value)",
+            "  LET left = 0",
+            "  LET right = length(array) - 1",
+            "  WHILE left <= right",
+            "    LET mid = floor((left + right) / 2)",
+            "    IF array[mid] == value THEN",
+            "      RETURN mid  // Found at mid",
+            "    ELSE IF array[mid] > value THEN",
+            "      left = mid + 1  // Search right half",
+            "    ELSE",
+            "      right = mid - 1  // Search left half",
+            "    END IF",
+            "  END WHILE",
+            "  RETURN -1  // Not found",
+            "END FUNCTION"
+        ]
+    }
+};
+
+// Inject pseudocode into the DOM
+function renderPseudocode(method) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    
+    codeContainer.innerHTML = "";
+    let lines = [];
+    
+    if (method === "linear") {
+        lines = pseudocodeData.linear.base;
+    } else if (method === "binary") {
+        lines = order === "Ascending" 
+            ? pseudocodeData.binary.ascending 
+            : pseudocodeData.binary.descending;
+    }
+
+    lines.forEach((line, index) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${index}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+// Highlight specific pseudocode line
+function highlightLine(index) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    
+    const targetLine = document.getElementById(`line-${index}`);
+    if (targetLine) targetLine.classList.add("highlight");
+}
+
+// Initial render
+renderPseudocode("linear"); // Default to linear search
 
 function renderArray() {
     const arrayContainer = document.getElementById("array");
@@ -24,9 +109,14 @@ function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Use class selectors for search inputs
+// Search controls
 const searchValueInput = document.querySelector(".search-value");
 const searchMethodSelect = document.querySelector(".search-method");
+
+// Update pseudocode when search method changes
+searchMethodSelect.addEventListener("change", (e) => {
+    renderPseudocode(e.target.value);
+});
 
 async function startSearch() {
     const searchValue = parseInt(searchValueInput.value);
@@ -43,89 +133,132 @@ async function startSearch() {
     });
 
     if (searchMethod === "linear") {
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            cells[i].classList.add("active");
-            await delay(600);
-            if (parseInt(cells[i].textContent) === searchValue) {
-                cells[i].classList.add("found");
-                alert(`Your value ${searchValue} is found at index ${i}`);
-                found = true;
-                break;
-            }
-            cells[i].classList.remove("active");
-            cells[i].classList.add("checked");
-        }
-        if (!found) {
-            alert(`Your value ${searchValue} isn't found`);
-        }
+        await linearSearchVisualization(searchValue, cells);
     } else if (searchMethod === "binary") {
-        let found = false;
-        let left = 0;
-        let right = cells.length - 1;
-        while (left <= right) {
-            const mid = Math.floor((left + right) / 2);
-            cells[mid].classList.add("active");
-            await delay(800);
-            const midValue = parseInt(cells[mid].textContent);
-            if (midValue === searchValue) {
-                cells[mid].classList.add("found");
-                alert(`Your value ${searchValue} is found at index ${mid}`);
-                found = true;
-                break;
-            }
-            cells[mid].classList.remove("active");
-            cells[mid].classList.add("checked");
-            if (order === "Ascending") {
-                if (midValue < searchValue) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            } else { // Descending
-                if (midValue > searchValue) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            }
-        }
-        if (!found) {
-            alert(`Your value ${searchValue} isn't found`);
-        }
+        await binarySearchVisualization(searchValue, cells);
     }
 
-    // Progress update for Array Search
+    updateProgress(searchMethod);
+}
+
+async function linearSearchVisualization(searchValue, cells) {
+    highlightLine(0); // FUNCTION
+    await delay(300);
+    
+    let found = false;
+    for (let i = 0; i < cells.length; i++) {
+        highlightLine(1); // FOR loop
+        cells[i].classList.add("active");
+        await delay(600);
+        
+        highlightLine(2); // IF condition
+        if (parseInt(cells[i].textContent) === searchValue) {
+            highlightLine(3); // RETURN found
+            cells[i].classList.add("found");
+            alert(`Value ${searchValue} found at index ${i}`);
+            found = true;
+            break;
+        }
+        
+        cells[i].classList.remove("active");
+        cells[i].classList.add("checked");
+        await delay(300);
+    }
+    
+    if (!found) {
+        highlightLine(6); // RETURN not found
+        alert(`Value ${searchValue} not found`);
+    }
+}
+
+async function binarySearchVisualization(searchValue, cells) {
+    const lines = order === "Ascending" 
+        ? pseudocodeData.binary.ascending 
+        : pseudocodeData.binary.descending;
+    
+    highlightLine(0); // FUNCTION
+    await delay(300);
+    
+    let found = false;
+    let left = 0;
+    let right = cells.length - 1;
+    
+    highlightLine(1); // LET left
+    highlightLine(2); // LET right
+    await delay(500);
+    
+    while (left <= right) {
+        highlightLine(3); // WHILE
+        const mid = Math.floor((left + right) / 2);
+        
+        highlightLine(4); // LET mid
+        cells[mid].classList.add("active");
+        await delay(800);
+        
+        const midValue = parseInt(cells[mid].textContent);
+        
+        highlightLine(5); // IF found
+        if (midValue === searchValue) {
+            cells[mid].classList.add("found");
+            alert(`Value ${searchValue} found at index ${mid}`);
+            found = true;
+            break;
+        }
+        
+        cells[mid].classList.remove("active");
+        cells[mid].classList.add("checked");
+        
+        if (order === "Ascending") {
+            highlightLine(midValue < searchValue ? 7 : 9); // Adjust left/right
+            if (midValue < searchValue) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        } else {
+            highlightLine(midValue > searchValue ? 7 : 9); // Adjust left/right
+            if (midValue > searchValue) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        await delay(500);
+    }
+    
+    if (!found) {
+        highlightLine(lines.length - 2); // RETURN not found
+        alert(`Value ${searchValue} not found`);
+    }
+}
+
+function updateProgress(searchMethod) {
     const methodToSubtopic = {
         linear: "linearSearch",
         binary: "binarySearch",
     };
 
     const token = localStorage.getItem("token");
+    if (!token || !methodToSubtopic[searchMethod]) return;
 
-    if (token && methodToSubtopic[searchMethod]) {
-        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: token
-            },
-            body: JSON.stringify({
-                topic: "Array Search",
-                subtopic: methodToSubtopic[searchMethod],
-                value: true
-            })
+    fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token
+        },
+        body: JSON.stringify({
+            topic: "Array Search",
+            subtopic: methodToSubtopic[searchMethod],
+            value: true
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log("✅ Progress updated for:", methodToSubtopic[searchMethod]);
-            })
-            .catch(err => {
-                console.error("❌ Progress update failed:", err);
-            });
-    }
+    })
+    .then(res => res.json())
+    .then(console.log)
+    .catch(console.error);
 }
 
+// Event listeners
 const searchBtn = document.querySelector(".searchBtn");
 if (searchBtn) searchBtn.addEventListener("click", startSearch);
 
@@ -145,13 +278,10 @@ const container = document.querySelector(".container");
 
 if (startBtn && container) {
     startBtn.addEventListener("click", () => {
-        if (container.classList.contains("visualization-active")) {
-            container.classList.remove("visualization-active");
-            startBtn.innerText = "Visualize Array Search";
-        } else {
-            container.classList.add("visualization-active");
-            startBtn.innerText = "Close Visualization";
-        }
+        container.classList.toggle("visualization-active");
+        startBtn.innerText = container.classList.contains("visualization-active")
+            ? "Close Visualization"
+            : "Visualize Array Search";
     });
 }
 
@@ -170,3 +300,14 @@ if (arrayUpdateBtn) {
         window.location.href = url;
     });
 }
+
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
+homePgBtn.addEventListener("click", () => {
+    const url = `index.html`;
+    window.location.href = url;
+});
+dashBrdBtn.addEventListener("click", () => {
+    const url = `dashboard.html`;
+    window.location.href = url;
+});
