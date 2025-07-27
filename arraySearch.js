@@ -4,17 +4,16 @@ const values = params.get("values");
 const order = params.get("order") || "Ascending";
 let arrayValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
 
-// Pseudocode data for search algorithms
 const pseudocodeData = {
     linear: {
         base: [
             "FUNCTION linearSearch(array, value)",
             "  FOR i FROM 0 TO length(array) - 1",
             "    IF array[i] == value THEN",
-            "      RETURN i  // Found at index i",
+            "      RETURN i",
             "    END IF",
             "  END FOR",
-            "  RETURN -1  // Not found",
+            "  RETURN -1",
             "END FUNCTION"
         ]
     },
@@ -26,14 +25,14 @@ const pseudocodeData = {
             "  WHILE left <= right",
             "    LET mid = floor((left + right) / 2)",
             "    IF array[mid] == value THEN",
-            "      RETURN mid  // Found at mid",
+            "      RETURN mid",
             "    ELSE IF array[mid] < value THEN",
-            "      left = mid + 1  // Search right half",
+            "      left = mid + 1",
             "    ELSE",
-            "      right = mid - 1  // Search left half",
+            "      right = mid - 1",
             "    END IF",
             "  END WHILE",
-            "  RETURN -1  // Not found",
+            "  RETURN -1",
             "END FUNCTION"
         ],
         descending: [
@@ -43,20 +42,19 @@ const pseudocodeData = {
             "  WHILE left <= right",
             "    LET mid = floor((left + right) / 2)",
             "    IF array[mid] == value THEN",
-            "      RETURN mid  // Found at mid",
+            "      RETURN mid",
             "    ELSE IF array[mid] > value THEN",
-            "      left = mid + 1  // Search right half",
+            "      left = mid + 1",
             "    ELSE",
-            "      right = mid - 1  // Search left half",
+            "      right = mid - 1",
             "    END IF",
             "  END WHILE",
-            "  RETURN -1  // Not found",
+            "  RETURN -1",
             "END FUNCTION"
         ]
     }
 };
 
-// Inject pseudocode into the DOM
 function renderPseudocode(method) {
     const codeContainer = document.getElementById("pseudocode");
     if (!codeContainer) return;
@@ -80,7 +78,6 @@ function renderPseudocode(method) {
     });
 }
 
-// Highlight specific pseudocode line
 function highlightLine(index) {
     const allLines = document.querySelectorAll("#pseudocode pre");
     allLines.forEach(line => line.classList.remove("highlight"));
@@ -89,8 +86,7 @@ function highlightLine(index) {
     if (targetLine) targetLine.classList.add("highlight");
 }
 
-// Initial render
-renderPseudocode("linear"); // Default to linear search
+renderPseudocode("linear");
 
 function renderArray() {
     const arrayContainer = document.getElementById("array");
@@ -109,11 +105,9 @@ function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Search controls
 const searchValueInput = document.querySelector(".search-value");
 const searchMethodSelect = document.querySelector(".search-method");
 
-// Update pseudocode when search method changes
 searchMethodSelect.addEventListener("change", (e) => {
     renderPseudocode(e.target.value);
 });
@@ -142,18 +136,18 @@ async function startSearch() {
 }
 
 async function linearSearchVisualization(searchValue, cells) {
-    highlightLine(0); // FUNCTION
+    highlightLine(0);
     await delay(300);
     
     let found = false;
     for (let i = 0; i < cells.length; i++) {
-        highlightLine(1); // FOR loop
+        highlightLine(1);
         cells[i].classList.add("active");
         await delay(600);
         
-        highlightLine(2); // IF condition
+        highlightLine(2);
         if (parseInt(cells[i].textContent) === searchValue) {
-            highlightLine(3); // RETURN found
+            highlightLine(3);
             cells[i].classList.add("found");
             alert(`Value ${searchValue} found at index ${i}`);
             found = true;
@@ -166,7 +160,7 @@ async function linearSearchVisualization(searchValue, cells) {
     }
     
     if (!found) {
-        highlightLine(6); // RETURN not found
+        highlightLine(6);
         alert(`Value ${searchValue} not found`);
     }
 }
@@ -176,28 +170,28 @@ async function binarySearchVisualization(searchValue, cells) {
         ? pseudocodeData.binary.ascending 
         : pseudocodeData.binary.descending;
     
-    highlightLine(0); // FUNCTION
+    highlightLine(0);
     await delay(300);
     
     let found = false;
     let left = 0;
     let right = cells.length - 1;
     
-    highlightLine(1); // LET left
-    highlightLine(2); // LET right
+    highlightLine(1);
+    highlightLine(2);
     await delay(500);
     
     while (left <= right) {
-        highlightLine(3); // WHILE
+        highlightLine(3);
         const mid = Math.floor((left + right) / 2);
         
-        highlightLine(4); // LET mid
+        highlightLine(4);
         cells[mid].classList.add("active");
         await delay(800);
         
         const midValue = parseInt(cells[mid].textContent);
         
-        highlightLine(5); // IF found
+        highlightLine(5);
         if (midValue === searchValue) {
             cells[mid].classList.add("found");
             alert(`Value ${searchValue} found at index ${mid}`);
@@ -209,14 +203,14 @@ async function binarySearchVisualization(searchValue, cells) {
         cells[mid].classList.add("checked");
         
         if (order === "Ascending") {
-            highlightLine(midValue < searchValue ? 7 : 9); // Adjust left/right
+            highlightLine(midValue < searchValue ? 7 : 9);
             if (midValue < searchValue) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
             }
         } else {
-            highlightLine(midValue > searchValue ? 7 : 9); // Adjust left/right
+            highlightLine(midValue > searchValue ? 7 : 9);
             if (midValue > searchValue) {
                 left = mid + 1;
             } else {
@@ -227,7 +221,7 @@ async function binarySearchVisualization(searchValue, cells) {
     }
     
     if (!found) {
-        highlightLine(lines.length - 2); // RETURN not found
+        highlightLine(lines.length - 2);
         alert(`Value ${searchValue} not found`);
     }
 }
@@ -254,11 +248,9 @@ function updateProgress(searchMethod) {
         })
     })
     .then(res => res.json())
-    .then(console.log)
     .catch(console.error);
 }
 
-// Event listeners
 const searchBtn = document.querySelector(".searchBtn");
 if (searchBtn) searchBtn.addEventListener("click", startSearch);
 
@@ -304,10 +296,8 @@ if (arrayUpdateBtn) {
 const homePgBtn = document.getElementById("homePage");
 const dashBrdBtn = document.getElementById("dashBoard");
 homePgBtn.addEventListener("click", () => {
-    const url = `index.html`;
-    window.location.href = url;
+    window.location.href = "index.html";
 });
 dashBrdBtn.addEventListener("click", () => {
-    const url = `dashboard.html`;
-    window.location.href = url;
+    window.location.href = "dashboard.html";
 });
