@@ -6,49 +6,75 @@ body {
 .container {
     display: flex;
     width: 100%;
-    height: 100vh; /* Make the container take up the full height of the viewport */
+    height: 100vh;
     transition: all 0.5s ease;
 }
 
-/* Theory Section */
+/* ========== THEORY SECTION ========== */
 .theory-section {
-    flex: 1; /* Occupies full width initially */
+    flex: 1;
     padding: 20px;
-    background-color: bisque ;
+    background-color: bisque;
     transition: all 0.5s ease;
 }
 
-/* When visualization is active, shrink theory section */
+/* Shrink theory when visualization is active */
 .container.visualization-active .theory-section {
-    flex: 0.5; /* Shrinks to 50% */
+    flex: 0.25;
 }
 
-/* Visualization Section */
+/* ========== PSEUDOCODE SECTION ========== */
+.pseudocode-section {
+    flex: 0;
+    padding: 0;
+    background-color: #222;
+    color: white;
+    font-family: monospace;
+    font-size: 1rem;
+    display: none;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+
+/* Show & expand pseudocode when visualization is active */
+.container.visualization-active .pseudocode-section {
+    flex: 0.3;
+    padding: 20px;
+    display: block;
+}
+
+#pseudocode div {
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+#pseudocode .highlight {
+    background-color: yellow;
+    color: black;
+}
+
+/* ========== VISUALIZATION SECTION ========== */
 .visualization-section {
-    flex: 0; /* Hidden initially */
+    flex: 0;
     overflow: hidden;
     padding: 20px;
-    background: #1a1a1a; /* Dark background for visualization */
-    color: white; /* Text color for better contrast */
-    display: none; /* Hidden by default */
+    background: #1a1a1a;
+    color: white;
+    display: none;
     transition: all 0.5s ease;
-    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5); /* Shady effect at the bottom */
-}
-#start-visualization{
-    height: 2rem;
-    width: auto;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* When visualization is active, show visualization section */
+/* Show & expand visualization when active */
 .container.visualization-active .visualization-section {
-    flex: 0.5; /* Expands to 50% */
-    display: flex; /* Make it visible */
-    flex-direction: column; /* Ensure proper layout for child elements */
-    align-items: center; /* Center content horizontally */
-    justify-content: flex-start; /* Align content to the top */
+    flex: 0.45;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-/* Close Button */
+/* ========== CLOSE BUTTON ========== */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -57,27 +83,49 @@ body {
     cursor: pointer;
     color: red;
 }
-.crtArrBtn{
+
+/* ========== BUTTONS AND INPUTS ========== */
+#start-visualization, #homePage, #dashBoard {
+    height: 2rem;
+    width: auto;
+}
+
+.crtArrBtn {
     margin-top: 1rem;
     height: 1.5rem;
     font-size: 1rem;
 }
 
-/* Array Visualization */
+#array-size {
+    height: 1.5rem;
+    width: 10rem;
+}
+
+#array-values {
+    height: 1.5rem;
+    width: 25rem;
+}
+
+.arrSort {
+    height: 1.8rem;
+    font-size: 1rem;
+}
+
+.arraySort {
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 10%;
+}
+
+/* ========== ARRAY VISUALIZATION CELLS ========== */
 #array {
     display: flex;
     gap: 10px;
     margin-top: 20px;
-    flex-wrap: wrap; /* Allow wrapping of array cells */
-    justify-content: center; /* Center the array cells */
-}
-#array-size{
-    height: 1.5rem;
-    width: 10rem;
-}
-#array-values{
-    height: 1.5rem;
-    width: 25rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .cell {
@@ -92,16 +140,4 @@ body {
     color: white;
     font-size: 20px;
     transition: all 0.5s ease;
-}
-
-.arraySort{
-    align-items: center;
-    justify-content: space-evenly;
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: 10%;
-}
-.arrSort{
-    height: 1.8rem;
-    font-size: 1rem;
 }
