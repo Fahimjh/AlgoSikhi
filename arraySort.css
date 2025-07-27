@@ -37,8 +37,39 @@ body {
 }
 
 .container.visualization-active .theory-section {
-    flex: 0.5;
+    flex: 0.25;
 }
+
+/* ========== PSEUDOCODE SECTION ========== */
+.pseudocode-section {
+    flex: 0;
+    padding: 0;
+    background-color: #222;
+    color: white;
+    font-family: monospace;
+    font-size: 1rem;
+    display: none;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+
+/* Show & expand pseudocode when visualization is active */
+.container.visualization-active .pseudocode-section {
+    flex: 0.3;
+    padding: 20px;
+    display: block;
+}
+
+#pseudocode div {
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+#pseudocode .highlight {
+    background-color: yellow;
+    color: black;
+}
+
 
 .visualization-section {
     flex: 0;
@@ -53,14 +84,14 @@ body {
 }
 
 .container.visualization-active .visualization-section {
-    flex: 0.5;
+    flex: 0.45;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 }
 
-#start-visualization {
+#start-visualization, #homePage, #dashBoard {
     height: 2rem;
     width: auto;
 }
@@ -111,12 +142,46 @@ body {
     margin: 5px;
     transition: all 0.5s ease;
 }
+/* Add to your CSS */
+.highlight {
+    background-color: yellow;
+    color: black;
+}
 
 .cell.active {
-    background-color: orange;
+    background-color: #2196F3;
 }
+
 .cell.sorted {
-    background-color: #4caf50;
+    background-color: #4CAF50;
+}
+
+.cell.shifting {
+    background-color: #FF9800;
+}
+
+/* For merge sort visualization */
+.cell.partition {
+    border: 2px dashed #9C27B0;
+    background-color: rgba(156, 39, 176, 0.1);
+}
+
+.cell.merge-left {
+    background-color: #2196F3;
+}
+
+.cell.merge-right {
+    background-color: #4CAF50;
+}
+
+.cell.merge-comparing {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.cell.reset {
+    transform: scale(1);
+    background-color: initial;
+    border-color: #00f;
 }
 
 .arrayCreate {
