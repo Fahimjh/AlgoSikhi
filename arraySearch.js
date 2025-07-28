@@ -137,6 +137,14 @@ async function startSearch() {
         return;
     }
 
+     
+    // Check if array has any non-empty values
+    const hasValues = arrayValues.some(v => v !== null);
+    if (!hasValues) {
+        alert("Array contains no searchable values");
+        return;
+    }
+
     const cells = document.querySelectorAll("#array .cell");
     cells.forEach(cell => {
         cell.classList.remove("active", "found", "checked");

@@ -7,15 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = "login.html";
         return;
     }
+    else{
+        // Display username with capitalized first letter
+        const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
+        document.getElementById("username").textContent = formattedUsername;
+    
+        // Add slight delay for smoother animation
+        setTimeout(() => {
+            fetchProgressData(token);
+        }, 300);
+    }
 
-    // Display username with capitalized first letter
-    const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
-    document.getElementById("username").textContent = formattedUsername;
-
-    // Add slight delay for smoother animation
-    setTimeout(() => {
-        fetchProgressData(token);
-    }, 300);
 });
 
 async function fetchProgressData(token) {
