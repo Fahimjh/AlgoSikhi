@@ -121,7 +121,28 @@ async function createVector() {
     await delay(300);
     
     renderVector();
-    updateProgress();
+    
+    // Progress update: only after user creates a vector
+    const token = localStorage.getItem("token");
+    if (token) {
+        fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                topic: "Vector Introduction",
+                subtopic: "vectorIntro",
+                value: true
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Progress updated for: vectorIntro");
+        })
+        .catch(err => console.error("Progress update failed:", err));
+    }
 }
 
 function delay(ms) {

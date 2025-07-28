@@ -7,15 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = "login.html";
         return;
     }
-    else{
+    else {
         // Display username with capitalized first letter
         const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
         document.getElementById("username").textContent = formattedUsername;
-    
+
         // Add slight delay for smoother animation
         setTimeout(() => {
             fetchProgressData(token);
-        }, 300);
+        }, 200);
     }
 
 });
@@ -32,12 +32,12 @@ async function fetchProgressData(token) {
         const response = await fetch("https://algosikhibackend.onrender.com/api/progress", {
             headers: { Authorization: token }
         });
-        
+
         if (!response.ok) throw new Error("Failed to fetch progress");
-        
+
         const progress = await response.json();
         renderProgressData(progress);
-        
+
     } catch (error) {
         console.error("Error loading progress:", error);
         document.getElementById("progressDetails").innerHTML = `
@@ -59,20 +59,57 @@ function renderProgressData(progress) {
         const topicDiv = document.createElement("div");
         topicDiv.className = "topic-card";
 
+        // Inside renderProgressData(), after creating topicDiv but before adding content:
+        topicDiv.addEventListener("click", () => {
+            const pageMap = generateTopicPageMap();
+            window.location.href = pageMap[topic] || "index.html";
+        });
+
+        // Add this new function anywhere in your dashboard.js
+        function generateTopicPageMap() {
+            return {
+                "Array Introduction": "array.html",
+                "Array Sorting": "arraySort.html",
+                "Array Search": "arraySearch.html",
+                "Array Update": "arrayUpdate.html",
+                "Vector Introduction": "vector.html",
+                "Vector Basic Operations": "vectorBasic.html",
+                "Vector Sort": "vectorSort.html",
+                "Vector Advanced Operations": "vectorAdvanced.html",
+                "Deque Introduction": "deque.html",
+                "Deque Operations": "dequeOperations.html",
+                "list Introduction": "list.html",
+                "list Operations": "listOperations.html",
+                "Map Introduction": "map.html",
+                "map Operations": "mapOperations.html",
+                "multimap Operations": "multimapOperations.html",
+                "unordered_map Operations": "unorderedMapOperations.html",
+                "Set Introduction": "set.html",
+                "set Operations": "setOperations.html",
+                "multiset Operations": "multisetOperations.html",
+                "unordered_set Operations": "unorderedSetOperations.html",
+                "Stack Introduction": "stack.html",
+                "Stack Operations": "stackOperations.html",
+                "Queue Introduction": "queue.html",
+                "queue Operations": "queueOperations.html",
+                "priority_queue Operations": "priorityQueueOperations.html"
+            };
+        }
+
         const topicTitle = document.createElement("div");
         topicTitle.className = "topic-title";
-        
+
         // Add icon based on completion status
         const topicCompletion = calculateTopicCompletion(progress, topic, topics[topic]);
         const icon = document.createElement("i");
         icon.className = topicCompletion === 100 ? "fas fa-check-circle" : "fas fa-book-open";
         icon.style.color = topicCompletion === 100 ? "var(--primary)" : "var(--gray)";
         topicTitle.appendChild(icon);
-        
+
         const titleText = document.createElement("span");
         titleText.textContent = topic;
         topicTitle.appendChild(titleText);
-        
+
         // Add completion percentage
         const percentSpan = document.createElement("span");
         percentSpan.className = "completion-percent";
@@ -80,7 +117,7 @@ function renderProgressData(progress) {
         percentSpan.style.color = topicCompletion === 100 ? "var(--primary)" : "var(--gray)";
         percentSpan.style.marginLeft = "auto";
         topicTitle.appendChild(percentSpan);
-        
+
         topicDiv.appendChild(topicTitle);
 
         const subtopics = topics[topic];
@@ -94,15 +131,15 @@ function renderProgressData(progress) {
 
             const subDiv = document.createElement("div");
             subDiv.className = "subtopic";
-            
+
             const statusIcon = document.createElement("div");
             statusIcon.className = isDone ? "status-icon status-done" : "status-icon status-pending";
             statusIcon.innerHTML = isDone ? '<i class="fas fa-check"></i>' : '<i class="far fa-circle"></i>';
-            
+
             const subName = document.createElement("span");
             subName.className = "subtopic-name";
             subName.textContent = subtopics[sub];
-            
+
             subDiv.appendChild(statusIcon);
             subDiv.appendChild(subName);
             subtopicsList.appendChild(subDiv);
@@ -115,7 +152,7 @@ function renderProgressData(progress) {
     // Update progress bar with animation
     const percent = total ? Math.round((completed / total) * 100) : 0;
     document.getElementById("progressPercent").textContent = percent + "%";
-    
+
     // Animate progress bar
     setTimeout(() => {
         document.getElementById("progressFill").style.width = percent + "%";
@@ -151,7 +188,7 @@ async function deleteAccount() {
         alert(data.message || "Account deleted successfully");
         localStorage.clear();
         window.location.href = "index.html";
-        
+
     } catch (error) {
         console.error("Delete error:", error);
         alert("Failed to delete account. Please try again later.");
