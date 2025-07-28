@@ -14,6 +14,117 @@ const oprBtn = document.querySelector(".oprBtn");
 const operationsSelect = document.querySelector(".Operations");
 const valueInput = document.getElementById("value");
 const pushBackInfo = document.querySelector('.push_backInfo');
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
+
+// Pseudocode data for vector operations
+const pseudocodeData = {
+    push_back: [
+        "FUNCTION push_back(value)",
+        "  IF size == capacity THEN",
+        "    new_capacity = capacity == 0 ? 1 : capacity * 2",
+        "    resize_vector(new_capacity)",
+        "  END IF",
+        "  vector[size] = value",
+        "  size = size + 1",
+        "END FUNCTION"
+    ],
+    pop_back: [
+        "FUNCTION pop_back()",
+        "  IF size > 0 THEN",
+        "    size = size - 1",
+        "  END IF",
+        "END FUNCTION"
+    ],
+    clear: [
+        "FUNCTION clear()",
+        "  size = 0",
+        "END FUNCTION"
+    ],
+    access: [
+        "FUNCTION operator[](index)",
+        "  IF index < 0 OR index >= size THEN",
+        "    RETURN error",
+        "  END IF",
+        "  RETURN vector[index]",
+        "END FUNCTION"
+    ],
+    front: [
+        "FUNCTION front()",
+        "  IF size == 0 THEN",
+        "    RETURN error",
+        "  END IF",
+        "  RETURN vector[0]",
+        "END FUNCTION"
+    ],
+    back: [
+        "FUNCTION back()",
+        "  IF size == 0 THEN",
+        "    RETURN error",
+        "  END IF",
+        "  RETURN vector[size-1]",
+        "END FUNCTION"
+    ],
+    empty: [
+        "FUNCTION empty()",
+        "IF size==0",
+        "  RETURN True",
+        "END FUNCTION"
+    ]
+};
+
+// Render pseudocode based on operation
+function renderPseudocode(operation) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    
+    codeContainer.innerHTML = "";
+    let lines = [];
+    
+    switch(operation) {
+        case "push_back()":
+            lines = pseudocodeData.push_back;
+            break;
+        case "pop_back()":
+            lines = pseudocodeData.pop_back;
+            break;
+        case "clear()":
+            lines = pseudocodeData.clear;
+            break;
+        case "vector[i]":
+            lines = pseudocodeData.access;
+            break;
+        case "front()":
+            lines = pseudocodeData.front;
+            break;
+        case "back()":
+            lines = pseudocodeData.back;
+            break;
+        case "empty()":
+            lines = pseudocodeData.empty;
+            break;
+        default:
+            lines = ["Select an operation to view pseudocode"];
+    }
+
+    lines.forEach((line, index) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${index}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+// Highlight specific pseudocode line
+function highlightLine(index) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    
+    const targetLine = document.getElementById(`line-${index}`);
+    if (targetLine) targetLine.classList.add("highlight");
+}
+
+
 
 // Visualization section show/hide
 startBtn.addEventListener("click", () => {
@@ -72,67 +183,123 @@ operationsSelect.addEventListener("change", toggleValueInput);
 // Perform vector operation
 oprBtn.addEventListener("click", () => {
     const operation = operationsSelect.value;
+    renderPseudocode(operation);
     const val = valueInput.value;
-
-    // Hide push_backInfo by default
     pushBackInfo.style.display = "none";
 
     if (operation === "push_back()") {
-        if (val === "" || isNaN(Number(val))) {
-            alert("Please enter a valid value to push.");
-            return;
-        }
-        vectorValues.push(Number(val));
-        // Simulate capacity doubling
-        if (vectorValues.length > vectorCapacity) {
-            vectorCapacity = vectorCapacity === 0 ? 1 : vectorCapacity * 2;
-        }
-        renderVector([vectorValues.length - 1]);
-        // Show push_backInfo only for push_back()
-        pushBackInfo.style.display = "block";
-    } else if (operation === "pop_back()") {
-        if (vectorValues.length === 0) {
-            alert("Vector is already empty.");
-            return;
-        }
-        vectorValues.pop();
-        renderVector();
-    } else if (operation === "clear()") {
+        highlightLine(0); // FUNCTION push_back
+        setTimeout(() => {
+            highlightLine(1); // IF size == capacity
+            setTimeout(() => {
+                highlightLine(2); // resize_vector
+                setTimeout(() => {
+                    highlightLine(3); // vector[size] = value
+                    highlightLine(4); // size increment
+                    
+                    if (val === "" || isNaN(Number(val))) {
+                        alert("Please enter a valid value to push.");
+                        return;
+                    }
+                    vectorValues.push(Number(val));
+                    if (vectorValues.length > vectorCapacity) {
+                        vectorCapacity = vectorCapacity === 0 ? 1 : vectorCapacity * 2;
+                    }
+                    renderVector([vectorValues.length - 1]);
+                    pushBackInfo.style.display = "block";
+                }, 500);
+            }, 500);
+        }, 500);
+    } 
+    else if (operation === "pop_back()") {
+        highlightLine(0); // FUNCTION pop_back
+        setTimeout(() => {
+            highlightLine(1); // IF size > 0
+            highlightLine(2); // size decrement
+            
+            if (vectorValues.length === 0) {
+                alert("Vector is already empty.");
+                return;
+            }
+            vectorValues.pop();
+            renderVector();
+        }, 500);
+    } 
+    else if (operation === "clear()") {
+        highlightLine(0); // FUNCTION clear
+        highlightLine(1); // size = 0
+        
         vectorValues = [];
         renderVector();
-    } else if (operation === "vector[i]") {
-        if (val === "" || isNaN(Number(val))) {
-            alert("Please enter a valid index.");
-            return;
-        }
-        const idx = Number(val);
-        if (idx < 0 || idx >= vectorValues.length) {
-            alert("Index out of bounds.");
-            return;
-        }
-        renderVector([idx]);
-        alert(`vector[${idx}] = ${vectorValues[idx]}`);
-    } else if (operation === "front()") {
-        if (vectorValues.length === 0) {
-            alert("Vector is empty.");
-            return;
-        }
-        renderVector([0]);
-        alert(`front() = ${vectorValues[0]}`);
-    } else if (operation === "back()") {
-        if (vectorValues.length === 0) {
-            alert("Vector is empty.");
-            return;
-        }
-        renderVector([vectorValues.length - 1]);
-        alert(`back() = ${vectorValues[vectorValues.length - 1]}`);
-    } else if (operation === "empty()") {
+    } 
+    else if (operation === "vector[i]") {
+        highlightLine(0); // FUNCTION operator[]
+        setTimeout(() => {
+            const idx = Number(val);
+            
+            if (val === "" || isNaN(Number(val))) {
+                alert("Please enter a valid index.");
+                highlightLine(1); 
+                highlightLine(2); 
+                return;
+            }
+            else if (idx < 0 || idx >= vectorValues.length) {
+                alert("Index out of bounds.");
+                highlightLine(1); 
+                highlightLine(2); 
+                return;
+            }
+            else{
+                renderVector([idx]);
+                alert(`vector[${idx}] = ${vectorValues[idx]}`);
+                highlightLine(3); // IF index check
+                highlightLine(4); // RETURN vector[index]
+
+            }
+        }, 500);
+    } 
+    else if (operation === "front()") {
+        highlightLine(0); // FUNCTION front
+        setTimeout(() => {
+            
+            if (vectorValues.length === 0) {
+                alert("Vector is empty.");
+                highlightLine(1); // IF size == 0
+                highlightLine(2); // RETURN vector[0]
+                return;
+            }
+            else{
+                renderVector([0]);
+                alert(`front() = ${vectorValues[0]}`);
+                highlightLine(4);
+            }
+        }, 500);
+    } 
+    else if (operation === "back()") {
+        highlightLine(0); // FUNCTION back
+        setTimeout(() => {
+            highlightLine(1); // IF size == 0
+            highlightLine(2); // RETURN vector[size-1]
+            
+            if (vectorValues.length === 0) {
+                alert("Vector is empty.");
+                return;
+            }
+            renderVector([vectorValues.length - 1]);
+            alert(`back() = ${vectorValues[vectorValues.length - 1]}`);
+        }, 500);
+    } 
+    else if (operation === "empty()") {
+        highlightLine(0); // FUNCTION empty
+        highlightLine(1); // RETURN size == 0
+        
         alert(vectorValues.length === 0 ? "Vector is empty." : "Vector is not empty.");
         renderVector();
     }
+    
     valueInput.value = "";
 
-    // Progress update for Vector Basic Operations
+    // Progress update code remains the same...
     const methodToSubtopic = {
         "push_back()": "pushBack",
         "pop_back()": "popBack",
@@ -145,7 +312,6 @@ oprBtn.addEventListener("click", () => {
     };
 
     const token = localStorage.getItem("token");
-
     if (token && methodToSubtopic[operation]) {
         fetch("https://algosikhibackend.onrender.com/api/progress/update", {
             method: "POST",
@@ -158,18 +324,12 @@ oprBtn.addEventListener("click", () => {
                 subtopic: methodToSubtopic[operation],
                 value: true
             })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log("✅ Progress updated for:", methodToSubtopic[operation]);
-            })
-            .catch(err => {
-                console.error("❌ Progress update failed:", err);
-            });
+        }).catch(console.error);
     }
 });
 
 // Initial render
+renderPseudocode("");
 renderVector();
 
 // Vector Sort button navigation
@@ -181,3 +341,10 @@ if (vectorSortBtn) {
         window.location.href = url;
     });
 }
+
+homePgBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+dashBrdBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
+});
