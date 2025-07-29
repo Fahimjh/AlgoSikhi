@@ -12,12 +12,54 @@ const closeBtn = document.querySelector(".close-btn");
 const container = document.querySelector(".container");
 const sortBtn = document.querySelector(".sortBtn");
 const sortOption = document.querySelector(".sort-option");
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
+
+// Pseudocode data for vector sort
+const pseudocodeData = {
+    sort: [
+        "FUNCTION sort(vector, order)",
+        "  IF order == 'Ascending' THEN",
+        "    vector.sort((a, b) => a - b)",
+        "  ELSE",
+        "    vector.sort((a, b) => b - a)",
+        "  END IF",
+        "  RETURN sorted_vector",
+        "END FUNCTION"
+    ]
+};
+
+// Render pseudocode based on operation
+function renderPseudocode() {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    
+    codeContainer.innerHTML = "";
+    const lines = pseudocodeData.sort;
+
+    lines.forEach((line, index) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${index}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+// Highlight specific pseudocode line
+function highlightLine(index) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    
+    const targetLine = document.getElementById(`line-${index}`);
+    if (targetLine) targetLine.classList.add("highlight");
+}
 
 // Visualization section show/hide
 startBtn.addEventListener("click", () => {
     if (container.classList.contains("visualization-active")) {
         container.classList.remove("visualization-active");
         startBtn.innerText = "Visualize Vector Sort";
+        renderPseudocode();
     } else {
         container.classList.add("visualization-active");
         startBtn.innerText = "Close Visualization";
@@ -59,15 +101,28 @@ function delay(ms) {
 }
 
 async function visualizeBuiltInSort(order = "Ascending") {
+    renderPseudocode();
     renderVector();
-    await delay(700);
-
+    
+    highlightLine(0); // FUNCTION sort
+    await delay(500);
+    
+    highlightLine(1); // IF order check
+    await delay(500);
+    
+    if (order === "Ascending") {
+        highlightLine(2); // Ascending sort
+    } else {
+        highlightLine(4); // Descending sort
+    }
+    await delay(500);
+    
     vectorValues.sort((a, b) => order === "Ascending" ? a - b : b - a);
-
-    // Color all cells as sorted
+    
+    highlightLine(6); // RETURN
     renderVector([], true);
-
-    // Progress update: only after user sort the vector
+    
+    // Progress update
     const token = localStorage.getItem("token");
     if (token) {
         fetch("https://algosikhibackend.onrender.com/api/progress/update", {
@@ -81,15 +136,13 @@ async function visualizeBuiltInSort(order = "Ascending") {
                 subtopic: "vecSort",
                 value: true
             })
-        })
-        .then(res => res.json())
+        }) .then(res => res.json())
         .then(data => {
             console.log("✅ Progress updated for: vecSort");
         })
         .catch(err => console.error("Progress update failed:", err));
     }
 }
-
 // Sort button event
 sortBtn.addEventListener("click", async () => {
     await visualizeBuiltInSort(sortOption.value);
@@ -117,3 +170,11 @@ if (vectorAdvancedBtn) {
         window.location.href = url;
     });
 }
+
+homePgBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+
+dashBrdBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
+});
