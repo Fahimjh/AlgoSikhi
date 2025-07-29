@@ -56,10 +56,10 @@ function highlightLine(index) {
 
 // Visualization section show/hide
 startBtn.addEventListener("click", () => {
+    renderPseudocode();
     if (container.classList.contains("visualization-active")) {
         container.classList.remove("visualization-active");
         startBtn.innerText = "Visualize Vector Sort";
-        renderPseudocode();
     } else {
         container.classList.add("visualization-active");
         startBtn.innerText = "Close Visualization";
@@ -101,7 +101,6 @@ function delay(ms) {
 }
 
 async function visualizeBuiltInSort(order = "Ascending") {
-    renderPseudocode();
     renderVector();
     
     highlightLine(0); // FUNCTION sort

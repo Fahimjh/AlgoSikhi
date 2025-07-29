@@ -16,6 +16,7 @@ body {
     padding: 20px;
     background-color: aquamarine;
     transition: all 0.5s ease;
+    overflow-y: auto;
 }
 
 /* When visualization is active, shrink theory section */
