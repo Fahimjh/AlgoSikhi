@@ -3,9 +3,15 @@ let login = document.querySelector(".login");
 login.addEventListener("click", () => {
     window.location.href = "login.html";
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const authAction = document.getElementById("auth-action");
+    const notification = document.getElementById("notification-banner");
     const token = localStorage.getItem("token");
+
+    document.querySelector('.close-notification')?.addEventListener('click', () => {
+        notification.style.display = 'none';
+    });
 
     if (token) {
         fetch("https://algosikhibackend.onrender.com/api/auth/verifyToken", {
@@ -16,20 +22,37 @@ document.addEventListener("DOMContentLoaded", function () {
                     authAction.textContent = "DASHBOARD";
                     authAction.style.color = "#3f72af";
                     authAction.onclick = () => window.location.href = "dashboard.html";
-                } else {
+                    notification.style.display = 'none'; // Hide if logged in
+                } 
+                else {
                     localStorage.clear();
                     authAction.textContent = "LOGIN";
                     authAction.onclick = () => window.location.href = "login.html";
+                    showNotification();
                 }
             })
             .catch(() => {
                 localStorage.clear();
                 authAction.textContent = "LOGIN";
                 authAction.onclick = () => window.location.href = "login.html";
+                showNotification();
             });
     } else {
         authAction.textContent = "LOGIN";
         authAction.onclick = () => window.location.href = "login.html";
+        showNotification();
+    }
+
+    function showNotification() {
+        // Only show if user hasn't previously dismissed it
+        if (!localStorage.getItem('notificationDismissed')) {
+            notification.style.display = 'flex';
+        }
+        // Set click handler to remember dismissal
+        document.querySelector('.close-notification').addEventListener('click', () => {
+            localStorage.setItem('notificationDismissed', 'true');
+            notification.style.display = 'none';
+        });
     }
 });
 

@@ -55,6 +55,58 @@
 .login:hover{
     color: blueviolet;   
 }
+
+.notification {
+    position: absolute;
+    top: 40px;
+    right: 4%;
+    background: lightgreen;
+    color: black;
+    padding: 20px; /* Increased padding */
+    height: 80px;
+    width: 250px;
+    border-radius: 4px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    animation: slideDown 0.5s ease-out;
+    margin-top: 10px;
+    text-align: center; /* Center text horizontally */
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 150px; /* Adjust as needed */
+    justify-content: center; /* Center content vertically */
+}
+
+.notification:after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 20px;
+    width: 0;
+    height: 2rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid lightgreen;
+}
+
+.notification button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-content {
+    margin-top: 15px; /* Space below close button */
+}
+
 body{
     background-color: #eeeeee;
 }
