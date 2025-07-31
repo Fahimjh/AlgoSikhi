@@ -63,18 +63,17 @@
     background: lightgreen;
     color: black;
     padding: 20px; /* Increased padding */
-    height: 80px;
-    width: 250px;
+    height: 50px;
+    width: 200px;
     border-radius: 4px;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     animation: slideDown 0.5s ease-out;
     margin-top: 10px;
     text-align: center; /* Center text horizontally */
-    font-size: 1.3rem;
+    font-size: auto;
     display: flex;
     flex-direction: column;
-    min-height: 150px; /* Adjust as needed */
     justify-content: center; /* Center content vertically */
 }
 

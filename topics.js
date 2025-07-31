@@ -61,7 +61,7 @@ const topics = {
     },
 
     "list Introduction": {
-        listIntro: "How to declare and initialize a double ended queue (deque)"
+        listIntro: "How to declare and initialize a list (doubly linked list)"
     },
 
     "list Operations": {
