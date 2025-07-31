@@ -79,6 +79,12 @@ body {
     justify-content: flex-start;/* Align content to the top */
 }
 
+#start-visualization, #homePage, #dashBoard {
+    height: 2rem;
+    width: auto;
+    font-size: medium;
+}
+
 .close-btn {
     position: absolute;
     top: 10px;
@@ -88,11 +94,6 @@ body {
     cursor: pointer;
 }
 
-#start-visualization, #homePage, #dashBoard {
-    height: 2rem;
-    width: auto;
-    font-size: medium;
-}
 
 .oprBtn {
     margin-top: 1rem;
