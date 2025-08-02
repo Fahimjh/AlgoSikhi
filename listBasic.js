@@ -63,7 +63,7 @@ function highlightLines(...indices) {
 startBtn.addEventListener("click", () => {
     if (container.classList.contains("visualization-active")) {
         container.classList.remove("visualization-active");
-        startBtn.innerText = "Visualize Vector Operations";// Close visualization
+        startBtn.innerText = "Visualize list creations";// Close visualization
     } 
     else {
         container.classList.add("visualization-active");
@@ -74,7 +74,7 @@ startBtn.addEventListener("click", () => {
 // Close visualization using the close button
 closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
-    startBtn.innerText = "Visualize Vector Operations";
+    startBtn.innerText = "Visualize list Operations";
 });
 
 

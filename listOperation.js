@@ -380,6 +380,7 @@ oprBtn.addEventListener("click", async () => {
                 highlightIndices.push(idx);
             }
         });
+        highlightLines(8);
 
         renderList(highlightIndices);
 

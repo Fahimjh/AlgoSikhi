@@ -19,7 +19,7 @@ const dashBrdBtn = document.getElementById("dashBoard");
 
 // Pseudocode data for vector operations
 const pseudocodeData = {
-    push_back: [
+    "push_back()": [
         "FUNCTION push_back(value)",
         "  IF size == capacity THEN",
         "    new_capacity = capacity == 0 ? 1 : capacity * 2",
@@ -29,19 +29,19 @@ const pseudocodeData = {
         "  size = size + 1",
         "END FUNCTION"
     ],
-    pop_back: [
+    "pop_back()": [
         "FUNCTION pop_back()",
         "  IF size > 0 THEN",
         "    size = size - 1",
         "  END IF",
         "END FUNCTION"
     ],
-    clear: [
+    "clear()": [
         "FUNCTION clear()",
         "  size = 0",
         "END FUNCTION"
     ],
-    access: [
+    "vector[i]": [
         "FUNCTION operator[](index)",
         "  IF index < 0 OR index >= size THEN",
         "    RETURN error",
@@ -49,7 +49,7 @@ const pseudocodeData = {
         "  RETURN vector[index]",
         "END FUNCTION"
     ],
-    front: [
+    "front()": [
         "FUNCTION front()",
         "  IF size == 0 THEN",
         "    RETURN error",
@@ -57,7 +57,7 @@ const pseudocodeData = {
         "  RETURN vector[0]",
         "END FUNCTION"
     ],
-    back: [
+    "back()": [
         "FUNCTION back()",
         "  IF size == 0 THEN",
         "    RETURN error",
@@ -65,7 +65,7 @@ const pseudocodeData = {
         "  RETURN vector[size-1]",
         "END FUNCTION"
     ],
-    empty: [
+    "empty()": [
         "FUNCTION empty()",
         "IF size==0",
         "  RETURN True",
@@ -77,35 +77,9 @@ const pseudocodeData = {
 function renderPseudocode(operation) {
     const codeContainer = document.getElementById("pseudocode");
     if (!codeContainer) return;
-    
+
     codeContainer.innerHTML = "";
-    let lines = [];
-    
-    switch(operation) {
-        case "push_back()":
-            lines = pseudocodeData.push_back;
-            break;
-        case "pop_back()":
-            lines = pseudocodeData.pop_back;
-            break;
-        case "clear()":
-            lines = pseudocodeData.clear;
-            break;
-        case "vector[i]":
-            lines = pseudocodeData.access;
-            break;
-        case "front()":
-            lines = pseudocodeData.front;
-            break;
-        case "back()":
-            lines = pseudocodeData.back;
-            break;
-        case "empty()":
-            lines = pseudocodeData.empty;
-            break;
-        default:
-            lines = ["Select an operation to view pseudocode"];
-    }
+    const lines = pseudocodeData[operation] || ["Select an operation to view pseudocode"];
 
     lines.forEach((line, index) => {
         const lineElem = document.createElement("pre");
@@ -168,6 +142,7 @@ function renderVector(highlightIndices = [], sorted = false) {
 
 // Hide value input unless push_back() or vector[i] is selected
 function toggleValueInput() {
+    renderPseudocode(operationsSelect.value);
     if (
         operationsSelect.value === "push_back()" ||
         operationsSelect.value === "vector[i]"
@@ -183,7 +158,6 @@ operationsSelect.addEventListener("change", toggleValueInput);
 // Perform vector operation
 oprBtn.addEventListener("click", () => {
     const operation = operationsSelect.value;
-    renderPseudocode(operation);
     const val = valueInput.value;
     pushBackInfo.style.display = "none";
 
@@ -329,7 +303,6 @@ oprBtn.addEventListener("click", () => {
 });
 
 // Initial render
-renderPseudocode("");
 renderVector();
 
 // Vector Sort button navigation

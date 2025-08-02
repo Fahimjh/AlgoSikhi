@@ -92,7 +92,7 @@ async function createArray() {
         cell.textContent = '';
         arrayContainer.appendChild(cell);
     }
-    await delay(800);
+    await delay(300);
     
     // Step 3: Initialize elements
     highlightLine(5); // FOR loop
