@@ -175,6 +175,7 @@ oprBtn.addEventListener("click", () => {
                         alert("Please enter a valid value to push.");
                         return;
                     }
+                    highlightLine(5);
                     vectorValues.push(Number(val));
                     if (vectorValues.length > vectorCapacity) {
                         vectorCapacity = vectorCapacity === 0 ? 1 : vectorCapacity * 2;
@@ -298,7 +299,12 @@ oprBtn.addEventListener("click", () => {
                 subtopic: methodToSubtopic[operation],
                 value: true
             })
-        }).catch(console.error);
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Progress updated for:", methodToSubtopic[operation]);
+        })
+        .catch(console.error);
     }
 });
 
