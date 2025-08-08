@@ -11,18 +11,104 @@ const valueInput = document.getElementById("value");
 const typeSelect = document.querySelector(".types");
 const createBtn = document.querySelector(".crtsetBtn");
 const setOpsBtn = document.querySelector(".setOpsBtn");
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
 
-// Toggle visualization
+// Pseudocode data for map advanced operations
+const pseudocodeData = {
+    set: [
+        "FUNCTION createSet(values)",
+        "  IF values is empty THEN",
+        "    RETURN error",
+        "  END IF",
+        "  LET unique = empty set",
+        "  FOR EACH v IN values",
+        "    IF v NOT IN unique THEN",
+        "      ADD v TO unique",
+        "    END IF",
+        "  END FOR",
+        "  SORT unique (ascending)",
+        "  RETURN unique",
+        "END FUNCTION"
+    ],
+    multiset: [
+        "FUNCTION createMultiset(values)",
+        "  IF values is empty THEN",
+        "    RETURN error",
+        "  END IF",
+        "  LET multiset = empty list",
+        "  FOR EACH v IN values",
+        "    ADD v TO multiset",
+        "  END FOR",
+        "  SORT multiset (ascending)",
+        "  RETURN multiset",
+        "END FUNCTION"
+    ],
+    unordered_set: [
+        "FUNCTION createUnorderedSet(values)",
+        "  IF values is empty THEN",
+        "    RETURN error",
+        "  END IF",
+        "  LET unique = empty set",
+        "  FOR EACH v IN values",
+        "    IF v NOT IN unique THEN",
+        "      ADD v TO unique",
+        "    END IF",
+        "  END FOR",
+        "  RETURN unique (no sorting)",
+        "END FUNCTION"
+    ]
+};
+
+// Render pseudocode based on operation
+function renderPseudocode(type = currentMapType) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+
+    codeContainer.innerHTML = "";
+
+    const lines = pseudocodeData[type];
+    if (!lines) return;
+    lines.forEach((line, index) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${index}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+// Highlight specific pseudocode line/lines
+function highlightLines(...indices) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    
+    indices.forEach(index => {
+        const targetLine = document.getElementById(`line-${index}`);
+        if (targetLine) targetLine.classList.add("highlight");
+    });
+}
+
+// Toggle visualization state
 startBtn.addEventListener("click", () => {
-    container.classList.toggle("visualization-active");
-    startBtn.innerText = container.classList.contains("visualization-active")
-        ? "Close Visualization"
-        : "Visualize Set Creations";
+    if (container.classList.contains("visualization-active")) {
+        container.classList.remove("visualization-active");
+        startBtn.innerText = "Visualize set creations";
+    } else {
+        container.classList.add("visualization-active");
+        startBtn.innerText = "Close Visualization";
+        renderPseudocode(typeSelect.value); // Show pseudocode for selected set type
+    }
 });
 
+// Close visualization using the close button
 closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
-    startBtn.innerText = "Visualize Set Creations";
+    startBtn.innerText = "Visualize map Operations";
+});
+
+
+typeSelect.addEventListener("change", () => {
+    renderPseudocode(typeSelect.value);
 });
 
 // Render current set
@@ -37,12 +123,20 @@ function renderSet(setArr) {
     });
 }
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 // Create and visualize set
-createBtn.addEventListener("click", () => {
+createBtn.addEventListener("click", async () => {
     const selectedType = typeSelect.value;
     const raw = valueInput.value.trim();
 
+    renderPseudocode(selectedType); // Always show correct pseudocode
+
     if (!raw) {
+        highlightLines(1);
+        await delay(300);
+        highlightLines(2); // Highlight error lines
         alert("Please enter some values.");
         return;
     }
@@ -51,22 +145,45 @@ createBtn.addEventListener("click", () => {
     let finalValues = [];
 
     if (selectedType === "set") {
-        // ✅ Remove duplicates first, then sort (numerically if needed)
+        highlightLines(4);
+        await delay(300);
+        highlightLines(5);
+        await delay(300);
+        highlightLines(6);
+        await delay(300);
+        highlightLines(7);
+        
         const unique = [...new Set(inputValues)];
         finalValues = unique.slice().sort((a, b) => {
             const na = Number(a), nb = Number(b);
             return isNaN(na) || isNaN(nb) ? a.localeCompare(b) : na - nb;
         });
+        highlightLines(10); // Highlight sort
+        await delay(300);
         setValues = finalValues;
-    } else if (selectedType === "multiset") {
-        // ✅ Keep duplicates, but sort properly
+        highlightLines(11);
+        await delay(300);
+    } 
+    else if (selectedType === "multiset") {
+        highlightLines(4);
+        await delay(300);
+        highlightLines(5);
+        await delay(300);
+        highlightLines(6);
         finalValues = inputValues.slice().sort((a, b) => {
             const na = Number(a), nb = Number(b);
             return isNaN(na) || isNaN(nb) ? a.localeCompare(b) : na - nb;
         });
         multisetValues = finalValues;
+        highlightLines(8);
+        await delay(300);
+        highlightLines(9);
     } else if (selectedType === "unordered_set") {
-        // ✅ Remove duplicates but do NOT sort
+        highlightLines(4);
+        await delay(300);
+        highlightLines(5);
+        await delay(300);
+        highlightLines(6);
         finalValues = [];
         const seen = new Set();
         inputValues.forEach(v => {
@@ -75,6 +192,9 @@ createBtn.addEventListener("click", () => {
                 finalValues.push(v);
             }
         });
+        highlightLines(8);
+        await delay(300);
+        highlightLines(9);
         unorderedSetValues = finalValues;
     }
 
@@ -134,4 +254,11 @@ setOpsBtn.addEventListener("click", () => {
     } else {
         alert("Please create a set first.");
     }
+});
+homePgBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+
+dashBrdBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
 });
