@@ -1,5 +1,5 @@
 const params = new URLSearchParams(window.location.search);
-const size = params.get("size");
+const size = params.get("size") ? Number(params.get("size")) : 5;
 const values = params.get("values");
 const order = params.get("order") || "Ascending";
 
@@ -111,7 +111,6 @@ function renderArray() {
         cell.className = "cell";
         cell.textContent = val !== null ? val : "∅"; // Show ∅ for empty
         if (val === null) cell.classList.add("empty");
-        arrayContainer.appendChild(cell);
         arrayContainer.appendChild(cell);
     });
 }

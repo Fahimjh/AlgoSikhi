@@ -163,8 +163,10 @@ function calculateTopicCompletion(progress, topic, subtopics) {
 }
 
 function logout() {
+    const confirmLogout = confirm("Are you sure you want to logout?");
+    if (!confirmLogout) return;
     localStorage.clear();
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 async function deleteAccount() {
