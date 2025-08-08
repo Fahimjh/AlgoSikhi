@@ -39,30 +39,149 @@ const opSelect = document.querySelector(".Operations");
 const oprBtn = document.querySelector(".oprmapBtn");
 const setIntroBtn = document.querySelector(".setIntroBtn");
 const homePageBtn = document.querySelector(".homePageBtn");
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
 
-// Toggle visualization section
+const mapOpsPseudocode = {
+    "insert()": {
+        map: [
+            "FUNCTION insert(map, key, value)",
+            "  IF key exists in map THEN",
+            "    RETURN error (duplicate key not allowed)",
+            "  END IF",
+            "  map[key] = value",
+            "END FUNCTION"
+        ],
+        unordered_map: [
+            "FUNCTION insert(unordered_map, key, value)",
+            "  IF key exists in unordered_map THEN",
+            "    RETURN error (duplicate key not allowed)",
+            "  END IF",
+            "  unordered_map[key] = value",
+            "END FUNCTION"
+        ],
+        multimap: [
+            "FUNCTION insert(multimap, key, value)",
+            "  multimap.add(key, value) // allows duplicate keys",
+            "END FUNCTION"
+        ]
+    },
+    "emplace()": {
+        map: [
+            "FUNCTION emplace(map, key, value)",
+            "  IF key exists in map THEN",
+            "    RETURN error (duplicate key not allowed)",
+            "  END IF",
+            "  map[key] = value",
+            "END FUNCTION"
+        ],
+        unordered_map: [
+            "FUNCTION emplace(unordered_map, key, value)",
+            "  IF key exists in unordered_map THEN",
+            "    RETURN error (duplicate key not allowed)",
+            "  END IF",
+            "  unordered_map[key] = value",
+            "END FUNCTION"
+        ],
+        multimap: [
+            "FUNCTION emplace(multimap, key, value)",
+            "  multimap.add(key, value) // allows duplicate keys",
+            "END FUNCTION"
+        ]
+    },
+    "count()": [
+        "FUNCTION count(map, key)",
+        "  count = 0",
+        "  FOR EACH entry IN map",
+        "    IF entry.key == key THEN",
+        "      count = count + 1",
+        "    END IF",
+        "  END FOR",
+        "  RETURN count",
+        "END FUNCTION"
+    ],
+    "find()": [
+        "FUNCTION find(map, key)",
+        "  FOR EACH entry IN map",
+        "    IF entry.key == key THEN",
+        "      RETURN entry",
+        "    END IF",
+        "  END FOR",
+        "  RETURN not found",
+        "END FUNCTION"
+    ],
+    "erase()": [
+        "FUNCTION erase(map, key)",
+        "  REMOVE all entries with key from map",
+        "END FUNCTION"
+    ]
+};
+
+function renderPseudocode(operation, mapType = typeSelect.value) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    codeContainer.innerHTML = "";
+    let lines = mapOpsPseudocode[operation];
+    // Only get lines[mapType] if lines is not an array
+    if (!Array.isArray(lines)) {
+        lines = lines[mapType];
+    }
+    if (!lines) return;
+    lines.forEach((line, idx) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${idx}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+function highlightLines(...indices) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    indices.forEach(idx => {
+        const target = document.getElementById(`line-${idx}`);
+        if (target) target.classList.add("highlight");
+    });
+}
+
+// Show pseudocode for initial operation and type
+renderPseudocode(opSelect.value, typeSelect.value);
+// Toggle visualization state
 startBtn.addEventListener("click", () => {
-    container.classList.toggle("visualization-active");
-    startBtn.innerText = container.classList.contains("visualization-active")
-        ? "Close Visualization"
-        : "Visualize map Creations";
+    if (container.classList.contains("visualization-active")) {
+        container.classList.remove("visualization-active");
+        startBtn.innerText = "Visualize map operations";
+    } else {
+        container.classList.add("visualization-active");
+        startBtn.innerText = "Close Visualization";
+        renderPseudocode(opSelect.value, typeSelect.value); // <-- Add this line
+    }
 });
 
+// Close visualization using the close button
 closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
-    startBtn.innerText = "Visualize map Creations";
+    startBtn.innerText = "Visualize map Operations";
 });
 
 // Placeholder update based on operation
 function updatePlaceholder() {
     const operation = opSelect.value;
-    if (operation === "insert()") {
+    renderPseudocode(operation, typeSelect.value);
+
+    if (operation === "insert()" || operation === "emplace()") {
         valueInput.placeholder = "Enter {key,value} (e.g. {x,9})";
+        valueInput.style.display = "";
+    } else if (operation === "find()" || operation === "count()" || operation === "erase()") {
+        valueInput.placeholder = "Enter key (e.g. x)";
+        valueInput.style.display = "";
     } else {
-        valueInput.placeholder = "Enter key,value (e.g. x,9)";
+        valueInput.placeholder = "";
+        valueInput.style.display = "";
     }
 }
 opSelect.addEventListener("change", updatePlaceholder);
+typeSelect.addEventListener("change", updatePlaceholder);
 updatePlaceholder();
 
 // Render key-value pairs with optional highlight
@@ -106,18 +225,23 @@ renderMap(currentData);
 // Re-render when map type changes
 typeSelect.addEventListener("change", () => {
     currentType = typeSelect.value;
-    currentData =
-        currentType === "map" ? mapData :
-            currentType === "multimap" ? multimapData :
-                unorderedMapData;
+    currentData = currentType === "map" ? mapData :
+        currentType === "multimap" ? multimapData :
+            unorderedMapData;
     renderMap(currentData);
+    renderPseudocode(opSelect.value, currentType); // <-- Add this line
 });
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 // Handle operation button
-oprBtn.addEventListener("click", () => {
+oprBtn.addEventListener("click", async () => {
     const mapType = typeSelect.value;
     const operation = opSelect.value;
     const val = valueInput.value.trim();
+
+    renderPseudocode(operation); // Show pseudocode for selected operation
 
     let targetMap =
         mapType === "map" ? mapData :
@@ -132,46 +256,61 @@ oprBtn.addEventListener("click", () => {
     const value = rawValue;
 
     if (operation === "insert()" || operation === "emplace()") {
+        highlightLines(0); // FUNCTION insert/emplace
+        await delay(200);
         if (!key || !value) {
+            highlightLines(1, 2);
+            await delay(200);
             alert("Please provide both key and value.");
             return;
         }
-
         if (mapType === "map" || mapType === "unordered_map") {
             const exists = targetMap.find(entry => entry.key === key);
-            if (!exists) {
-                targetMap.push({ key, value });
-                renderMap(targetMap, key);
+            if (exists) {
+                highlightLines(1, 2);
+                await delay(200);
+                alert("Key already exists in map/unordered_map.");
+                return;
             }
-        } else if (mapType === "multimap") {
-            targetMap.push({ key, value });
-            renderMap(targetMap, key);
         }
-
+        highlightLines(4);
+        await delay(200);
+        targetMap.push({ key, value });
+        // Update global data
+        if (mapType === "map") mapData = targetMap;
+        else if (mapType === "multimap") multimapData = targetMap;
+        else unorderedMapData = targetMap;
+        renderMap(targetMap, key);
     } else if (operation === "count()") {
+        highlightLines( 3);
+        await delay(300);
         const matchedEntries = targetMap.filter(entry => entry.key === key);
         const count = matchedEntries.length;
+        highlightLines(7);
+        await delay(300);
         alert(`Count for key "${key}" = ${count}`);
         renderMap(targetMap, matchedEntries.map(e => e.key));
-
     } else if (operation === "find()") {
         const foundEntries = targetMap.filter(entry => entry.key === key);
         if (foundEntries.length > 0) {
+            highlightLines(2);
+            await delay(300);
+            highlightLines(3);
             alert(`✅ Found ${foundEntries.length} occurrence(s) of key "${key}"`);
             renderMap(targetMap, foundEntries.map(e => e.key));
         } else {
+            highlightLines(6);
             alert("❌ Not found");
             renderMap(targetMap);
         }
-
-
-
     } else if (operation === "erase()") {
+        highlightLines(0);
+        await delay(200);
         targetMap = targetMap.filter(entry => entry.key !== key);
         if (mapType === "map") mapData = targetMap;
         else if (mapType === "multimap") multimapData = targetMap;
         else unorderedMapData = targetMap;
-
+        highlightLines(1);
         renderMap(targetMap);
     }
 
@@ -216,3 +355,11 @@ homePageBtn.addEventListener("click", () => {
 setIntroBtn.addEventListener("click", () => {
     window.location.href = "setIntro.html";
 });
+homePgBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+
+dashBrdBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
+});
+

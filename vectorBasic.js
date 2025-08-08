@@ -182,9 +182,9 @@ oprBtn.addEventListener("click", () => {
                     }
                     renderVector([vectorValues.length - 1]);
                     pushBackInfo.style.display = "block";
-                }, 500);
-            }, 500);
-        }, 500);
+                }, 300);
+            }, 300);
+        }, 300);
     } 
     else if (operation === "pop_back()") {
         highlightLine(0); // FUNCTION pop_back
@@ -198,7 +198,7 @@ oprBtn.addEventListener("click", () => {
             }
             vectorValues.pop();
             renderVector();
-        }, 500);
+        }, 300);
     } 
     else if (operation === "clear()") {
         highlightLine(0); // FUNCTION clear
@@ -231,7 +231,7 @@ oprBtn.addEventListener("click", () => {
                 highlightLine(4); // RETURN vector[index]
 
             }
-        }, 500);
+        }, 300);
     } 
     else if (operation === "front()") {
         highlightLine(0); // FUNCTION front

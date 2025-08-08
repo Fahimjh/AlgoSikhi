@@ -82,12 +82,17 @@ function renderProgressData(progress) {
                 "list Operations": "listOperation.html",
                 "Map Introduction": "mapIntro.html",
                 "map Operations": "mapOperation.html",
+                "multimap Operations": "mapOperation.html",
+                "unordered_map Operations": "mapOperation.html",
                 "Set Introduction": "setIntro.html",
                 "set Operations": "setOperation.html",
+                "multiset Operations": "setOperation.html",
+                "unordered_set Operations": "setOperation.html",
                 "Stack Introduction": "stackIntro.html",
                 "Stack Operations": "stackOperation.html",
                 "Queue Introduction": "queueIntro.html",
                 "queue Operations": "queueOps.html",
+                "queupriority_queue Operations": "queueOps.html",
             };
         }
 
