@@ -297,7 +297,6 @@ oprBtn.addEventListener("click", async () => {
         highlightLines(7);
         await delay(300);
         alert(`Count for ${val} → ${cnt}`);
-        return;
     }
     else if (op === "find()") {
         highlightLines(1);
