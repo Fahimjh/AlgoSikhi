@@ -12,92 +12,102 @@
     <div class="container">
         <!-- Left Side: Theory Section -->
         <!-- Left Side: Theory Section -->
-<div class="theory-section">
-    <h2>Stack Operations</h2>
-    <div id="theory-content">
-        <p>
-            In this lesson, we will learn and visualize some common operations on a <b>stack</b>.
-            A stack follows the <b>LIFO</b> (Last In, First Out) principle — the last element pushed is the first to be popped.
-        </p>
+        <div class="theory-section">
+            <h2>Stack Operations</h2>
+            <div id="theory-content">
+                <p>
+                    In this lesson, we will learn and visualize some common operations on a <b>stack</b>.
+                    A stack follows the <b>LIFO</b> (Last In, First Out) principle — the last element pushed is the
+                    first to be popped.
+                </p>
 
-        <ul>
-            <li>
-                <strong>push(value):</strong> Adds an element to the top of the stack.
-                <br>Time Complexity: <b>O(1)</b>
-            </li>
+                <ul>
+                    <li>
+                        <strong>push(value):</strong> Adds an element to the top of the stack.
+                        <br>Time Complexity: <b>O(1)</b>
+                    </li>
 
-            <li>
-                <strong>pop():</strong> Removes the top element from the stack.
-                <br>Time Complexity: <b>O(1)</b>
-                <br>⚠️ Be careful to check if the stack is empty before popping.
-            </li>
+                    <li>
+                        <strong>pop():</strong> Removes the top element from the stack.
+                        <br>Time Complexity: <b>O(1)</b>
+                        <br>⚠️ Be careful to check if the stack is empty before popping.
+                    </li>
 
-            <li>
-                <strong>top():</strong> Returns the top element of the stack without removing it.
-                <br>Time Complexity: <b>O(1)</b>
-            </li>
+                    <li>
+                        <strong>top():</strong> Returns the top element of the stack without removing it.
+                        <br>Time Complexity: <b>O(1)</b>
+                    </li>
 
-            <li>
-                <strong>empty():</strong> Returns <code>true</code> if the stack is empty, otherwise <code>false</code>.
-                <br>Time Complexity: <b>O(1)</b>
-            </li>
+                    <li>
+                        <strong>empty():</strong> Returns <code>true</code> if the stack is empty, otherwise
+                        <code>false</code>.
+                        <br>Time Complexity: <b>O(1)</b>
+                    </li>
 
-            <li>
-                <strong>size():</strong> Returns the total number of elements currently in the stack.
-                <br>Time Complexity: <b>O(1)</b>
-            </li>
-            <li>
-                <strong>swap():</strong> Swaps the contents of two stacks.
-                <br>Time Complexity: <b>O(1)</b>
-            </li>
-        </ul>
+                    <li>
+                        <strong>size():</strong> Returns the total number of elements currently in the stack.
+                        <br>Time Complexity: <b>O(1)</b>
+                    </li>
+                    <li>
+                        <strong>swap():</strong> Swaps the contents of two stacks.
+                        <br>Time Complexity: <b>O(1)</b>
+                    </li>
+                </ul>
 
-        <h3>✅ Stack Use Cases:</h3>
-        <ul>
-            <li>Undo/Redo functionality in editors</li>
-            <li>Backtracking (e.g., maze solvers, recursive calls)</li>
-            <li>Expression evaluation and syntax parsing</li>
-            <li>Function call management via call stack</li>
-        </ul>
+                <h3>✅ Stack Use Cases:</h3>
+                <ul>
+                    <li>Undo/Redo functionality in editors</li>
+                    <li>Backtracking (e.g., maze solvers, recursive calls)</li>
+                    <li>Expression evaluation and syntax parsing</li>
+                    <li>Function call management via call stack</li>
+                </ul>
 
-        <h3>⚠️ Important Note:</h3>
-        <ul>
-            <li>Stack does not allow random access — you can only access the top.</li>
-            <li>Trying to pop or view the top of an empty stack may cause errors.</li>
-        </ul>
-    </div>
-    <button id="start-visualization">Visualize Stack Operations</button>
-</div>
-
-
-            <!-- Right Side: Visualization Section -->
-            <div class="visualization-section">
-                <div class="close-btn">✖</div>
-                <h2>Stack Operations Visualization</h2>
-
-                <div id="Stack"></div>
-
-                <div id="input-area">
-                    <select class="Operations">
-                        <option value="push()">push()</option>
-                        <option value="pop()">pop()</option>
-                        <option value="top()">top()</option>
-                        <option value="empty()">empty()</option>
-                        <option value="size()">size()</option>
-                        <option value="swap()">swap(s1,s2)</option>
-                    </select>
-                    <input type="text" id="value" placeholder="Enter value" />
-                    <button class="oprStackBtn">Perform</button>
-                </div>
-
-                <div class="homePageSec">
-                    <h3> Click "Home Page" button to go to Home Page or "Queue Introduction" to visualize queue initialization</h3>
-                    <button class="homePageBtn">Home page</button>
-                    <button class="queueIntroBtn">Queue Introduction</button>
-                </div>
+                <h3>⚠️ Important Note:</h3>
+                <ul>
+                    <li>Stack does not allow random access — you can only access the top.</li>
+                    <li>Trying to pop or view the top of an empty stack may cause errors.</li>
+                </ul>
+                <button id="start-visualization">Visualize Stack Operations</button>
+                <button id="homePage">Home Page</button>
+                <button id="dashBoard">Dashboard</button>
             </div>
         </div>
-        <script src="stackOperation.js"></script>
+
+        <div class="pseudocode-section">
+            <h2>Pseudocode</h2>
+            <div id="pseudocode"></div>
+        </div>
+
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Stack Operations Visualization</h2>
+
+            <div id="Stack"></div>
+
+            <div id="input-area">
+                <select class="Operations">
+                    <option value="push()">push()</option>
+                    <option value="pop()">pop()</option>
+                    <option value="top()">top()</option>
+                    <option value="empty()">empty()</option>
+                    <option value="size()">size()</option>
+                    <option value="swap()">swap(s1,s2)</option>
+                </select>
+                <input type="text" id="value" placeholder="Enter value" />
+                <button class="oprStackBtn">Perform</button>
+            </div>
+
+            <div class="homePageSec">
+                <h3> Click "Home Page" button to go to Home Page or "Queue Introduction" to visualize queue
+                    initialization</h3>
+                <button class="homePageBtn">Home page</button>
+                <button class="queueIntroBtn">Queue Introduction</button>
+            </div>
+        </div>
+    </div>
+    <script src="stackOperation.js"></script>
 </body>
 
 </html>
