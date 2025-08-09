@@ -115,8 +115,8 @@ const topics = {
         count: "Count of key in set",
         find: "Find key in set",
         erase: "Erase key in set",
-        lower_bound: "Lower bound of key in set",
-        upper_bound: "Upper bound of key in set"
+        lowerBound: "Lower bound of key in set",
+        upperBound: "Upper bound of key in set"
     },
 
     "multiset Operations": {
@@ -125,8 +125,8 @@ const topics = {
         count: "Count of key in multiset",
         find: "Find key in multiset",
         erase: "Erase key in multiset",
-        lower_bound: "Lower bound of key in multiset",
-        upper_bound: "Upper bound of key in multiset"
+        lowerBound: "Lower bound of key in multiset",
+        upperBound: "Upper bound of key in multiset"
     },
 
     "unordered_set Operations": {

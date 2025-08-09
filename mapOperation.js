@@ -305,7 +305,7 @@ oprBtn.addEventListener("click", async () => {
         }
     } else if (operation === "erase()") {
         highlightLines(0);
-        await delay(200);
+        await delay(300);
         targetMap = targetMap.filter(entry => entry.key !== key);
         if (mapType === "map") mapData = targetMap;
         else if (mapType === "multimap") multimapData = targetMap;

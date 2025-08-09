@@ -38,6 +38,164 @@ const typeSelect  = document.querySelector(".types");
 const opSelect    = document.querySelector(".Operations");
 const oprBtn      = document.querySelector(".oprsetBtn");
 const homePageBtn = document.querySelector(".homePageBtn");
+const homeBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
+
+const setOpsPseudocode = {
+    "insert()": {
+        set: [
+            "FUNCTION insert(set, value)",
+            "  IF value IN set THEN",
+            "    RETURN error (set does not allow duplicates)",
+            "  END IF",
+            "  ADD value TO set",
+            "  SORT set (ascending)",
+            "END FUNCTION"
+        ],
+        multiset: [
+            "FUNCTION insert(multiset, value)",
+            "  ADD value TO multiset",
+            "  SORT multiset (ascending)",
+            "END FUNCTION"
+        ],
+        unordered_set: [
+            "FUNCTION insert(unordered_set, value)",
+            "  IF value IN unordered_set THEN",
+            "    RETURN error (no duplicates)",
+            "  END IF",
+            "  ADD value TO unordered_set",
+            "END FUNCTION"
+        ]
+    },
+    "emplace()": {
+        set: [
+            "FUNCTION emplace(set, value)",
+            "  IF value IN set THEN",
+            "    RETURN error (set does not allow duplicates)",
+            "  END IF",
+            "  ADD value TO set",
+            "  SORT set (ascending)",
+            "END FUNCTION"
+        ],
+        multiset: [
+            "FUNCTION emplace(multiset, value)",
+            "  ADD value TO multiset",
+            "  SORT multiset (ascending)",
+            "END FUNCTION"
+        ],
+        unordered_set: [
+            "FUNCTION emplace(unordered_set, value)",
+            "  IF value IN unordered_set THEN",
+            "    RETURN error (no duplicates)",
+            "  END IF",
+            "  ADD value TO unordered_set",
+            "END FUNCTION"
+        ]
+    },
+    "count()": [
+        "FUNCTION count(set, value)",
+        "  count = 0",
+        "  FOR EACH v IN set",
+        "    IF v == value THEN",
+        "      count = count + 1",
+        "    END IF",
+        "  END FOR",
+        "  RETURN count",
+        "END FUNCTION"
+    ],
+    "find()": [
+        "FUNCTION find(set, value)",
+        "  FOR EACH v IN set",
+        "    IF v == value THEN",
+        "      RETURN position",
+        "    END IF",
+        "  END FOR",
+        "  RETURN not found",
+        "END FUNCTION"
+    ],
+    "erase()": [
+        "FUNCTION erase(set, value)",
+        "  REMOVE all occurrences of value from set",
+        "END FUNCTION"
+    ],
+    "lower_bound()": [
+        "FUNCTION lower_bound(set, value)",
+        "  SORT set (ascending)",
+        "  FOR EACH v IN set",
+        "    IF v >= value THEN",
+        "      RETURN v",
+        "    END IF",
+        "  END FOR",
+        "  RETURN not found",
+        "END FUNCTION"
+    ],
+    "upper_bound()": [
+        "FUNCTION upper_bound(set, value)",
+        "  SORT set (ascending)",
+        "  FOR EACH v IN set",
+        "    IF v > value THEN",
+        "      RETURN v",
+        "    END IF",
+        "  END FOR",
+        "  RETURN not found",
+        "END FUNCTION"
+    ]
+};
+
+// Render pseudocode based on operation
+function renderPseudocode(operation, type = typeSelect.value) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    codeContainer.innerHTML = "";
+    let lines = setOpsPseudocode[operation];
+    if (!Array.isArray(lines)) {
+        lines = lines[type];
+    }
+    if (!lines) return;
+    lines.forEach((line, idx) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${idx}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+function highlightLines(...indices) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    indices.forEach(idx => {
+        const target = document.getElementById(`line-${idx}`);
+        if (target) target.classList.add("highlight");
+    });
+}
+
+// Toggle visualization state
+startBtn.addEventListener("click", () => {
+    if (container.classList.contains("visualization-active")) {
+        container.classList.remove("visualization-active");
+        startBtn.innerText = "Visualize set operations";
+    } else {
+        container.classList.add("visualization-active");
+        startBtn.innerText = "Close Visualization";
+        renderPseudocode(opSelect.value, typeSelect.value);
+    }
+});
+
+// Close visualization using the close button
+closeBtn.addEventListener("click", () => {
+    container.classList.remove("visualization-active");
+    startBtn.innerText = "Visualize map Operations";
+});
+
+
+typeSelect.addEventListener("change", () => {
+    renderPseudocode(opSelect.value, typeSelect.value);
+    updateData();
+    toggleBoundOptions();
+});
+opSelect.addEventListener("change", () => {
+    renderPseudocode(opSelect.value, typeSelect.value);
+});
 
 // Disable bound ops on unordered_set
 function toggleBoundOptions() {
@@ -52,17 +210,6 @@ typeSelect.addEventListener("change", () => {
 });
 toggleBoundOptions();
 
-// Show/hide visualization panel
-startBtn.addEventListener("click", () => {
-    container.classList.toggle("visualization-active");
-    startBtn.innerText = container.classList.contains("visualization-active")
-        ? "Close Visualization"
-        : "Visualize Set Operations";
-});
-closeBtn.addEventListener("click", () => {
-    container.classList.remove("visualization-active");
-    startBtn.innerText = "Visualize Set Operations";
-});
 
 // Render function with optional highlights
 function renderSet(arr, highlightIndices = []) {
@@ -91,101 +238,131 @@ function updateData() {
 }
 updateData();
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 // Main operation handler
-oprBtn.addEventListener("click", () => {
+oprBtn.addEventListener("click", async () => {
     const type = typeSelect.value;
     const op   = opSelect.value;
     const raw  = valueInput.value.trim();
-    let highlights = [];  // values to highlight after op
+    let highlights = [];
 
-    // parse numeric input
     const val = Number(raw);
-    if (op !== "count()" && (raw === "" || isNaN(val))) {
-        return alert("Please enter a valid number.");
-    }
-
-    // magic reference to the right array
     let arr = currentData;
 
+    renderPseudocode(op, type);
+
+    if ((op === "insert()" || op === "emplace()") && (raw === "" || isNaN(val))) {
+        highlightLines(1);
+        await delay(300);
+        highlightLines(2);
+        alert("Please enter a valid number.");
+        return;
+    }
+
     if (op === "insert()" || op === "emplace()") {
-        // set & unordered_set: only if not already present
+        highlightLines(0);
+        await delay(300);
         if (type === "set" || type === "unordered_set") {
             if (arr.includes(val)) {
+                highlightLines( 2);
+                await delay(300);
                 alert(`${val} already present. Set doesn't allow duplicates.`);
                 return;
             }
-            else if (!arr.includes(val)) {
-                arr.push(val);
-                highlights = [val];
+            highlightLines(4);
+            await delay(300);
+            arr.push(val);
+            highlights = [arr.indexOf(val)];
+            if (type === "set") {
+                arr.sort((a, b) => a - b);
+                highlightLines(5);
+                await delay(300);
             }
         } else {
-            // multiset: always push
             arr.push(val);
-            highlights = [val];
+            highlightLines(1);
+            await delay(300);
+            highlights = [arr.indexOf(val)];
+            highlightLines(2);
+            await delay(300);
+            arr.sort((a, b) => a - b);
         }
     }
     else if (op === "count()") {
+        highlightLines( 3);
+        await delay(300);
         const cnt = arr.filter(x => x === val).length;
+        highlightLines(7);
+        await delay(300);
         alert(`Count for ${val} → ${cnt}`);
-        return; // don't re-render data or update backend for pure count
-    }else if (op === "find()") {
-    const positions = arr
-        .map((x, idx) => x === val ? idx : -1)
-        .filter(idx => idx !== -1);
-    if (positions.length) {
-        alert(`✅ Found ${val} at position${positions.length > 1 ? "s" : ""}: ${positions.join(", ")}`);
-        highlights = positions;    // we’ll highlight by index now
-    } else {
-        alert(`❌ ${val} not found`);
+        return;
     }
-}
-
-// 2) ERASE: always remove *all* occurrences of that key/value
-else if (op === "erase()") {
-    const before = arr.length;
-    arr = arr.filter(x => x !== val);
-    const removed = before - arr.length;
-    alert(removed
-        ? `🗑️ Removed ${removed} occurrence${removed > 1 ? "s" : ""} of ${val}`
-        : `⚠️ No ${val} to remove`);
-}
-
+    else if (op === "find()") {
+        highlightLines(1);
+        await delay(300);
+        const positions = arr
+            .map((x, idx) => x === val ? idx : -1)
+            .filter(idx => idx !== -1);
+        if (positions.length) {
+            highlightLines(3);
+            alert(`✅ Found ${val} at position${positions.length > 1 ? "s" : ""}: ${positions.join(", ")}`);
+            highlights = positions;
+        } else {
+            highlightLines(6);
+            alert(`❌ ${val} not found`);
+        }
+    }
+    else if (op === "erase()") {
+        highlightLines(0);
+        await delay(200);
+        const before = arr.length;
+        arr = arr.filter(x => x !== val);
+        const removed = before - arr.length;
+        highlightLines(1);
+        alert(removed
+            ? `🗑️ Removed ${removed} occurrence${removed > 1 ? "s" : ""} of ${val}`
+            : `⚠️ No ${val} to remove`);
+    }
     else if (op === "lower_bound()" || op === "upper_bound()") {
-        // only for ordered types
-        if (type === "set" || type === "multiset") {
-            arr.sort((a,b)=>a-b);
-            if (op === "lower_bound()") {
-                const lb = arr.find(x => x >= val);
-                if (lb !== undefined) highlights = [lb];
-                else alert("No lower_bound found");
-            } else {
-                const ub = arr.find(x => x > val);
-                if (ub !== undefined) highlights = [ub];
-                else alert("No upper_bound found");
-            }
+        highlightLines(1);
+        await delay(300);
+        arr.sort((a, b) => a - b);
+        let bound;
+        if (op === "lower_bound()") {
+            bound = arr.find(x => x >= val);
+        } else {
+            bound = arr.find(x => x > val);
+        }
+        if (bound !== undefined) {
+            highlightLines(3);
+            await delay(300);
+            highlightLines(4);
+            await delay(300);
+            alert(`${op.replace("_", " ")} for ${val} → ${bound}`);
+            highlights = [arr.indexOf(bound)];
+        } else {
+            highlightLines(8);
+            await delay(300);
+            alert("No bound found");
         }
     }
 
-    // now normalize data back into our three sources
+    // Update global data
     if (type === "set") {
-        // dedupe + sort
-        setData = Array.from(new Set(arr)).map(Number).sort((a,b)=>a-b);
+        setData = Array.from(new Set(arr)).sort((a, b) => a - b);
         currentData = setData;
     } else if (type === "unordered_set") {
-        // dedupe, preserve insertion order
         const seen = new Set();
         unorderedSetData = arr.filter(x => !seen.has(x) && seen.add(x));
         currentData = unorderedSetData;
     } else {
-        // multiset: just sort
-        multisetData = arr.slice().map(Number).sort((a,b)=>a-b);
+        multisetData = arr.slice().sort((a, b) => a - b);
         currentData = multisetData;
     }
 
-    // push progress update
     updateProgress(type, op);
-
-    // re-render with any highlights
     renderSet(currentData, highlights);
     valueInput.value = "";
 });
@@ -203,21 +380,41 @@ function updateProgress(type, op) {
     }[op];
     const token = localStorage.getItem("token");
     if (!token || !methodMap) return;
-    fetch("https://algosikhibackend.onrender.com/api/progress/update", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: token
-        },
-        body: JSON.stringify({
-            topic: `${type} Operations`,
-            subtopic: methodMap,
-            value: true
-        })
-    }).catch(console.error);
+
+    // Use async/await for try/catch
+    (async () => {
+        try {
+            const response = await fetch("https://algosikhibackend.onrender.com/api/progress/update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token
+                },
+                body: JSON.stringify({
+                    topic: `${type} Operations`,
+                    subtopic: methodMap,
+                    value: true
+                })
+            });
+            if (!response.ok) throw new Error("Progress update failed");
+            const data = await response.json();
+            console.log(`✅ Progress updated: ${type} → ${methodMap}`, data);
+        } catch (err) {
+            console.error(`❌ Progress update error: ${type} → ${methodMap}`, err);
+        }
+    })();
 }
 
 // nav
 homePageBtn.addEventListener("click", () => {
     window.location.href = "index.html";
 });
+homeBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+dashBrdBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
+});
+
+// Show pseudocode for initial operation and type
+renderPseudocode(opSelect.value, typeSelect.value);
