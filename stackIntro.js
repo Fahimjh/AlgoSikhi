@@ -50,9 +50,6 @@ function highlightLines(...indices) {
     });
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 // Toggle visualization state
 startBtn.addEventListener("click", () => {
@@ -83,7 +80,9 @@ function renderStack(arr) {
         stackContainer.appendChild(cell);
     });
 }
-
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 // Handle stack creation
 createBtn.addEventListener("click", async () => {
     const raw = valueInput.value.trim();

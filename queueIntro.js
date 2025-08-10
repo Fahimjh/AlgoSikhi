@@ -7,21 +7,82 @@ const valueInput = document.getElementById("value");
 const createBtn = document.querySelector(".crtqueueBtn");
 const queueOpsBtn = document.querySelector(".queueOpsBtn");
 const homePageBtn = document.querySelector(".homePageBtn");
+const homePgBtn = document.getElementById("homePage");
+const dashBrdBtn = document.getElementById("dashBoard");
 
 let queueValues = [];
 let priorityQueueValues = [];
 
-// === TOGGLE VISUALIZATION SECTION === 
+
+// Pseudocode data for stack creation
+const pseudocodeData = {
+    queue: [
+        "FUNCTION createQueue(values)",
+        "  IF values is empty THEN",
+        "    RETURN error",
+        "  END IF",
+        "  LET queue = empty list",
+        "  FOR EACH v IN values",
+        "    ENQUEUE v TO queue",
+        "  END FOR",
+        "  RETURN queue",
+        "END FUNCTION"
+    ],
+    priority_queue: [
+        "FUNCTION createPriorityQueue(values)",
+        "  IF values is empty THEN",
+        "    RETURN error",
+        "  END IF",
+        "  LET pq = empty list",
+        "  FOR EACH v IN values",
+        "    ENQUEUE v TO pq",
+        "  END FOR",
+        "  SORT pq (descending)",
+        "  RETURN pq",
+        "END FUNCTION"
+    ]
+};
+
+function renderPseudocode(type = typeSelect.value) {
+    const codeContainer = document.getElementById("pseudocode");
+    if (!codeContainer) return;
+    codeContainer.innerHTML = "";
+    const lines = pseudocodeData[type];
+    if (!lines) return;
+    lines.forEach((line, index) => {
+        const lineElem = document.createElement("pre");
+        lineElem.id = `line-${index}`;
+        lineElem.textContent = line;
+        codeContainer.appendChild(lineElem);
+    });
+}
+
+function highlightLines(...indices) {
+    const allLines = document.querySelectorAll("#pseudocode pre");
+    allLines.forEach(line => line.classList.remove("highlight"));
+    indices.forEach(index => {
+        const targetLine = document.getElementById(`line-${index}`);
+        if (targetLine) targetLine.classList.add("highlight");
+    });
+}
+
+
+// Toggle visualization state
 startBtn.addEventListener("click", () => {
-    container.classList.toggle("visualization-active");
-    startBtn.innerText = container.classList.contains("visualization-active")
-        ? "Close Visualization"
-        : "Visualize Queue Creation";
+    if (container.classList.contains("visualization-active")) {
+        container.classList.remove("visualization-active");
+        startBtn.innerText = "Visualize queue creation";
+    } else {
+        container.classList.add("visualization-active");
+        startBtn.innerText = "Close Visualization";
+        renderPseudocode(typeSelect.value);
+    }
 });
 
+// Close visualization using the close button
 closeBtn.addEventListener("click", () => {
     container.classList.remove("visualization-active");
-    startBtn.innerText = "Visualize Queue Creation";
+    startBtn.innerText = "Visualize queue creation";
 });
 
 
@@ -38,38 +99,77 @@ function renderQueue(arr) {
 }
 
 // === CREATE QUEUE ===
-createBtn.addEventListener("click", () => {
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+createBtn.addEventListener("click", async () => {
     const raw = valueInput.value.trim();
     const selectedType = typeSelect.value;
 
+    renderPseudocode(selectedType);
+
     if (!raw) {
+        highlightLines(1);
+        await delay(300);
+        highlightLines(2);
+        await delay(300);
         alert("Please enter some values.");
         return;
     }
 
+    highlightLines(4); // LET queue/pq = empty list
+    await delay(300);
+
     const values = raw.split(",").map(v => Number(v.trim())).filter(v => !isNaN(v));
 
     if (!values.length) {
+        highlightLines(1);
+        await delay(300);
+        highlightLines(2);
+        await delay(300);
         alert("Please enter valid numeric values.");
         return;
     }
 
-    // Store values differently based on type
     if (selectedType === "queue") {
-        queueValues = [...values]; // Regular queue (FIFO order)
+        queueValues = [];
+        for (let i = 0; i < values.length; i++) {
+            highlightLines(4);
+            await delay(300);
+            highlightLines(5);
+            await delay(300);
+            queueValues.push(values[i]);
+            renderQueue(queueValues);
+        }
+        highlightLines(8); // RETURN queue
     } else {
-        priorityQueueValues = [...values].sort((a, b) => b - a); // Priority queue (sorted)
+        highlightLines(4);
+        await delay(300);
+        priorityQueueValues = [];
+        for (let i = 0; i < values.length; i++) {
+            highlightLines(5); // FOR EACH v IN values
+            await delay(300);
+            highlightLines(6);
+            await delay(300);
+            priorityQueueValues.push(values[i]);
+            renderQueue(priorityQueueValues);
+        }
+        highlightLines(8); // SORT pq (descending)
+        await delay(300);
+        highlightLines(9);
+        priorityQueueValues.sort((a, b) => b - a);
+        renderQueue(priorityQueueValues);
     }
 
-    renderQueue(selectedType === "queue" ? queueValues : priorityQueueValues);
     valueInput.value = "";
     updateProgress(selectedType);
 });
 
 typeSelect.addEventListener("change", () => {
     document.getElementById("queue").innerHTML = "";
+    renderPseudocode(typeSelect.value);
 });
-
 
 // === BACKEND PROGRESS ===
 function updateProgress(type) {
@@ -99,7 +199,6 @@ function updateProgress(type) {
 }
 
 // === NAVIGATION ===
-// === NAVIGATION ===
 queueOpsBtn.addEventListener("click", () => {
     if (!queueValues.length && !priorityQueueValues.length) {
         alert("Please create at least one queue.");
@@ -121,4 +220,10 @@ queueOpsBtn.addEventListener("click", () => {
 
 homePageBtn.addEventListener("click", () => {
     window.location.href = "index.html";
+});
+homePgBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+dashBrdBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
 });
