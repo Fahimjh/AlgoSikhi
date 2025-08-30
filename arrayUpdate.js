@@ -34,7 +34,7 @@ const pseudocodeData = {
         "  IF index < 0 OR index >= length(array) THEN",
         "    RETURN 'Invalid index'",
         "  END IF",
-        "  array[index] = ''  // Empty the value at index",
+        "  array[index] = ''",
         "  RETURN array",
         "END FUNCTION"
     ]
@@ -106,7 +106,6 @@ if (updateBtn) {
                 alert("Please enter both value and index for insertion.");
                 return;
             } else {
-                // Insert logic directly here
                 if (!Number.isInteger(index) || index < 0 || index >= size) {
                     highlightLine(1);
                     await delay(300);
@@ -130,19 +129,18 @@ if (updateBtn) {
             }
         } else if (option === "Delete") {
             highlightLine(0);
-            if (isNaN(index)) {
+            if (isNaN(index)|| !Number.isInteger(index) || index < 0 || index >= size) {
                 highlightLine(1);
                 await delay(300);
                 highlightLine(2);
-                alert("Please enter index for deletion.");
+                alert("Invalid index.");
                 return;
-            } else {
-                // Delete logic directly here
-                if (!Number.isInteger(index) || index < 0 || index >= size) {
-                    alert("Invalid index for deletion.");
-                    return;
-                }
+            } 
+            else {
+                highlightLine(4);
+                await delay(300);
                 arrayValues[index] = null;
+                highlightLine(5);
                 renderArray();
             }
         }
@@ -224,9 +222,15 @@ if (arraySearchBtn) {
 }
 
 const homePgBtn = document.getElementById("homePage");
+const homePage = document.querySelector(".homePage");
 const dashBrdBtn = document.getElementById("dashBoard");
 if (homePgBtn) {
     homePgBtn.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+}
+if (homePage) {
+    homePage.addEventListener("click", () => {
         window.location.href = "index.html";
     });
 }

@@ -69,18 +69,18 @@ async function createArray() {
     
     // Step 1: FUNCTION declaration
     highlightLine(0);
-    await delay(500);
+    await delay(300);
     
     // Step 2: Validate size only
     if (!sizeInput || sizeInput <= 0) {
         highlightLine(1);
-        await delay(500);
+        await delay(300);
         alert("Please enter a valid array size (positive integer)");
         return;
     }
     
     highlightLine(3); // Allocation
-    await delay(500);
+    await delay(300);
     
     arraySize = sizeInput;
     arrayValues = new Array(arraySize);
@@ -96,26 +96,28 @@ async function createArray() {
     
     // Step 3: Initialize elements
     highlightLine(5); // FOR loop
-    await delay(500);
+    await delay(300);
     
     for (let i = 0; i < arraySize; i++) {
         if (i < values.length) {
             highlightLine(6); // IF condition
+            await delay(300);
             highlightLine(7); // Assign from input
             const numValue = values[i] === "" ? "" : Number(values[i]);
             arrayValues[i] = isNaN(numValue) ? "" : numValue;
         } else {
             highlightLine(8); // ELSE condition
+            await delay(300);
             highlightLine(9); // Assign undefined
             arrayValues[i] = "";
         }
         
         const cells = document.querySelectorAll("#array .cell");
         cells[i].classList.remove("empty");
-        cells[i].textContent = arrayValues[i] !== "" ? arrayValues[i] : "0";
+        cells[i].textContent = arrayValues[i] !== "" ? arrayValues[i] : "";
         cells[i].classList.add("active");
         
-        await delay(600);
+        await delay(300);
         cells[i].classList.remove("active");
     }
     
@@ -135,7 +137,7 @@ function renderArray() {
     arrayValues.forEach((val) => {
         const cell = document.createElement('div');
         cell.className = 'cell';
-        cell.textContent = val !== undefined ? val : '';
+        cell.textContent = val !== undefined && val !== "" ? val : ""; // <-- Show empty
         arrayContainer.appendChild(cell);
     });
 }

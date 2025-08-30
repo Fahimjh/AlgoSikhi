@@ -184,7 +184,7 @@ function renderArray() {
     arrayValues.forEach((val) => {
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.textContent = val;
+        cell.textContent = val !== null && val !== undefined ? val : "";
         arrayContainer.appendChild(cell);
     });
 }
@@ -222,7 +222,7 @@ async function sort() {
                 highlightLine(2); // Inner loop
                 cells[j].classList.add("active");
                 cells[j + 1].classList.add("active");
-                await delay(600);
+                await delay(300);
 
                 highlightLine(3); // Comparison
                 let shouldSwap = sortOption === "Ascending"
@@ -257,7 +257,7 @@ async function sort() {
             for (let j = i + 1; j < n; j++) {
                 highlightLine(3); // Inner loop
                 cells[j].classList.add("active");
-                await delay(600);
+                await delay(300);
 
                 highlightLine(4); // Comparison
                 let condition = sortOption === "Ascending"
@@ -279,7 +279,7 @@ async function sort() {
                 [arrayValues[i], arrayValues[minOrMaxIdx]] = [arrayValues[minOrMaxIdx], arrayValues[i]];
                 cells[i].textContent = arrayValues[i];
                 cells[minOrMaxIdx].textContent = arrayValues[minOrMaxIdx];
-                await delay(500); // Extra delay for swap
+                await delay(300); // Extra delay for swap
             }
 
             cells[minOrMaxIdx].classList.remove("active");
@@ -303,7 +303,7 @@ async function sort() {
                 arrayValues[j + 1] = arrayValues[j];
                 cells[j + 1].textContent = arrayValues[j];
                 cells[j].classList.add("shifting");
-                await delay(600);
+                await delay(300);
 
                 highlightLine(3); // Shift operation
                 j--;
@@ -338,7 +338,7 @@ async function sort() {
         for (let x = start; x <= end; x++) {
             cells[x].classList.add("partition");
         }
-        await delay(500);
+        await delay(300);
 
         highlightLine(3); // Left sort
         await mergeSort(start, mid);
