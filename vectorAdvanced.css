@@ -94,18 +94,14 @@ body {
     font-size: medium;
 }
 
-#value1 {
-    height: 1.5rem;
-    width: 6rem;
-}
-#value2{
-    height: 1.5rem;
-    width: 11rem;
+#value1, #value2 {
+    height: 1.75rem;
+    width: auto;
 }
 
 .Operations,.oprBtn {
     margin-top: 1rem;
-    height: 1.5rem;
+    height: 2rem;
     font-size: medium;
 }
 
@@ -167,5 +163,6 @@ body {
     display: flex;
 }
 .vecSort,.homePage{
+    height: 2rem;
     font-size: medium;
 }

@@ -5,7 +5,6 @@ const values = params.get("values");
 let vectorValues = values ? values.split(",").map(Number) : [1, 2, 3, 4, 5];
 let vectorCapacity = size ? Number(size) : vectorValues.length;
 size = size ? Number(size) : vectorValues.length;
-const homePgBtn = document.getElementById("homePage");
 const dashBrdBtn = document.getElementById("dashBoard");
 
 
@@ -169,7 +168,7 @@ function toggleValueInput() {
 
     if (op === "insert") {
         value1.style.display = "inline-block";
-        value1.placeholder = "Position";
+        value1.placeholder = "Index";
 
         value2.style.display = "inline-block";
         value2.placeholder = "Value";
@@ -188,6 +187,7 @@ function toggleValueInput() {
         value2.placeholder = "start,end (e.g. 0,3)";
     }
 
+    showInsertInfo(op === "insert");
     vectorTwoDisplay.style.display = "none";
 }
 
@@ -211,25 +211,18 @@ function delay(ms) {
 
 oprBtn.addEventListener("click", async() => {
     const operation = operationsSelect.value;
-    
-    
-    const value1 = document.getElementById("value1");
-    const value2 = document.getElementById("value2");
     const pos = Number(value1.value);
     const value = value2.value.trim();
-    
-    if (operation === "insert") {
 
-        highlightLines(0); // FUNCTION
+    if (operation === "insert") {
+        highlightLines(0);
         await delay(300);
 
         const numValue = Number(value);
 
         if (isNaN(pos) || isNaN(numValue) || pos < 0 || pos > vectorValues.length) {
             alert("Enter valid position and value");
-            highlightLine(1); // IF position check
-            await delay(300);
-            highlightLine(2);
+            highlightLines(1, 2);
             await delay(300);
             return;
         }
@@ -238,22 +231,13 @@ oprBtn.addEventListener("click", async() => {
 
         if (vectorValues.length > vectorCapacity) {
             vectorCapacity = vectorCapacity === 0 ? 1 : vectorCapacity * 2;
-            highlightLines(4); // IF capacity check
-            await delay(300);
-            highlightLines(5); // IF capacity check
-            await delay(300);
-            highlightLines(6); // IF capacity check
+            highlightLines(4, 5, 6);
+            await delay(900);
         }
 
-        highlightLines(7);
-        await delay(300); 
-        highlightLines(8);
-        await delay(300);
-        highlightLines(9);
+        highlightLines(7, 8, 9);
         renderVector([pos]);
-    }
-
-    else if (operation === "erase") {
+    } else if (operation === "erase") {
         highlightLines(0);
         await delay(300);
         highlightLines(1);
@@ -264,22 +248,16 @@ oprBtn.addEventListener("click", async() => {
             highlightLines(2);
             await delay(300);
             return;
-        }
-        else{
+        } else {
             highlightLines(4);
             await delay(300);
             vectorValues.splice(pos, 1);
             renderVector();
-            highlightLines(5);
-            await delay(300);
-            highlightLines(6);
-            await delay(300);
+            highlightLines(5, 6, 7);
+            await delay(900);
             vectorCapacity = Math.max(vectorCapacity, vectorValues.length);
-            highlightLines(7);
         }
-    }
-
-    else if (operation === "assign") {
+    } else if (operation === "assign") {
         highlightLines(1);
         await delay(300);
         const [countStr, valueStr] = value.split(",");
@@ -288,93 +266,76 @@ oprBtn.addEventListener("click", async() => {
 
         if (isNaN(count) || isNaN(valNum) || count < 0) {
             alert("Enter valid count and value (e.g. 5,7)");
-            highlightLines(2);
-            await delay(300);
-            highlightLines(3);
+            highlightLines(2, 3);
             return;
-        }
-
-        else{
+        } else {
             highlightLines(4);
             await delay(300);
             vectorValues = new Array(count).fill(valNum);
             vectorCapacity = Math.max(vectorCapacity, count);
-            highlightLines(5);
-            await delay(300);
-            highlightLines(6);
-            // Highlight all newly assigned positions
+            highlightLines(5, 6, 7);
+            await delay(900);
             renderVector([...Array(count).keys()]);
-            highlightLines(7);
         }
-    }
+    } else if (operation === "swap") {
+        highlightLines(1);
+        await delay(300);
+        const inputValues = value2.value.trim();
 
-    else if (operation === "swap") {
-            highlightLines(1);
-            await delay(300);
-    const inputValues = value2.value.trim();
+        if (!inputValues) {
+            alert("Please enter comma-separated values for Vector 2 (e.g. 1,2,3)");
+            return;
+        }
 
-    if (!inputValues) {
-        alert("Please enter comma-separated values for Vector 2 (e.g. 1,2,3)");
-        return;
-    }
+        const newVector2 = inputValues.split(",").map(num => Number(num.trim()));
 
-    const newVector2 = inputValues.split(",").map(num => Number(num.trim()));
+        if (newVector2.some(isNaN)) {
+            alert("Invalid input. Please enter only numbers separated by commas.");
+            return;
+        }
 
-    if (newVector2.some(isNaN)) {
-        alert("Invalid input. Please enter only numbers separated by commas.");
-        return;
-    }
-
-    vector2 = newVector2;
+        vector2 = newVector2;
         highlightLines(2);
         await delay(300);
 
-    // Replace vector1 with vector2 (not a swap)
-    vectorValues = [...vector2];  // Use spread to avoid reference link
-        highlightLines(3);
-        await delay(300);
+        vectorValues = [...vector2];
+        highlightLines(3, 4, 5);
+        await delay(900);
 
-    vectorCapacity = Math.max(vectorCapacity, vectorValues.length);
-    highlightLines(4);
-    await delay(300);
-    renderVector();
-    highlightLines(5);
-            
+        vectorCapacity = Math.max(vectorCapacity, vectorValues.length);
+        renderVector();
 
-    // Show Vector 2 visibly
-    vectorTwoDisplay.style.display = "flex";
-    vectorTwoDisplay.innerHTML = `<h4 style="width: 100%; text-align: center;">Vector 2 (User Input)</h4>`;
-    vector2.forEach(val => {
-        const cell = document.createElement("div");
-        cell.className = "cell";
-        cell.textContent = val;
-        vectorTwoDisplay.appendChild(cell);
-    });
-}
-
-    else if (operation === "begin_end") {
-        highlightLines(0,3)
+        vectorTwoDisplay.style.display = "flex";
+        vectorTwoDisplay.innerHTML = `<h4 style="width: 100%; text-align: center;">Vector 2 (User Input)</h4>`;
+        vector2.forEach(val => {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.textContent = val;
+            vectorTwoDisplay.appendChild(cell);
+        });
+    } else if (operation === "begin_end") {
+        highlightLines(0, 3);
         await delay(400);
-            
+
         if (vectorValues.length === 0) {
             alert("Vector is empty.");
             return;
         }
 
         renderVector([0, vectorValues.length - 1]);
-        highlightLines(1,4);
-            await delay(400);
+        highlightLines(1, 4);
+        await delay(400);
         alert(`begin() points to ${vectorValues[0]}, end() is after ${vectorValues[vectorValues.length - 1]}`);
 
     } else if (operation === "rbegin_rend") {
-        highlightLines(0,3);
-            await delay(100);
+        highlightLines(0, 3);
+        await delay(100);
         if (vectorValues.length === 0) {
             alert("Vector is empty.");
             return;
         }
         renderVector([vectorValues.length - 1, 0]);
-        highlightLines(1,4);
+        highlightLines(1, 4);
         await delay(300);
         alert(`rbegin() points to ${vectorValues[vectorValues.length - 1]}, rend() is before ${vectorValues[0]}`);
 
@@ -390,9 +351,7 @@ oprBtn.addEventListener("click", async() => {
         }
 
         if (start < 0 || end > vectorValues.length || start >= end) {
-            highlightLines(1);
-            await delay(300);
-            highlightLines(2);
+            highlightLines(1, 2);
             alert("Enter valid start,end (e.g. 0,3)");
             return;
         }
@@ -400,10 +359,9 @@ oprBtn.addEventListener("click", async() => {
         await delay(300);
         const iterated = vectorValues.slice(start, end);
         renderVector([...Array(end - start).keys()].map(i => i + start));
-        highlightLines(4,5);
+        highlightLines(4, 5, 6);
         await delay(300);
         alert(`Iterated values: ${iterated.join(", ")}`);
-        highlightLines(6);
     }
 
     // Progress update
@@ -449,10 +407,13 @@ if (vectorSortBtn) {
 homePageBtn.addEventListener('click', () => {
     window.location.href = 'index.html';
 });
-homePgBtn.addEventListener("click", () => {
-    window.location.href = "index.html";
-});
 
 dashBrdBtn.addEventListener("click", () => {
     window.location.href = "dashboard.html";
 });
+
+function showInsertInfo(show) {
+    const infoDiv = document.getElementById("insertInfo");
+    if (!infoDiv) return;
+    infoDiv.style.display = show ? "block" : "none";
+}
