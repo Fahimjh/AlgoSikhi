@@ -109,7 +109,7 @@ function renderArray() {
     arrayValues.forEach((val) => {
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.textContent = val !== null ? val : "∅"; // Show ∅ for empty
+        cell.textContent = val !== null ? val : "";
         if (val === null) cell.classList.add("empty");
         arrayContainer.appendChild(cell);
     });
