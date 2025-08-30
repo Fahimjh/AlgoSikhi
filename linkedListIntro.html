@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Introduction and Visualization</title>
+    <link rel="stylesheet" href="linkedListIntro.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Theory Section -->
+        <div class="theory-section">
+            <h2>Introduction to Linked List</h2>
+            <div id="theory-content">
+                <p>
+                    A <strong>linked list</strong> is a linear data structure where each element (called a
+                    <strong>node</strong>) contains data and a reference (or link) to the next node in the sequence.
+                    Unlike arrays, linked lists do not store elements in contiguous memory locations, allowing for
+                    efficient insertions and deletions.
+                </p>
+
+                <h3>🔗 Types of Linked Lists:</h3>
+                <ul>
+                    <li>
+                        <strong>Singly Linked List:</strong> Each node points to the next node. Traversal is only
+                        possible in one direction (forward).
+                    </li>
+                    <li>
+                        <strong>Doubly Linked List:</strong> Each node has two references: one to the next node and one
+                        to the previous node. Traversal is possible in both directions.
+                    </li>
+                    <li>
+                        <strong>Circular Linked List:</strong> The last node points back to the first node, forming a
+                        circle. Can be singly or doubly circular.
+                    </li>
+                    <li>
+                        <strong>Doubly Circular Linked List:</strong> Like a doubly linked list, but the last node's
+                        next points to the first node and the first node's previous points to the last node, forming a
+                        closed loop in both directions.
+                    </li>
+                </ul>
+
+                <h3>📚 Linked List as Stack:</h3>
+                <ul>
+                    <li>
+                        A linked list can be used to implement a <strong>stack</strong> (LIFO structure) by performing
+                        insertions and deletions at one end (the head).
+                    </li>
+                    <li>
+                        This allows for efficient <strong>push</strong> and <strong>pop</strong> operations without
+                        shifting elements, unlike arrays.
+                    </li>
+                </ul>
+
+                <h3>✅ Advantages of Linked List:</h3>
+                <ul>
+                    <li>Dynamic size (no need to predefine capacity).</li>
+                    <li>Efficient insertions and deletions from anywhere in the list.</li>
+                    <li>Can easily implement other data structures (stack, queue, etc.).</li>
+                </ul>
+
+                <h3>⚠️ Disadvantages of Linked List:</h3>
+                <ul>
+                    <li>Extra memory required for storing pointers/references.</li>
+                    <li>No random access; must traverse from the head to access elements.</li>
+                    <li>More complex implementation compared to arrays.</li>
+                </ul>
+                <button id="start-visualization">Visualize Linked List Creation</button>
+                <button id="homePage">Home Page</button>
+                <button id="dashBoard">Dashboard</button>
+            </div>
+        </div>
+
+        <div class="pseudocode-section">
+            <h2>Pseudocode</h2>
+            <div id="pseudocode"></div>
+        </div>
+
+        <!-- Right Side: Visualization Section -->
+        <div class="visualization-section">
+            <div class="close-btn">✖</div>
+            <h2>Linked List Visualization</h2>
+
+            <div id="linkedList"></div>
+
+            <div id="input-area">
+                <input type="text" id="value" placeholder="Enter values (comma separated)" />
+                <button class="crtLinkedListBtn">Create Linked List</button>
+            </div>
+
+            <div class="linkedListOps">
+                <h3>Next, we will learn and visualize some operations in Linked List.<br>
+                    Click "Linked List Operations" button to check the operations with these Linked List values.</h3>
+                <button class="linkedListOpsBtn">Linked List Operations</button>
+            </div>
+        </div>
+    </div>
+    <script src="linkedListIntro.js"></script>
+</body>
+
+</html>
