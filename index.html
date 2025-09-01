@@ -3,153 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlgoSikhi</title>
-    <link rel="stylesheet" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
-        crossorigin="anonymous" 
-        referrerpolicy="no-referrer" />
+    <title>AlgoSikhi - Learn Data Structures & Algorithms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="styling.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="navbar">
-            <div class="nav-logo border">
-                <span class="logo1 ">ALGO</span>
-                <span class="logo2 ">SIKHI</span>
+            <div class="nav-logo">
+                <span class="logo1">ALGO</span>
+                <span class="logo2">SIKHI</span>
             </div>
-            <div>
-                <select class="lanSel border">
-                    <option>en</option>
-                    <!-- <option>বাং</option> -->
+            <div class="nav-actions">
+                <select class="lanSel">
+                    <option>English</option>
                 </select>
-            </div>
-            <div id="auth-action" class="login border2">
-                LOGIN
+                <div id="auth-action" class="login">
+                    LOGIN
+                </div>
             </div>
         </div>
     </header>
+<div id="notification-banner" class="notification hidden">
+    <span>Stay logged in to track your learning progress!</span>
+    <button class="close-notification">&times;</button>
+</div>
 
-    <div id="notification-banner" class="notification">
-        <span>Stay logged in to track your learning progress!</span>
-        <button class="close-notification">&times;</button>
-    </div>
-
-    <main>
-        <div class="mainlogo">
-            <span id="mlogo1">ALGO</span>
-            <span id="mlogo2">SIKHI</span>
-            <span id="mlogo3">en</span>
-        </div>
-        <div class="text">
-            <i>visualizing data structures and algorithms through animation</i>
-        </div>
-        <div class="dsa-search">
-            <input placeholder="Search.." class="search-input">
-            <button id="search">Search</button>
-        </div>
-        
-        <div class="headLine"><h2>Data Structures and Algorithms </h2></div>
-        
-        <div class="Row 1st array">
-            <div class="arrayIntro box" data-category="array introduction">
-                <img class="bgphoto" src="./photos/arrayds.png">
-                <div class="boxtext">Array Introduction</div>
-            </div>
-            <div class="sort box" data-category="array sort">
-                <img class="bgphoto" src="./photos/sorting.gif">
-                <div class="boxtext">Array Sort</div>
-            </div>
-            <div class="search box" data-category="array search">
-                <img class="bgphoto" src="./photos/search.png">
-                <div class="boxtext">Array Search</div>
-            </div>
-            <div class="updation box" data-category="array update">
-                <img class="bgphoto" src="./photos/arrayUpdation.gif">
-                <div class="boxtext">Array Update</div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Master Data Structures & Algorithms Visually</h1>
+            <p>Interactive learning platform with step-by-step visualizations and progress tracking</p>
+            <div class="search-container">
+                <input type="text" placeholder="Search algorithms or concepts..." class="search-input">
+                <button id="search"><i class="fas fa-search"></i></button>
             </div>
         </div>
+    </section>
 
-        <div class="Row 2nd vector">
-            <div class="vectorIntro box" data-category="vector introduction">
-                <img class="bgphoto Vector-intro-img" src="./photos/Vector.png">
-                <div class="boxtext">Vector Introduction</div>
+    <section class="categories">
+        <h2 class="section-title">Learning Categories</h2>
+        <div class="category-grid">
+            <div class="category-card" data-category="array introduction">
+                <img src="./photos/arrayds.png" alt="Array Introduction">
+                <div class="card-title">Array Introduction</div>
             </div>
-            <div class="vectorBasic box" data-category="vector operations">
-                <img class="bgphoto" src="./photos/vectorBasic.png">
-                <div class="boxtext">Vector Basic Operations</div>
+            <div class="category-card" data-category="array sort">
+                <img src="./photos/sorting.gif" alt="Array Sort">
+                <div class="card-title">Array Sort</div>
             </div>
-            <div class="vectorSort box" data-category="vector sort">
-                <img class="bgphoto vector-sort-img" src="./photos/vectorSort.png">
-                <div class="boxtext">Vector Sort</div>
+            <div class="category-card" data-category="array search">
+                <img src="./photos/search.png" alt="Array Search">
+                <div class="card-title">Array Search</div>
             </div>
-            <div class="vectorAdvance box" data-category="vector operations">
-                <img class="bgphoto" src="./photos/VectorAdvanced.png">
-                <div class="boxtext">Vector Advanced Operations</div>
+            <div class="category-card" data-category="array update">
+                <img src="./photos/arrayUpdation.gif" alt="Array Update">
+                <div class="card-title">Array Update</div>
+            </div>
+            <!-- Vectors -->
+            <div class="category-card" data-category="vector introduction">
+                <img src="./photos/Vector.png" alt="Vector Introduction">
+                <div class="card-title">Vector Introduction</div>
+            </div>
+            <div class="category-card" data-category="vector operations basic">
+                <img src="./photos/vectorBasic.png" alt="Vector Basic Operations">
+                <div class="card-title">Vector Basic Operations</div>
+            </div>
+            <div class="category-card" data-category="vector sort">
+                <img src="./photos/vectorSort.png" alt="Vector Sort">
+                <div class="card-title">Vector Sort</div>
+            </div>
+            <div class="category-card" data-category="vector operations advanced">
+                <img src="./photos/VectorAdvanced.png" alt="Vector Advanced Operations">
+                <div class="card-title">Vector Advanced Operations</div>
+            </div>
+            <!-- Deque & List -->
+            <div class="category-card" data-category="deque introduction">
+                <img src="./photos/dequeBasic.png" alt="Deque Introduction">
+                <div class="card-title">Deque Introduction</div>
+            </div>
+            <div class="category-card" data-category="deque operations">
+                <img src="./photos/dequeOps.png" alt="Deque Operation">
+                <div class="card-title">Deque Operation</div>
+            </div>
+            <div class="category-card" data-category="list introduction">
+                <img src="./photos/list.png" alt="List Introduction">
+                <div class="card-title">List Introduction</div>
+            </div>
+            <div class="category-card" data-category="list operations">
+                <img src="./photos/listOperation.png" alt="List Operation">
+                <div class="card-title">List Operation</div>
+            </div>
+            <!-- Map & Set -->
+            <div class="category-card" data-category="map introduction">
+                <img src="./photos/map.png" alt="Map Introduction">
+                <div class="card-title">Map Introduction</div>
+            </div>
+            <div class="category-card" data-category="map operations">
+                <img src="./photos/mapOpr.png" alt="Map Operation">
+                <div class="card-title">Map Operation</div>
+            </div>
+            <div class="category-card" data-category="set introduction">
+                <img src="./photos/setIntro.png" alt="Set Introduction">
+                <div class="card-title">Set Introduction</div>
+            </div>
+            <div class="category-card" data-category="set operations">
+                <img src="./photos/setOps.png" alt="Set Operation">
+                <div class="card-title">Set Operation</div>
+            </div>
+            <!-- Stack & Queue -->
+            <div class="category-card" data-category="stack introduction">
+                <img src="./photos/stackIntro.png" alt="Stack Introduction">
+                <div class="card-title">Stack Introduction</div>
+            </div>
+            <div class="category-card" data-category="stack operations">
+                <img src="./photos/stackOpr.png" alt="Stack Operation">
+                <div class="card-title">Stack Operation</div>
+            </div>
+            <div class="category-card" data-category="queue introduction">
+                <img src="./photos/queueIntro.png" alt="Queue Introduction">
+                <div class="card-title">Queue Introduction</div>
+            </div>
+            <div class="category-card" data-category="queue operations">
+                <img src="./photos/queueOps.png" alt="Queue Operation">
+                <div class="card-title">Queue Operation</div>
             </div>
         </div>
+    </section>
 
-        <div class="Row 3rd deque&list">
-            <div class="dequeIntro box" data-category="deque introduction">
-                <img class="bgphoto " src="./photos/dequeBasic.png">
-                <div class="boxtext">Deque Introduction</div>
+    <footer>
+        <div class="footer-content">
+            <div class="nav-logo">
+                <span class="logo1">ALGO</span>
+                <span class="logo2">SIKHI</span>
             </div>
-            <div class="dequeOps box" data-category="deque operations">
-                <img class="bgphoto " src="./photos/dequeOps.png">
-                <div class="boxtext">Deque Operation</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
             </div>
-            <div class="listBasic box" data-category="list introduction">
-                <img class="bgphoto " src="./photos/list.png">
-                <div class="boxtext">List Inroduction</div>
+            <div class="copyright">
+                &copy; 2025 AlgoSikhi Learning Platform. All rights reserved.
             </div>
-            <div class="listOperation box" data-category="list operations">
-                <img class="bgphoto " src="./photos/listOperation.png">
-                <div class="boxtext">List Operation</div>
-            </div>
-
         </div>
-
-        <div class="Row 4th map&set">
-            <div class="mapIntro box" data-category="map introduction">
-                <img class="bgphoto " src="./photos/map.png">
-                <div class="boxtext">Map Introduction</div>
-            </div>
-            <div class="mapOperation box" data-category="map operations">
-                <img class="bgphoto " src="./photos/mapOpr.png">
-                <div class="boxtext">Map Operation</div>
-            </div>
-            <div class="setIntro box" data-category="set introduction"> 
-                <img class="bgphoto " src="./photos/setIntro.png">
-                <div class="boxtext">Set Introduction</div>
-            </div>
-            <div class="setOperation box" data-category="set operations">
-                <img class="bgphoto " src="./photos/setOps.png">
-                <div class="boxtext">Set Operation</div>
-            </div> 
-
-        </div>
-
-        <div class="Row 5th stack&queue">
-            <div class="stackIntro box" data-category="stack introduction">
-                <img class="bgphoto " src="./photos/stackIntro.png">
-                <div class="boxtext">Stack Introduction</div>
-            </div>
-            <div class="stackOperation box" data-category="stack operations">
-                <img class="bgphoto " src="./photos/stackOpr.png">
-                <div class="boxtext">Stack Operation</div>
-            </div> 
-            <div class="queueIntro box" data-category="queue introduction">
-                <img class="bgphoto " src="./photos/queueIntro.png">
-                <div class="boxtext">Queue Introduction</div>
-            </div>
-            <div class="queueOperation box" data-category="queue operations">
-                <img class="bgphoto " src="./photos/queueOps.png">
-                <div class="boxtext">Queue Operation</div>
-            </div>
-
-        </div>
-
-    </main>
+    </footer>
     <script src="logic.js"></script>
 </body>
 </html>

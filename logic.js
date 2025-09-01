@@ -1,16 +1,20 @@
-//login Section
-let login = document.querySelector(".login");
-login.addEventListener("click", () => {
-    window.location.href = "login.html";
-});
-
+// Authentication and notification functionality
 document.addEventListener("DOMContentLoaded", function () {
     const authAction = document.getElementById("auth-action");
     const notification = document.getElementById("notification-banner");
+    const closeBtn = document.querySelector(".close-notification");
     const token = localStorage.getItem("token");
 
-    document.querySelector('.close-notification')?.addEventListener('click', () => {
-        notification.style.display = 'none';
+    // Always show notification if not logged in
+    if (!token) {
+        notification.classList.remove("hidden");
+    } else {
+        notification.classList.add("hidden");
+    }
+
+    // Hide notification when close button is clicked, but show again on next refresh if not logged in
+    closeBtn.addEventListener("click", function () {
+        notification.classList.add("hidden");
     });
 
     if (token) {
@@ -20,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => {
                 if (res.ok) {
                     authAction.textContent = "DASHBOARD";
-                    authAction.style.color = "#3f72af";
+                    authAction.style.background = "rgba(255, 255, 255, 0.3)";
                     authAction.onclick = () => window.location.href = "dashboard.html";
-                    notification.style.display = 'none'; // Hide if logged in
+                    notification.classList.add('hidden');
                 } 
                 else {
                     localStorage.clear();
@@ -44,147 +48,78 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showNotification() {
-        // Only show if user hasn't previously dismissed it
         if (!localStorage.getItem('notificationDismissed')) {
-            notification.style.display = 'flex';
+            notification.classList.remove('hidden');
         }
-        // Set click handler to remember dismissal
-        document.querySelector('.close-notification').addEventListener('click', () => {
-            localStorage.setItem('notificationDismissed', 'true');
-            notification.style.display = 'none';
+    }
+
+    // Search functionality
+    const searchInput = document.querySelector(".search-input");
+    const searchButton = document.getElementById("search");
+    const allCards = document.querySelectorAll(".category-card");
+
+    function filterCards(query) {
+        query = query.trim().toLowerCase();
+
+        allCards.forEach(card => {
+            const tags = card.dataset.category || "";
+            const tagText = tags.toLowerCase();
+            const titleElem = card.querySelector('.card-title');
+            const title = titleElem ? titleElem.textContent.toLowerCase() : "";
+            const descriptionElem = card.querySelector('p');
+            const description = descriptionElem ? descriptionElem.textContent.toLowerCase() : "";
+
+            if (query === "" || tagText.includes(query) || title.includes(query) || description.includes(query)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
         });
     }
-});
 
-const searchInput = document.querySelector(".search-input");
-const searchButton = document.getElementById("search");
-const allBoxes = document.querySelectorAll(".box");
+    searchButton.addEventListener("click", () => {
+        const query = searchInput.value;
+        filterCards(query);
+    });
 
-function filterBoxes(query) {
-    query = query.trim().toLowerCase();
-
-    allBoxes.forEach(box => {
-        const tags = box.dataset.category || "";
-        const tagText = tags.toLowerCase();
-
-        if (query === "" || tagText.includes(query)) {
-            box.style.display = ""; // ← restore default (usually flex or block)
-        } else {
-            box.style.display = "none"; // ← hide when not matched
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchButton.click();
         }
     });
-}
 
-// Run when Search button is clicked
-searchButton.addEventListener("click", () => {
-    const query = searchInput.value;
-    filterBoxes(query);
-});
+    // Category navigation
+    const categoryToFile = {
+        "array introduction": "array.html",
+        "array sort": "arraySort.html",
+        "array search": "arraySearch.html",
+        "array update": "arrayUpdate.html",
+        "vector introduction": "vector.html",
+        "vector operations basic": "vectorBasic.html",
+        "vector sort": "vectorSort.html",
+        "vector operations advanced": "vectorAdvanced.html",
+        "deque introduction": "dequeIntro.html",
+        "deque operations": "dequeOperation.html",
+        "list introduction": "listBasic.html",
+        "list operations": "listOperation.html",
+        "map introduction": "mapIntro.html",
+        "map operations": "mapOperation.html",
+        "set introduction": "setIntro.html",
+        "set operations": "setOperation.html",
+        "stack introduction": "stackIntro.html",
+        "stack operations": "stackOperation.html",
+        "queue introduction": "queueIntro.html",
+        "queue operations": "queueOps.html"
+    };
 
-// Optional: Run search on Enter key press
-searchInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        searchButton.click();
-    }
-});
-
-// Optional: Reset all boxes on page load
-window.addEventListener("DOMContentLoaded", () => {
-    filterBoxes(""); // show all
-});
-
-
-//firstRow
-let arrayBox = document.querySelector(".arrayIntro");
-let sortBox = document.querySelector(".sort");
-let searchBox = document.querySelector(".search");
-let updateBox = document.querySelector(".updation");
-
-arrayBox.addEventListener("click", () => {
-    window.location.href = "array.html";
-});
-sortBox.addEventListener("click", () => {
-    window.location.href = "arraySort.html";
-});
-searchBox.addEventListener("click", () => {
-    window.location.href = "arraySearch.html";
-});
-updateBox.addEventListener("click", () => {
-    window.location.href = "arrayUpdate.html";
-});
-
-
-//SecondRow
-let vectorBox = document.querySelector(".vectorIntro");
-vectorBox.addEventListener("click", () => {
-    window.location.href = "vector.html";
-});
-let vectorBasicBox = document.querySelector(".vectorBasic");
-vectorBasicBox.addEventListener("click", () => {
-    window.location.href = "vectorBasic.html";
-});
-let vectorSortBox = document.querySelector(".vectorSort");
-vectorSortBox.addEventListener("click", () => {
-    window.location.href = "vectorSort.html";
-});
-let vectorAdvanceBox = document.querySelector(".vectorAdvance");
-vectorAdvanceBox.addEventListener("click", () => {
-    window.location.href = "vectorAdvanced.html";
-});
-
-//thirdRow
-let dequeBox = document.querySelector(".dequeIntro");
-dequeBox.addEventListener("click", () => {
-    window.location.href = "dequeIntro.html";
-});
-let dequeOpsBox = document.querySelector(".dequeOps");
-dequeOpsBox.addEventListener("click", () => {
-    window.location.href = "dequeOperation.html";
-});
-let listBox = document.querySelector(".listBasic");
-listBox.addEventListener("click", () => {
-    window.location.href = "listBasic.html";
-});
-let listOpsBox = document.querySelector(".listOperation");
-listOpsBox.addEventListener("click", () => {
-    window.location.href = "listOperation.html";
-});
-
-//fourthRow
-let mapBox = document.querySelector(".mapIntro");
-mapBox.addEventListener("click", () => {
-    window.location.href = "mapIntro.html";
-});
-let mapOprBox = document.querySelector(".mapOperation");
-mapOprBox.addEventListener("click", () => {
-    window.location.href = "mapOperation.html";
-});
-
-let setBox = document.querySelector(".setIntro");
-setBox.addEventListener("click", () => {
-    window.location.href = "setIntro.html";
-});
-let setOprBox = document.querySelector(".setOperation");
-setOprBox.addEventListener("click", () => {
-    window.location.href = "setOperation.html";
-});
-
-//fifthRow
-let stackBox = document.querySelector(".stackIntro");
-stackBox.addEventListener("click", () => {
-    window.location.href = "stackIntro.html";
-});
-let stackOprBox = document.querySelector(".stackOperation");
-stackOprBox.addEventListener("click", () => {
-    window.location.href = "stackOperation.html";
-});
-
-let queueBox = document.querySelector(".queueIntro");
-queueBox.addEventListener("click", () => {
-    window.location.href = "queueIntro.html";
-});
-let queueOprBox = document.querySelector(".queueOperation");
-queueOprBox.addEventListener("click", () => {
-    window.location.href = "queueOps.html";
+    const cards = document.querySelectorAll('.category-card');
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const category = this.dataset.category;
+            if (category && categoryToFile[category]) {
+                window.location.href = categoryToFile[category];
+            }
+        });
+    });
 });
