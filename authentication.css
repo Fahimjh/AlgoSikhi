@@ -9,12 +9,13 @@ body {
 }
 
 .form-container {
-  background: white;
-  padding: 30px 40px;
+  width: 350px;
+  max-width: 95vw;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2.5rem 2rem 2rem 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 300px;
-  margin: 0 auto; /* Center the container itself if needed */
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 input, button {
@@ -41,4 +42,22 @@ button:hover {
 #loginMessage, #registerMessage {
   margin-top: 10px;
   font-size: 14px;
+}
+
+.form-container p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.admin-link {
+  margin-left: 0;
+  color: #009688;
+  cursor: pointer;
+  text-decoration: underline;
+  white-space: nowrap;
 }

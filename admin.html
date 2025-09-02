@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | AlgoSikhi</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        /* Add for admin user grid layout */
+        #adminUsers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            padding: 2rem;
+        }
+
+        .admin-user-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            padding: 1.2rem;
+            background: #fff;
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .admin-user-card h3 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .user-progress {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-progress strong {
+            display: block;
+            margin-top: 0.7rem;
+        }
+
+        .user-progress label {
+            margin-right: 1.5rem;
+            font-size: 0.97rem;
+        }
+
+        .admin-user-card button {
+            background: #e53935;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.4rem 1rem;
+            cursor: pointer;
+            margin-bottom: 0.7rem;
+        }
+
+        .admin-user-card button[type="submit"] {
+            background: #1976d2;
+            margin-right: 0.5rem;
+        }
+
+        .admin-user-card button[type="submit"]:hover {
+            background: #1251a3;
+        }
+
+        .admin-user-card button:hover {
+            background: #b71c1c;
+        }
+
+        .admin-info-section {
+            background: none;
+            color: #fff;
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0;
+            margin: 0;
+            max-width: 340px;
+            min-width: 280px;
+            justify-self: start;
+        }
+
+        .admin-info-section h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .admin-info-section button[type="submit"] {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 2.2rem;
+            font-size: 1.08rem;
+            font-weight: 500;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .admin-info-section button[type="submit"]:hover {
+            background: #1251a3;
+        }
+
+        .dashboard-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(90deg, #4f5bd5 0%, #5f2c82 100%);
+            color: #fff;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .dashboard-header h1 {
+            grid-column: 2;
+            justify-self: center;
+            margin: 0;
+        }
+
+        .btn.btn-secondary {
+            grid-column: 3;
+            justify-self: end;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="admin-info-section"></div>
+            <h1>Admin Panel</h1>
+            <button onclick="logout()" class="btn btn-secondary">Logout</button>
+        </header>
+        <div id="adminUsers"></div>
+    </div>
+    <script src="topics.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

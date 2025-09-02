@@ -92,7 +92,7 @@ function renderProgressData(progress) {
                 "Stack Operations": "stackOperation.html",
                 "Queue Introduction": "queueIntro.html",
                 "queue Operations": "queueOps.html",
-                "queupriority_queue Operations": "queueOps.html",
+                "priority_queue Operations": "queueOps.html", 
             };
         }
 
